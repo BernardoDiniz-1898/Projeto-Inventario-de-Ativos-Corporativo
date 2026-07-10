@@ -28,6 +28,28 @@ class Notebook extends Model
         'observacoes',
         'forncedor',
         'preco',
+        // ISO 27001 — Classificação
+        'classificacao',
+        // ISO 27001 — Localização
+        'localizacao',
+        'predio',
+        'andar',
+        'sala',
+        // ISO 27001 — Ciclo de vida
+        'criticidade',
+        'data_vida_util',
+        'data_baixa',
+        'motivo_baixa',
+        'metodo_descarte',
+        // ISO 27001 — Segurança do dispositivo
+        'criptografia',
+        'antivirus',
+        'status_patches',
+        'backup_configurado',
+        // ISO 27001 — Manutenção
+        'ultima_manutencao',
+        'proxima_manutencao',
+        'historico_manutencao',
     ];
 
     protected function casts(): array
@@ -37,8 +59,17 @@ class Notebook extends Model
             'preco' => 'decimal:2',
             'data_aquisicao' => 'date',
             'data_garantia' => 'date',
+            'data_vida_util' => 'date',
+            'data_baixa' => 'date',
+            'ultima_manutencao' => 'date',
+            'proxima_manutencao' => 'date',
+            'criptografia' => 'boolean',
+            'antivirus' => 'boolean',
+            'backup_configurado' => 'boolean',
         ];
     }
+
+    // ── Relacionamentos ──────────────────────────────────
 
     public function funcionario(): BelongsTo
     {
@@ -50,6 +81,8 @@ class Notebook extends Model
         return $this->morphMany(ActivityLog::class, 'loggable');
     }
 
+    // ── Accessors de exibição ────────────────────────────
+
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
@@ -59,6 +92,9 @@ class Notebook extends Model
             'ocioso' => 'Ocioso',
             'devolvido' => 'Devolvido',
             'obsoleto' => 'Obsoleto',
+            'baixa' => 'Baixa',
+            'extraviado' => 'Extraviado',
+            'transferido' => 'Transferido',
             default => $this->status,
         };
     }
@@ -72,7 +108,125 @@ class Notebook extends Model
             'ocioso' => 'orange',
             'devolvido' => 'purple',
             'obsoleto' => 'red',
+            'baixa' => 'red',
+            'extraviado' => 'red',
+            'transferido' => 'cyan',
             default => 'gray',
         };
+    }
+
+    public function getClassificacaoLabelAttribute(): string
+    {
+        return match ($this->classificacao) {
+            'publica' => 'Pública',
+            'interna' => 'Interna',
+            'restrita' => 'Restrita',
+            'confidencial' => 'Confidencial',
+            default => $this->classificacao ?? '—',
+        };
+    }
+
+    public function getClassificacaoColorAttribute(): string
+    {
+        return match ($this->classificacao) {
+            'publica' => 'green',
+            'interna' => 'blue',
+            'restrita' => 'amber',
+            'confidencial' => 'red',
+            default => 'gray',
+        };
+    }
+
+    public function getCriticidadeLabelAttribute(): string
+    {
+        return match ($this->criticidade) {
+            'baixo' => 'Baixo',
+            'medio' => 'Médio',
+            'alto' => 'Alto',
+            'critico' => 'Crítico',
+            default => $this->criticidade ?? '—',
+        };
+    }
+
+    public function getCriticidadeColorAttribute(): string
+    {
+        return match ($this->criticidade) {
+            'baixo' => 'slate',
+            'medio' => 'blue',
+            'alto' => 'amber',
+            'critico' => 'red',
+            default => 'gray',
+        };
+    }
+
+    public function getLocalizacaoCompletaAttribute(): string
+    {
+        $parts = array_filter([$this->predio, $this->andar, $this->sala], fn($v) => $v !== null && $v !== '');
+        return $this->localizacao ?? ($parts ? implode(', ', $parts) : '—');
+    }
+
+    public function getStatusPatchesLabelAttribute(): string
+    {
+        return match ($this->status_patches) {
+            'atualizado' => 'Atualizado',
+            'desatualizado' => 'Desatualizado',
+            'critico' => 'Crítico',
+            'nao_verificado' => 'Não verificado',
+            default => $this->status_patches ?? '—',
+        };
+    }
+
+    public function getStatusPatchesColorAttribute(): string
+    {
+        return match ($this->status_patches) {
+            'atualizado' => 'green',
+            'desatualizado' => 'amber',
+            'critico' => 'red',
+            'nao_verificado' => 'slate',
+            default => 'gray',
+        };
+    }
+
+    public function getMotivoBaixaLabelAttribute(): string
+    {
+        return match ($this->motivo_baixa) {
+            'obsolescencia' => 'Obsolescência',
+            'avaria' => 'Avaria',
+            'furto' => 'Furto/Extravio',
+            'descarte_seguro' => 'Descarte Seguro',
+            'doacao' => 'Doação',
+            'venda' => 'Venda',
+            'transferencia' => 'Transferência',
+            default => $this->motivo_baixa ?? '—',
+        };
+    }
+
+    public function getMetodoDescarteLabelAttribute(): string
+    {
+        return match ($this->metodo_descarte) {
+            'destruicao_fisica' => 'Destruição Física',
+            'reciclagem' => 'Reciclagem Certificada',
+            'limpeza_dados' => 'Limpeza de Dados',
+            'doacao' => 'Doação',
+            'venda' => 'Venda',
+            default => $this->metodo_descarte ?? '—',
+        };
+    }
+
+    // ── Helpers de ciclo de vida ─────────────────────────
+
+    public function isGarantiaVencida(): bool
+    {
+        return $this->data_garantia && $this->data_garantia->isPast();
+    }
+
+    public function isVidaUtilVencida(): bool
+    {
+        return $this->data_vida_util && $this->data_vida_util->isPast();
+    }
+
+    public function diasAteManutencao(): ?int
+    {
+        return $this->proxima_manutencao ? (int) now()->diffInDays($this->proxima_manutencao, false) : null;
     }
 }

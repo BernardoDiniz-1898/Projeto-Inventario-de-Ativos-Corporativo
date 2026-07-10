@@ -56,8 +56,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(['role:admin'])->group(function () {
-        Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-        Route::put('/admin/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.users.update');
-        Route::delete('/admin/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.users.destroy');
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except('show');
+        });
     });
 });
