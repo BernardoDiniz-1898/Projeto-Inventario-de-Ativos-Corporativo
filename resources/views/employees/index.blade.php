@@ -6,7 +6,7 @@
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
     <div>
         <h1 class="text-2xl font-bold text-gray-900">Funcionários</h1>
-        <p class="text-gray-500 text-sm mt-1">Gerencie os colaboradores e seus notebooks</p>
+        <p class="text-gray-500 text-sm mt-1">Cadastro e acompanhamento de colaboradores</p>
     </div>
     <div class="flex items-center gap-3">
         <a href="{{ route('employees.export', request()->only('status')) }}"

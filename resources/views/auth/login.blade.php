@@ -57,8 +57,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900">Bem-vindo de volta</h1>
-                <p class="text-gray-500 text-sm mt-2">Faça login para acessar o Keep Inventory</p>
+                <h1 class="text-2xl font-bold text-gray-900">Keep Inventory</h1>
+                <p class="text-gray-500 text-sm mt-2">Sistema de Gestão de Ativos de TI</p>
             </div>
 
             <form method="POST" action="{{ route('login') }}">
