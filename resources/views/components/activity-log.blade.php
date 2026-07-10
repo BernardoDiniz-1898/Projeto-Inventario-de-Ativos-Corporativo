@@ -40,6 +40,7 @@
                                         'sistema_operacional' => 'SO', 'ram_gb' => 'RAM',
                                         'armazenamento' => 'Armazenamento', 'processador' => 'Processador',
                                         'data_aquisicao' => 'Aquisição', 'data_garantia' => 'Garantia',
+                                        'data_entrega' => 'Data Entrega',
                                         'preco' => 'Preço', 'forncedor' => 'Fornecedor',
                                         'observacoes' => 'Obs.', 'classificacao' => 'Classificação',
                                         'localizacao' => 'Localização', 'predio' => 'Prédio',

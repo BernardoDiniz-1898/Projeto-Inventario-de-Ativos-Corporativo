@@ -100,6 +100,10 @@
                 </dd>
             </div>
             <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de Entrega</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_entrega?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+            <div>
                 <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Sistema Operacional</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->sistema_operacional ?? '—' }}</dd>
             </div>

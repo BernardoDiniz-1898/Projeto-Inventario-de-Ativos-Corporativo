@@ -124,6 +124,7 @@ class NotebookController extends Controller
             'patrimonio' => $uniquePatrimonio,
             'status' => 'required|in:disponivel,em_uso,manutencao,ocioso,devolvido,obsoleto,baixa,extraviado,transferido',
             'funcionario_id' => 'nullable|exists:employees,id',
+            'data_entrega' => 'nullable|date',
             'sistema_operacional' => 'nullable|string|max:255',
             'ram_gb' => 'nullable|numeric|min:1',
             'armazenamento' => 'nullable|string|max:255',

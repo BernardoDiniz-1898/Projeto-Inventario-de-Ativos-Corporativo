@@ -111,6 +111,15 @@
         </div>
 
         <div>
+            <label for="data_entrega" class="block text-sm font-semibold text-gray-700 mb-2">Data de Entrega</label>
+            <input type="date" id="data_entrega" name="data_entrega" value="{{ old('data_entrega') }}"
+                   class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_entrega') border-red-300 @enderror">
+            @error('data_entrega')
+                <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
             <label for="sistema_operacional" class="block text-sm font-semibold text-gray-700 mb-2">Sistema Operacional</label>
             <input type="text" id="sistema_operacional" name="sistema_operacional" value="{{ old('sistema_operacional') }}"
                    class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('sistema_operacional') border-red-300 @enderror"
