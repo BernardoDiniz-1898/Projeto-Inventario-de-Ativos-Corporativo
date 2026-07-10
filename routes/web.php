@@ -26,7 +26,6 @@ Route::middleware(['auth'])->group(function () {
         $emUso = \App\Models\Notebook::where('status', 'em_uso')->count();
         $manutencao = \App\Models\Notebook::where('status', 'manutencao')->count();
         $ociosos = \App\Models\Notebook::where('status', 'ocioso')->count();
-        $desativados = \App\Models\Notebook::where('status', 'desativado')->count();
         $totalFuncionarios = \App\Models\Employee::count();
 
         $porMarca = \App\Models\Notebook::select('marca', \DB::raw('count(*) as total'))
@@ -42,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
 
         $recentes = \App\Models\Notebook::with('funcionario')->latest()->take(5)->get();
 
-        return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'desativados', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'recentes'));
+        return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'recentes'));
     })->name('dashboard');
 
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
@@ -58,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except('show');
+            Route::put('users/{user}/role', [\App\Http\Controllers\Admin\UserController::class, 'updateRole'])->name('users.role');
         });
     });
 });

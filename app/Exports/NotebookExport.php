@@ -14,9 +14,13 @@ class NotebookExport
 
         $headerRow = WriterEntityFactory::createRowFromArray([
             'Patrimônio', 'Marca', 'Modelo', 'Nº Série', 'Status',
-            'Responsável', 'Sistema Operacional', 'Processador', 'RAM (GB)',
+            'Responsável', 'Data Entrega', 'Sistema Operacional', 'Processador', 'RAM (GB)',
             'Armazenamento', 'Fornecedor', 'Preço (R$)', 'Data Aquisição',
             'Data Garantia', 'Observações',
+            'Classificação', 'Localização', 'Prédio', 'Andar', 'Sala',
+            'Criticidade', 'Fim Vida Útil', 'Data Baixa', 'Motivo Baixa', 'Método Descarte',
+            'Criptografia', 'Antivírus', 'Status Patches', 'Backup',
+            'Última Manutenção', 'Próxima Manutenção', 'Histórico Manutenção',
         ]);
         $writer->addRow($headerRow);
 
@@ -36,6 +40,7 @@ class NotebookExport
                 $notebook->numero_serie,
                 $notebook->status_label,
                 $notebook->funcionario->nome ?? '',
+                $notebook->data_entrega?->format('d/m/Y') ?? '',
                 $notebook->sistema_operacional ?? '',
                 $notebook->processador ?? '',
                 $notebook->ram_gb ?? '',
@@ -45,6 +50,23 @@ class NotebookExport
                 $notebook->data_aquisicao?->format('d/m/Y') ?? '',
                 $notebook->data_garantia?->format('d/m/Y') ?? '',
                 $notebook->observacoes ?? '',
+                $notebook->classificacao_label ?? '',
+                $notebook->localizacao ?? '',
+                $notebook->predio ?? '',
+                $notebook->andar ?? '',
+                $notebook->sala ?? '',
+                $notebook->criticidade_label ?? '',
+                $notebook->data_vida_util?->format('d/m/Y') ?? '',
+                $notebook->data_baixa?->format('d/m/Y') ?? '',
+                $notebook->motivo_baixa_label ?? '',
+                $notebook->metodo_descarte_label ?? '',
+                $notebook->criptografia ? 'Sim' : 'Não',
+                $notebook->antivirus ? 'Sim' : 'Não',
+                $notebook->patches_label ?? '',
+                $notebook->backup_configurado ? 'Sim' : 'Não',
+                $notebook->ultima_manutencao?->format('d/m/Y') ?? '',
+                $notebook->proxima_manutencao?->format('d/m/Y') ?? '',
+                $notebook->historico_manutencao ?? '',
             ]);
             $writer->addRow($row);
         }

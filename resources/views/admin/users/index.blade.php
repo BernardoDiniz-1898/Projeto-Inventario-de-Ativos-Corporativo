@@ -41,7 +41,7 @@
                     </td>
                     <td class="px-6 py-4 text-gray-600">{{ $user->email }}</td>
                     <td class="px-6 py-4">
-                        <form action="{{ route('admin.users.update', $user) }}" method="POST" class="inline-flex">
+                        <form action="{{ route('admin.users.role', $user) }}" method="POST" class="inline-flex">
                             @csrf
                             @method('PUT')
                             <select name="role" onchange="this.form.submit()"

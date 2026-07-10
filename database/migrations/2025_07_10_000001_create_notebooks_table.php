@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('modelo');
             $table->string('numero_serie')->unique();
             $table->string('patrimonio')->nullable()->unique();
-            $table->enum('status', ['disponivel', 'em_uso', 'manutencao', 'ocioso','devolvido','obsoleto'])->default('em_uso');
+            $table->enum('status', ['disponivel', 'em_uso', 'manutencao', 'ocioso', 'devolvido', 'obsoleto', 'baixa', 'extraviado', 'transferido'])->default('em_uso');
             $table->string('responsavel')->nullable();
             $table->string('departamento')->nullable();
             $table->string('sistema_operacional')->nullable();

@@ -75,4 +75,16 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuário removido com sucesso!');
     }
+
+    public function updateRole(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'role' => 'required|in:admin,editor,viewer',
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('admin.users.index')
+            ->with('success', 'Perfil do usuário atualizado!');
+    }
 }

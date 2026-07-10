@@ -110,8 +110,8 @@ class Notebook extends Model
             'ocioso' => 'orange',
             'devolvido' => 'purple',
             'obsoleto' => 'red',
-            'baixa' => 'red',
-            'extraviado' => 'red',
+            'baixa' => 'slate',
+            'extraviado' => 'pink',
             'transferido' => 'cyan',
             default => 'gray',
         };

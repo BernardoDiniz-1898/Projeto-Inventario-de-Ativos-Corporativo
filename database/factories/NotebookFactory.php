@@ -30,7 +30,7 @@ class NotebookFactory extends Factory
             'modelo' => $modelo,
             'numero_serie' => strtoupper(fake()->bothify('??#####-####')),
             'patrimonio' => 'PAT-' . fake()->numerify('#####'),
-            'status' => fake()->randomElement(['disponivel', 'em_uso', 'manutencao', 'desativado', 'devolvido']),
+            'status' => fake()->randomElement(['disponivel', 'em_uso', 'manutencao', 'ocioso', 'devolvido', 'obsoleto']),
             'sistema_operacional' => fake()->randomElement($so),
             'ram_gb' => fake()->randomElement($ram),
             'armazenamento' => fake()->randomElement($armazenamento),

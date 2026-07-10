@@ -19,8 +19,6 @@ return new class extends Migration
         Schema::table('notebooks', function (Blueprint $table) {
             $table->string('responsavel')->nullable();
             $table->string('departamento')->nullable();
-            $table->string('centro_custo')->nullable();
-            $table->string('projeto')->nullable();
             $table->dropForeign(['funcionario_id']);
             $table->dropColumn('funcionario_id');
         });

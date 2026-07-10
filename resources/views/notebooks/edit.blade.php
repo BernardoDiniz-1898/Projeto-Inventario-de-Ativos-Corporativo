@@ -68,6 +68,9 @@
                 <option value="ocioso" {{ old('status', $notebook->status) === 'ocioso' ? 'selected' : '' }}>Ocioso</option>
                 <option value="devolvido" {{ old('status', $notebook->status) === 'devolvido' ? 'selected' : '' }}>Devolvido</option>
                 <option value="obsoleto" {{ old('status', $notebook->status) === 'obsoleto' ? 'selected' : '' }}>Obsoleto</option>
+                <option value="baixa" {{ old('status', $notebook->status) === 'baixa' ? 'selected' : '' }}>Baixa</option>
+                <option value="extraviado" {{ old('status', $notebook->status) === 'extraviado' ? 'selected' : '' }}>Extraviado</option>
+                <option value="transferido" {{ old('status', $notebook->status) === 'transferido' ? 'selected' : '' }}>Transferido</option>
             </select>
             @error('status')
                 <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
@@ -197,6 +200,8 @@
             @enderror
         </div>
     </div>
+
+    @include('notebooks._iso_fields')
 
     <div class="mt-8 pt-6 border-t border-gray-100 flex items-center gap-3">
         <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">

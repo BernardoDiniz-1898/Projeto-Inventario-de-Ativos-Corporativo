@@ -34,6 +34,7 @@ trait LogsChanges
         $fieldLabels = [
             'marca' => 'Marca', 'modelo' => 'Modelo', 'numero_serie' => 'Nº Série',
             'patrimonio' => 'Patrimônio', 'status' => 'Status', 'funcionario_id' => 'Responsável',
+            'data_entrega' => 'Data de Entrega',
             'sistema_operacional' => 'Sistema Operacional', 'ram_gb' => 'RAM',
             'armazenamento' => 'Armazenamento', 'processador' => 'Processador',
             'data_aquisicao' => 'Data de Aquisição', 'data_garantia' => 'Garantia',
@@ -42,6 +43,15 @@ trait LogsChanges
             'telefone' => 'Telefone', 'departamento' => 'Departamento',
             'centro_custo' => 'Centro de Custo', 'projeto' => 'Projeto',
             'setor' => 'Setor', 'cargo' => 'Cargo', 'data_admissao' => 'Data de Admissão',
+            // ISO 27001
+            'classificacao' => 'Classificação', 'localizacao' => 'Localização',
+            'predio' => 'Prédio', 'andar' => 'Andar', 'sala' => 'Sala',
+            'criticidade' => 'Criticidade', 'data_vida_util' => 'Fim da Vida Útil',
+            'data_baixa' => 'Data de Baixa', 'motivo_baixa' => 'Motivo da Baixa',
+            'metodo_descarte' => 'Método de Descarte', 'criptografia' => 'Criptografia',
+            'antivirus' => 'Antivírus', 'status_patches' => 'Status de Patches',
+            'backup_configurado' => 'Backup', 'ultima_manutencao' => 'Última Manutenção',
+            'proxima_manutencao' => 'Próxima Manutenção', 'historico_manutencao' => 'Histórico de Manutenção',
         ];
 
         $changedNames = array_map(fn($k) => $fieldLabels[$k] ?? $k, array_keys($changed));

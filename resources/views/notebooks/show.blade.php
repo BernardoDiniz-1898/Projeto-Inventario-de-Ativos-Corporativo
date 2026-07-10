@@ -76,6 +76,9 @@
                             'ocioso' => 'bg-orange-100 text-orange-700',
                             'devolvido' => 'bg-purple-100 text-purple-700',
                             'obsoleto' => 'bg-red-100 text-red-700',
+                            'baixa' => 'bg-slate-100 text-slate-700',
+                            'extraviado' => 'bg-pink-100 text-pink-700',
+                            'transferido' => 'bg-cyan-100 text-cyan-700',
                             default => 'bg-gray-100 text-gray-700',
                         } }}">
                         {{ $notebook->status_label }}
@@ -141,6 +144,75 @@
             <div class="mt-6 pt-6 border-t border-gray-100">
                 <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">Observações</dt>
                 <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $notebook->observacoes }}</dd>
+            </div>
+        @endif
+    </div>
+
+    {{-- ISO 27001 --}}
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-6">ISO 27001 — Gestão de Ativos</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Classificação</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->classificacao_label ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Criticidade</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->criticidade_label ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Localização</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->localizacao ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Prédio / Andar / Sala</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ trim($notebook->predio . ' ' . $notebook->andar . ' ' . $notebook->sala) ?: '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Fim da vida útil</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_vida_util?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de baixa</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_baixa?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Motivo da baixa</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->motivo_baixa_label ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Método de descarte</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->metodo_descarte_label ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Criptografia</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->criptografia ? 'Ativada' : 'Não' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Antivírus</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->antivirus ? 'Ativado' : 'Não' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Patches</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->patches_label ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Backup</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->backup_configurado ? 'Sim' : 'Não' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Última manutenção</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->ultima_manutencao?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Próxima manutenção</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->proxima_manutencao?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+        </dl>
+        @if ($notebook->historico_manutencao)
+            <div class="mt-6 pt-6 border-t border-gray-100">
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">Histórico de manutenção</dt>
+                <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $notebook->historico_manutencao }}</dd>
             </div>
         @endif
     </div>

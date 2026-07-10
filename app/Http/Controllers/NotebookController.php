@@ -51,8 +51,9 @@ class NotebookController extends Controller
     public function create()
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
+        $notebook = null;
 
-        return view('notebooks.create', compact('employees'));
+        return view('notebooks.create', compact('employees', 'notebook'));
     }
 
     public function store(Request $request)

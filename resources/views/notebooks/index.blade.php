@@ -45,6 +45,9 @@
             <option value="ocioso" {{ request('status') === 'ocioso' ? 'selected' : '' }}>Ocioso</option>
             <option value="devolvido" {{ request('status') === 'devolvido' ? 'selected' : '' }}>Devolvido</option>
             <option value="obsoleto" {{ request('status') === 'obsoleto' ? 'selected' : '' }}>Obsoleto</option>
+            <option value="baixa" {{ request('status') === 'baixa' ? 'selected' : '' }}>Baixa</option>
+            <option value="extraviado" {{ request('status') === 'extraviado' ? 'selected' : '' }}>Extraviado</option>
+            <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>Transferido</option>
         </select>
         <button type="submit" class="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
             Filtrar
@@ -130,6 +133,9 @@
                                         'ocioso' => 'bg-orange-100 text-orange-700',
                                         'devolvido' => 'bg-purple-100 text-purple-700',
                                         'obsoleto' => 'bg-red-100 text-red-700',
+                                        'baixa' => 'bg-slate-100 text-slate-700',
+                                        'extraviado' => 'bg-pink-100 text-pink-700',
+                                        'transferido' => 'bg-cyan-100 text-cyan-700',
                                         default => 'bg-gray-100 text-gray-700',
                                     } }}">
                                     {{ $notebook->status_label }}
