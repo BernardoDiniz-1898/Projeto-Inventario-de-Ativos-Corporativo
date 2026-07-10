@@ -14,7 +14,7 @@
 
 <div class="mb-6">
     <h1 class="text-2xl font-bold text-gray-900">Novo Notebook</h1>
-    <p class="text-gray-500 text-sm mt-1">Preencha os dados para cadastrar um novo notebook</p>
+    <p class="text-gray-500 text-sm mt-1">Adicione um novo notebook ao inventário</p>
 </div>
 
 <form action="{{ route('notebooks.store') }}" method="POST" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">

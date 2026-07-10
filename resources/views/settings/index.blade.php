@@ -12,7 +12,7 @@
     </a>
 </div>
 
-<h1 class="text-2xl font-bold text-gray-800 mb-6">Configurações</h1>
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Personalize sua experiência</h1>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 

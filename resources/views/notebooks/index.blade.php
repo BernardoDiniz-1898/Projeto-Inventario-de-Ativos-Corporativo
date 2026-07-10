@@ -6,7 +6,7 @@
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
     <div>
         <h1 class="text-2xl font-bold text-gray-900">Notebooks</h1>
-        <p class="text-gray-500 text-sm mt-1">Gerencie os notebooks do Keep Inventory</p>
+        <p class="text-gray-500 text-sm mt-1">Gerencie todos os notebooks da empresa</p>
     </div>
     <div class="flex items-center gap-3">
         <a href="{{ route('notebooks.export', request()->only('status')) }}"
@@ -70,7 +70,7 @@
                 </svg>
             </div>
             <p class="text-gray-500 font-medium mb-2">Nenhum notebook encontrado</p>
-            <p class="text-gray-400 text-sm mb-5">Comece cadastrando o primeiro notebook</p>
+            <p class="text-gray-400 text-sm mb-5">Cadastre o primeiro notebook para começar</p>
             <a href="{{ route('notebooks.create') }}" class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

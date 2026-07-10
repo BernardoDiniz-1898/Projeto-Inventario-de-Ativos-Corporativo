@@ -3,9 +3,19 @@
 @section('title', 'Dashboard')
 
 @section('content')
+@php
+    $hora = (int) now()->format('H');
+    $greeting = match(true) {
+        $hora < 12 => 'Bom dia',
+        $hora < 18 => 'Boa tarde',
+        default => 'Boa noite',
+    };
+    $nome = explode(' ', auth()->user()->name)[0];
+@endphp
+
 <div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
-    <p class="text-gray-500 text-sm mt-1">Visão geral do Keep Inventory</p>
+    <h1 class="text-2xl font-bold text-gray-900">{{ $greeting }}, {{ $nome }} 👋</h1>
+    <p class="text-gray-500 text-sm mt-1">Aqui está o resumo do seu parque de ativos</p>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
@@ -18,7 +28,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-gray-900">{{ $total }}</p>
-        <p class="text-xs text-gray-500 mt-1">Total Notebooks</p>
+        <p class="text-xs text-gray-500 mt-1">Notebooks cadastrados</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -98,7 +108,7 @@
                 <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                 </svg>
-                <p class="text-gray-400 text-sm">Nenhum registro encontrado</p>
+                <p class="text-gray-400 text-sm">Ainda não há notebooks para mostrar</p>
             </div>
         @else
             <div class="space-y-3">
@@ -130,7 +140,7 @@
                 <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                 </svg>
-                <p class="text-gray-400 text-sm">Nenhum registro encontrado</p>
+                <p class="text-gray-400 text-sm">Nenhum departamento com notebooks ainda</p>
             </div>
         @else
             <div class="space-y-3">
@@ -158,7 +168,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h2 class="text-lg font-semibold text-gray-900">Adicionados Recentemente</h2>
+                <h2 class="text-lg font-semibold text-gray-900">Últimos Cadastros</h2>
             </div>
             @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
             <a href="{{ route('notebooks.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
@@ -173,7 +183,7 @@
             <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
             </svg>
-            <p class="text-gray-400 text-sm">Nenhum notebook cadastrado ainda</p>
+            <p class="text-gray-400 text-sm">Nenhum notebook cadastrado ainda. Que tal adicionar o primeiro?</p>
         </div>
     @else
         <div class="overflow-x-auto">
