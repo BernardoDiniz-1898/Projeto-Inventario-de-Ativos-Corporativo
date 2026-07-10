@@ -74,6 +74,7 @@
                 <option value="baixa" {{ old('status') === 'baixa' ? 'selected' : '' }}>Baixa</option>
                 <option value="extraviado" {{ old('status') === 'extraviado' ? 'selected' : '' }}>Extraviado</option>
                 <option value="transferido" {{ old('status') === 'transferido' ? 'selected' : '' }}>Transferido</option>
+                <option value="alugado" {{ old('status') === 'alugado' ? 'selected' : '' }}>Alugado</option>
             </select>
             @error('status')
                 <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>

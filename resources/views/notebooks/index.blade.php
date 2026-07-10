@@ -48,6 +48,7 @@
             <option value="baixa" {{ request('status') === 'baixa' ? 'selected' : '' }}>Baixa</option>
             <option value="extraviado" {{ request('status') === 'extraviado' ? 'selected' : '' }}>Extraviado</option>
             <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>Transferido</option>
+            <option value="alugado" {{ request('status') === 'alugado' ? 'selected' : '' }}>Alugado</option>
         </select>
         <button type="submit" class="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
             Filtrar
@@ -136,6 +137,7 @@
                                         'baixa' => 'bg-slate-100 text-slate-700',
                                         'extraviado' => 'bg-pink-100 text-pink-700',
                                         'transferido' => 'bg-cyan-100 text-cyan-700',
+                                        'alugado' => 'bg-violet-100 text-violet-700',
                                         default => 'bg-gray-100 text-gray-700',
                                     } }}">
                                     {{ $notebook->status_label }}

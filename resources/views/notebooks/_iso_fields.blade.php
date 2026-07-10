@@ -224,3 +224,64 @@
               placeholder="Descreva manutenções anteriores, reparos, trocas de peças...">{{ old('historico_manutencao', $n->historico_manutencao ?? '') }}</textarea>
     @error('historico_manutencao') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
+
+{{-- ═══ ALUGUEL ═══ --}}
+<div class="md:col-span-2 lg:col-span-3 mt-2">
+    <div class="flex items-center gap-2 mb-4">
+        <div class="w-6 h-6 bg-indigo-100 rounded flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider">Aluguel</h3>
+    </div>
+</div>
+
+<div>
+    <label for="empresa_locataria" class="block text-sm font-semibold text-gray-700 mb-2">Empresa locatária</label>
+    <input type="text" id="empresa_locataria" name="empresa_locataria" value="{{ old('empresa_locataria', $n->empresa_locataria ?? '') }}"
+           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('empresa_locataria') border-red-300 @enderror"
+           placeholder="Nome da empresa">
+    @error('empresa_locataria') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>
+
+<div>
+    <label for="numero_contrato" class="block text-sm font-semibold text-gray-700 mb-2">Nº Contrato</label>
+    <input type="text" id="numero_contrato" name="numero_contrato" value="{{ old('numero_contrato', $n->numero_contrato ?? '') }}"
+           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('numero_contrato') border-red-300 @enderror"
+           placeholder="Ex: CONTRATO-001">
+    @error('numero_contrato') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>
+
+<div>
+    <label for="valor_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">Valor do aluguel (R$)</label>
+    <input type="number" id="valor_aluguel" name="valor_aluguel" value="{{ old('valor_aluguel', $n->valor_aluguel ?? '') }}" min="0" step="0.01"
+           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('valor_aluguel') border-red-300 @enderror"
+           placeholder="0.00">
+    @error('valor_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>
+
+<div>
+    <label for="periodo_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">Período de cobrança</label>
+    <select id="periodo_aluguel" name="periodo_aluguel"
+            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('periodo_aluguel') border-red-300 @enderror">
+        <option value="">Selecione...</option>
+        <option value="mensal" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'mensal' ? 'selected' : '' }}>Mensal</option>
+        <option value="trimestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'trimestral' ? 'selected' : '' }}>Trimestral</option>
+        <option value="semestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'semestral' ? 'selected' : '' }}>Semestral</option>
+        <option value="anual" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'anual' ? 'selected' : '' }}>Anual</option>
+    </select>
+    @error('periodo_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>
+
+<div>
+    <label for="data_inicio_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">Início do aluguel</label>
+    <input type="date" id="data_inicio_aluguel" name="data_inicio_aluguel" value="{{ old('data_inicio_aluguel', $n->data_inicio_aluguel?->format('Y-m-d') ?? '') }}"
+           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_inicio_aluguel') border-red-300 @enderror">
+    @error('data_inicio_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>
+
+<div>
+    <label for="data_fim_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">Fim do aluguel</label>
+    <input type="date" id="data_fim_aluguel" name="data_fim_aluguel" value="{{ old('data_fim_aluguel', $n->data_fim_aluguel?->format('Y-m-d') ?? '') }}"
+           class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_fim_aluguel') border-red-300 @enderror">
+    @error('data_fim_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
+</div>

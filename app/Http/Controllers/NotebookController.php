@@ -123,7 +123,7 @@ class NotebookController extends Controller
             'modelo' => 'required|string|max:255',
             'numero_serie' => $uniqueNumeroSerie,
             'patrimonio' => $uniquePatrimonio,
-            'status' => 'required|in:disponivel,em_uso,manutencao,ocioso,devolvido,obsoleto,baixa,extraviado,transferido',
+            'status' => 'required|in:disponivel,em_uso,manutencao,ocioso,devolvido,obsoleto,baixa,extraviado,transferido,alugado',
             'funcionario_id' => 'nullable|exists:employees,id',
             'data_entrega' => 'nullable|date',
             'sistema_operacional' => 'nullable|string|max:255',
@@ -162,6 +162,14 @@ class NotebookController extends Controller
             'ultima_manutencao' => 'nullable|date',
             'proxima_manutencao' => 'nullable|date|after_or_equal:ultima_manutencao',
             'historico_manutencao' => 'nullable|string',
+
+            // Aluguel
+            'empresa_locataria' => 'nullable|string|max:255',
+            'numero_contrato' => 'nullable|string|max:255',
+            'valor_aluguel' => 'nullable|numeric|min:0',
+            'periodo_aluguel' => 'nullable|in:mensal,trimestral,semestral,anual',
+            'data_inicio_aluguel' => 'nullable|date',
+            'data_fim_aluguel' => 'nullable|date|after_or_equal:data_inicio_aluguel',
         ];
     }
 }

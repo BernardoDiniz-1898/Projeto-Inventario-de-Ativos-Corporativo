@@ -51,6 +51,13 @@ class Notebook extends Model
         'ultima_manutencao',
         'proxima_manutencao',
         'historico_manutencao',
+        // Aluguel
+        'empresa_locataria',
+        'numero_contrato',
+        'valor_aluguel',
+        'periodo_aluguel',
+        'data_inicio_aluguel',
+        'data_fim_aluguel',
     ];
 
     protected function casts(): array
@@ -68,6 +75,9 @@ class Notebook extends Model
             'criptografia' => 'boolean',
             'antivirus' => 'boolean',
             'backup_configurado' => 'boolean',
+            'valor_aluguel' => 'decimal:2',
+            'data_inicio_aluguel' => 'date',
+            'data_fim_aluguel' => 'date',
         ];
     }
 
@@ -97,6 +107,7 @@ class Notebook extends Model
             'baixa' => 'Baixa',
             'extraviado' => 'Extraviado',
             'transferido' => 'Transferido',
+            'alugado' => 'Alugado',
             default => $this->status,
         };
     }
@@ -113,6 +124,7 @@ class Notebook extends Model
             'baixa' => 'slate',
             'extraviado' => 'pink',
             'transferido' => 'cyan',
+            'alugado' => 'violet',
             default => 'gray',
         };
     }
@@ -212,6 +224,17 @@ class Notebook extends Model
             'doacao' => 'Doação',
             'venda' => 'Venda',
             default => $this->metodo_descarte ?? '—',
+        };
+    }
+
+    public function getPeriodoAluguelLabelAttribute(): string
+    {
+        return match ($this->periodo_aluguel) {
+            'mensal' => 'Mensal',
+            'trimestral' => 'Trimestral',
+            'semestral' => 'Semestral',
+            'anual' => 'Anual',
+            default => $this->periodo_aluguel ?? '—',
         };
     }
 

@@ -71,6 +71,7 @@
                 <option value="baixa" {{ old('status', $notebook->status) === 'baixa' ? 'selected' : '' }}>Baixa</option>
                 <option value="extraviado" {{ old('status', $notebook->status) === 'extraviado' ? 'selected' : '' }}>Extraviado</option>
                 <option value="transferido" {{ old('status', $notebook->status) === 'transferido' ? 'selected' : '' }}>Transferido</option>
+                <option value="alugado" {{ old('status', $notebook->status) === 'alugado' ? 'selected' : '' }}>Alugado</option>
             </select>
             @error('status')
                 <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>

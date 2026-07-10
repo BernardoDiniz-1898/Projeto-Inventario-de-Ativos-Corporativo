@@ -21,6 +21,8 @@ class NotebookExport
             'Criticidade', 'Fim Vida Útil', 'Data Baixa', 'Motivo Baixa', 'Método Descarte',
             'Criptografia', 'Antivírus', 'Status Patches', 'Backup',
             'Última Manutenção', 'Próxima Manutenção', 'Histórico Manutenção',
+            'Empresa Locatária', 'Nº Contrato', 'Valor Aluguel', 'Período',
+            'Início Aluguel', 'Fim Aluguel',
         ]);
         $writer->addRow($headerRow);
 
@@ -67,6 +69,12 @@ class NotebookExport
                 $notebook->ultima_manutencao?->format('d/m/Y') ?? '',
                 $notebook->proxima_manutencao?->format('d/m/Y') ?? '',
                 $notebook->historico_manutencao ?? '',
+                $notebook->empresa_locataria ?? '',
+                $notebook->numero_contrato ?? '',
+                $notebook->valor_aluguel ? number_format($notebook->valor_aluguel, 2, ',', '.') : '',
+                $notebook->periodo_aluguel_label ?? '',
+                $notebook->data_inicio_aluguel?->format('d/m/Y') ?? '',
+                $notebook->data_fim_aluguel?->format('d/m/Y') ?? '',
             ]);
             $writer->addRow($row);
         }

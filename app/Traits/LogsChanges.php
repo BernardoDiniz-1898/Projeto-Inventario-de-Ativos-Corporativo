@@ -52,6 +52,10 @@ trait LogsChanges
             'antivirus' => 'Antivírus', 'status_patches' => 'Status de Patches',
             'backup_configurado' => 'Backup', 'ultima_manutencao' => 'Última Manutenção',
             'proxima_manutencao' => 'Próxima Manutenção', 'historico_manutencao' => 'Histórico de Manutenção',
+            // Aluguel
+            'empresa_locataria' => 'Empresa Locatária', 'numero_contrato' => 'Nº Contrato',
+            'valor_aluguel' => 'Valor Aluguel', 'periodo_aluguel' => 'Período Aluguel',
+            'data_inicio_aluguel' => 'Início Aluguel', 'data_fim_aluguel' => 'Fim Aluguel',
         ];
 
         $changedNames = array_map(fn($k) => $fieldLabels[$k] ?? $k, array_keys($changed));

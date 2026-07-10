@@ -79,6 +79,7 @@
                             'baixa' => 'bg-slate-100 text-slate-700',
                             'extraviado' => 'bg-pink-100 text-pink-700',
                             'transferido' => 'bg-cyan-100 text-cyan-700',
+                            'alugado' => 'bg-violet-100 text-violet-700',
                             default => 'bg-gray-100 text-gray-700',
                         } }}">
                         {{ $notebook->status_label }}
@@ -216,6 +217,39 @@
             </div>
         @endif
     </div>
+
+    {{-- Aluguel --}}
+    @if ($notebook->empresa_locataria || $notebook->valor_aluguel)
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <h2 class="text-lg font-bold text-gray-900 mb-6">Aluguel</h2>
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Empresa locatária</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->empresa_locataria ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Nº Contrato</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->numero_contrato ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Valor do aluguel</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->valor_aluguel ? 'R$ ' . number_format($notebook->valor_aluguel, 2, ',', '.') : '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Período</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->periodo_aluguel_label }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Início</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_inicio_aluguel?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Fim</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_fim_aluguel?->format('d/m/Y') ?? '—' }}</dd>
+            </div>
+        </dl>
+    </div>
+    @endif
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
         <h2 class="text-lg font-bold text-gray-900 mb-6">Histórico</h2>
