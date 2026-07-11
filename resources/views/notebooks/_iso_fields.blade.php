@@ -15,10 +15,10 @@
     <select id="classificacao" name="classificacao"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('classificacao') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="publica" {{ old('classificacao', $n->classificacao ?? '') === 'publica' ? 'selected' : '' }}>{{ __('notebook.classification_options.public') }}</option>
-        <option value="interna" {{ old('classificacao', $n->classificacao ?? '') === 'interna' ? 'selected' : '' }}>{{ __('notebook.classification_options.internal') }}</option>
-        <option value="restrita" {{ old('classificacao', $n->classificacao ?? '') === 'restrita' ? 'selected' : '' }}>{{ __('notebook.classification_options.restricted') }}</option>
-        <option value="confidencial" {{ old('classificacao', $n->classificacao ?? '') === 'confidencial' ? 'selected' : '' }}>{{ __('notebook.classification_options.confidential') }}</option>
+        <option value="publica" {{ old('classificacao', $n->classificacao ?? '') === 'publica' ? 'selected' : '' }}>{{ __('notebook.classification_options.publica') }}</option>
+        <option value="interna" {{ old('classificacao', $n->classificacao ?? '') === 'interna' ? 'selected' : '' }}>{{ __('notebook.classification_options.interna') }}</option>
+        <option value="restrita" {{ old('classificacao', $n->classificacao ?? '') === 'restrita' ? 'selected' : '' }}>{{ __('notebook.classification_options.restrita') }}</option>
+        <option value="confidencial" {{ old('classificacao', $n->classificacao ?? '') === 'confidencial' ? 'selected' : '' }}>{{ __('notebook.classification_options.confidencial') }}</option>
     </select>
     @error('classificacao') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -78,10 +78,10 @@
     <select id="criticidade" name="criticidade"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('criticidade') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="baixo" {{ old('criticidade', $n->criticidade ?? '') === 'baixo' ? 'selected' : '' }}>{{ __('notebook.criticity_options.low') }}</option>
-        <option value="medio" {{ old('criticidade', $n->criticidade ?? '') === 'medio' ? 'selected' : '' }}>{{ __('notebook.criticity_options.medium') }}</option>
-        <option value="alto" {{ old('criticidade', $n->criticidade ?? '') === 'alto' ? 'selected' : '' }}>{{ __('notebook.criticity_options.high') }}</option>
-        <option value="critico" {{ old('criticidade', $n->criticidade ?? '') === 'critico' ? 'selected' : '' }}>{{ __('notebook.criticity_options.critical') }}</option>
+        <option value="baixo" {{ old('criticidade', $n->criticidade ?? '') === 'baixo' ? 'selected' : '' }}>{{ __('notebook.criticity_options.baixo') }}</option>
+        <option value="medio" {{ old('criticidade', $n->criticidade ?? '') === 'medio' ? 'selected' : '' }}>{{ __('notebook.criticity_options.medio') }}</option>
+        <option value="alto" {{ old('criticidade', $n->criticidade ?? '') === 'alto' ? 'selected' : '' }}>{{ __('notebook.criticity_options.alto') }}</option>
+        <option value="critico" {{ old('criticidade', $n->criticidade ?? '') === 'critico' ? 'selected' : '' }}>{{ __('notebook.criticity_options.critico') }}</option>
     </select>
     @error('criticidade') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -105,13 +105,13 @@
     <select id="motivo_baixa" name="motivo_baixa"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('motivo_baixa') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="obsolescencia" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'obsolescencia' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.obsolescence') }}</option>
-        <option value="avaria" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'avaria' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.damage') }}</option>
-        <option value="furto" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'furto' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.theft') }}</option>
-        <option value="descarte_seguro" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'descarte_seguro' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.secure_disposal') }}</option>
-        <option value="doacao" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'doacao' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.donation') }}</option>
-        <option value="venda" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'venda' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.sale') }}</option>
-        <option value="transferencia" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'transferencia' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.transfer') }}</option>
+        <option value="obsolescencia" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'obsolescencia' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.obsolescencia') }}</option>
+        <option value="avaria" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'avaria' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.avaria') }}</option>
+        <option value="furto" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'furto' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.furto') }}</option>
+        <option value="descarte_seguro" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'descarte_seguro' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.descarte_seguro') }}</option>
+        <option value="doacao" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'doacao' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.doacao') }}</option>
+        <option value="venda" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'venda' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.venda') }}</option>
+        <option value="transferencia" {{ old('motivo_baixa', $n->motivo_baixa ?? '') === 'transferencia' ? 'selected' : '' }}>{{ __('notebook.decommission_reason_options.transferencia') }}</option>
     </select>
     @error('motivo_baixa') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -121,11 +121,11 @@
     <select id="metodo_descarte" name="metodo_descarte"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('metodo_descarte') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="destruicao_fisica" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'destruicao_fisica' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.physical_destruction') }}</option>
-        <option value="reciclagem" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'reciclagem' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.certified_recycling') }}</option>
-        <option value="limpeza_dados" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'limpeza_dados' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.data_wiping') }}</option>
-        <option value="doacao" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'doacao' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.donation') }}</option>
-        <option value="venda" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'venda' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.sale') }}</option>
+        <option value="destruicao_fisica" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'destruicao_fisica' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.destruicao_fisica') }}</option>
+        <option value="reciclagem" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'reciclagem' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.reciclagem') }}</option>
+        <option value="limpeza_dados" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'limpeza_dados' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.limpeza_dados') }}</option>
+        <option value="doacao" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'doacao' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.doacao') }}</option>
+        <option value="venda" {{ old('metodo_descarte', $n->metodo_descarte ?? '') === 'venda' ? 'selected' : '' }}>{{ __('notebook.disposal_method_options.venda') }}</option>
     </select>
     @error('metodo_descarte') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -172,10 +172,10 @@
     <select id="status_patches" name="status_patches"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('status_patches') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="atualizado" {{ old('status_patches', $n->status_patches ?? '') === 'atualizado' ? 'selected' : '' }}>{{ __('notebook.patch_options.updated') }}</option>
-        <option value="desatualizado" {{ old('status_patches', $n->status_patches ?? '') === 'desatualizado' ? 'selected' : '' }}>{{ __('notebook.patch_options.outdated') }}</option>
-        <option value="critico" {{ old('status_patches', $n->status_patches ?? '') === 'critico' ? 'selected' : '' }}>{{ __('notebook.patch_options.critical') }}</option>
-        <option value="nao_verificado" {{ old('status_patches', $n->status_patches ?? '') === 'nao_verificado' ? 'selected' : '' }}>{{ __('notebook.patch_options.not_verified') }}</option>
+        <option value="atualizado" {{ old('status_patches', $n->status_patches ?? '') === 'atualizado' ? 'selected' : '' }}>{{ __('notebook.patch_options.atualizado') }}</option>
+        <option value="desatualizado" {{ old('status_patches', $n->status_patches ?? '') === 'desatualizado' ? 'selected' : '' }}>{{ __('notebook.patch_options.desatualizado') }}</option>
+        <option value="critico" {{ old('status_patches', $n->status_patches ?? '') === 'critico' ? 'selected' : '' }}>{{ __('notebook.patch_options.critico') }}</option>
+        <option value="nao_verificado" {{ old('status_patches', $n->status_patches ?? '') === 'nao_verificado' ? 'selected' : '' }}>{{ __('notebook.patch_options.nao_verificado') }}</option>
     </select>
     @error('status_patches') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -244,7 +244,7 @@
 </div>
 
 <div>
-    <label for="numero_contrato" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.rental_contract_number') }}</label>
+    <label for="numero_contrato" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.rental_contract') }}</label>
     <input type="text" id="numero_contrato" name="numero_contrato" value="{{ old('numero_contrato', $n->numero_contrato ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('numero_contrato') border-red-300 @enderror"
            placeholder="Ex: CONTRATO-001">
@@ -264,10 +264,10 @@
     <select id="periodo_aluguel" name="periodo_aluguel"
             class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('periodo_aluguel') border-red-300 @enderror">
         <option value="">Selecione...</option>
-        <option value="mensal" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'mensal' ? 'selected' : '' }}>{{ __('notebook.rental_period_options.monthly') }}</option>
-        <option value="trimestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'trimestral' ? 'selected' : '' }}>{{ __('notebook.rental_period_options.quarterly') }}</option>
-        <option value="semestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'semestral' ? 'selected' : '' }}>{{ __('notebook.rental_period_options.semi_annual') }}</option>
-        <option value="anual" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'anual' ? 'selected' : '' }}>{{ __('notebook.rental_period_options.annual') }}</option>
+        <option value="mensal" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'mensal' ? 'selected' : '' }}>{{ __('notebook.period_options.mensal') }}</option>
+        <option value="trimestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'trimestral' ? 'selected' : '' }}>{{ __('notebook.period_options.trimestral') }}</option>
+        <option value="semestral" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'semestral' ? 'selected' : '' }}>{{ __('notebook.period_options.semestral') }}</option>
+        <option value="anual" {{ old('periodo_aluguel', $n->periodo_aluguel ?? '') === 'anual' ? 'selected' : '' }}>{{ __('notebook.period_options.anual') }}</option>
     </select>
     @error('periodo_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
