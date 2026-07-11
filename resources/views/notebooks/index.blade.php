@@ -8,16 +8,16 @@
         <h1 class="text-2xl font-bold text-gray-900">Notebooks</h1>
         <p class="text-gray-500 text-sm mt-1">Cadastro e acompanhamento de notebooks</p>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
         <a href="{{ route('notebooks.export', request()->only('status')) }}"
-           class="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">
+           class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            Excel
+            <span class="hidden xs:inline">Excel</span>
         </a>
         <a href="{{ route('notebooks.create') }}"
-           class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
+           class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -37,7 +37,7 @@
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por marca, modelo, patrimônio..."
                    class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <select name="status" class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="status" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">Todos os status</option>
             <option value="disponivel" {{ request('status') === 'disponivel' ? 'selected' : '' }}>Disponível</option>
             <option value="em_uso" {{ request('status') === 'em_uso' ? 'selected' : '' }}>Em Uso</option>
@@ -50,14 +50,16 @@
             <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>Transferido</option>
             <option value="alugado" {{ request('status') === 'alugado' ? 'selected' : '' }}>Alugado</option>
         </select>
-        <button type="submit" class="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
-            Filtrar
-        </button>
-        @if (request()->hasAny(['search', 'status']))
-            <a href="{{ route('notebooks.index') }}" class="text-gray-500 hover:text-gray-700 px-4 py-2.5 text-sm font-medium">
-                Limpar
-            </a>
-        @endif
+        <div class="flex gap-2">
+            <button type="submit" class="flex-1 sm:flex-none bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
+                Filtrar
+            </button>
+            @if (request()->hasAny(['search', 'status']))
+                <a href="{{ route('notebooks.index') }}" class="text-gray-500 hover:text-gray-700 px-4 py-2.5 text-sm font-medium">
+                    Limpar
+                </a>
+            @endif
+        </div>
     </form>
 </div>
 
@@ -83,37 +85,28 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 bg-gray-50 border-b border-gray-100">
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Patrimônio</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Marca / Modelo</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Nº Série</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Responsável</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Ações</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Notebook</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Nº Série</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Responsável</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach ($notebooks as $notebook)
                         <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4">
-                                <span class="font-semibold text-gray-900">{{ $notebook->patrimonio ?? '—' }}</span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium text-gray-900">{{ $notebook->marca }}</div>
-                                        <div class="text-xs text-gray-500">{{ $notebook->modelo }}</div>
-                                    </div>
+                            <td class="px-4 sm:px-6 py-4">
+                                <div>
+                                    <span class="font-semibold text-gray-900 text-sm">{{ $notebook->patrimonio ?? '—' }}</span>
+                                    <div class="font-medium text-gray-800">{{ $notebook->marca }} {{ $notebook->modelo }}</div>
+                                    <div class="text-xs text-gray-400 md:hidden">{{ $notebook->numero_serie }}</div>
+                                    <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $notebook->funcionario->nome ?? 'Sem responsável' }}</div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4 hidden md:table-cell">
                                 <code class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">{{ $notebook->numero_serie }}</code>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4 hidden lg:table-cell">
                                 @if ($notebook->funcionario)
                                 <div class="flex items-center gap-2">
                                     <div class="w-7 h-7 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-semibold text-xs">
@@ -125,7 +118,7 @@
                                 <span class="text-gray-400">—</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
                                     {{ match($notebook->status) {
                                         'disponivel' => 'bg-green-100 text-green-700',
@@ -143,7 +136,7 @@
                                     {{ $notebook->status_label }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="px-4 sm:px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-1">
                                     <a href="{{ route('notebooks.show', $notebook) }}" class="p-2 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition" title="Ver">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

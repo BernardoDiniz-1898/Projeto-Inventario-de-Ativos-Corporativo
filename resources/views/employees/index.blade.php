@@ -8,16 +8,16 @@
         <h1 class="text-2xl font-bold text-gray-900">Funcionários</h1>
         <p class="text-gray-500 text-sm mt-1">Cadastro e acompanhamento de colaboradores</p>
     </div>
-    <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
         <a href="{{ route('employees.export', request()->only('status')) }}"
-           class="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">
+           class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            Excel
+            <span class="hidden xs:inline">Excel</span>
         </a>
         <a href="{{ route('employees.create') }}"
-           class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
+           class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
@@ -37,21 +37,23 @@
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Buscar por nome, matrícula, departamento..."
                    class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <select name="status" class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="status" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">Todos os status</option>
             <option value="ativo" {{ request('status') === 'ativo' ? 'selected' : '' }}>Ativo</option>
             <option value="afastado" {{ request('status') === 'afastado' ? 'selected' : '' }}>Afastado</option>
             <option value="desligado" {{ request('status') === 'desligado' ? 'selected' : '' }}>Desligado</option>
             <option value="ferias" {{ request('status') === 'ferias' ? 'selected' : '' }}>Férias</option>
         </select>
-        <button type="submit" class="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
-            Filtrar
-        </button>
-        @if (request()->hasAny(['search', 'status']))
-            <a href="{{ route('employees.index') }}" class="text-gray-500 hover:text-gray-700 px-4 py-2.5 text-sm font-medium">
-                Limpar
-            </a>
-        @endif
+        <div class="flex gap-2">
+            <button type="submit" class="flex-1 sm:flex-none bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
+                Filtrar
+            </button>
+            @if (request()->hasAny(['search', 'status']))
+                <a href="{{ route('employees.index') }}" class="text-gray-500 hover:text-gray-700 px-4 py-2.5 text-sm font-medium">
+                    Limpar
+                </a>
+            @endif
+        </div>
     </form>
 </div>
 
@@ -77,40 +79,35 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 bg-gray-50 border-b border-gray-100">
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Nome</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Matrícula</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Departamento</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Cargo</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Ações</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Nome</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Matrícula</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Departamento</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden xl:table-cell">Cargo</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach ($employees as $employee)
                         <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4">
                                 <a href="{{ route('employees.show', $employee) }}" class="flex items-center gap-3">
-                                    <div class="w-9 h-9 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-semibold text-xs">
+                                    <div class="w-9 h-9 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-semibold text-xs shrink-0">
                                         {{ strtoupper(substr($employee->nome, 0, 2)) }}
                                     </div>
                                     <div>
                                         <div class="font-semibold text-gray-900 hover:text-blue-600 transition">{{ $employee->nome }}</div>
-                                        @if ($employee->email)
-                                        <div class="text-xs text-gray-500">{{ $employee->email }}</div>
-                                        @endif
+                                        <div class="text-xs text-gray-400 md:hidden">{{ $employee->matricula ?? '—' }}</div>
+                                        <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $employee->departamento ?? '' }}{{ $employee->cargo ? ' · ' . $employee->cargo : '' }}</div>
                                     </div>
                                 </a>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4 hidden md:table-cell">
                                 <code class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">{{ $employee->matricula ?? '—' }}</code>
                             </td>
-                            <td class="px-6 py-4">
-                                <span class="text-gray-700">{{ $employee->departamento ?? '—' }}</span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="text-gray-700">{{ $employee->cargo ?? '—' }}</span>
-                            </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4 hidden lg:table-cell text-gray-700">{{ $employee->departamento ?? '—' }}</td>
+                            <td class="px-4 sm:px-6 py-4 hidden xl:table-cell text-gray-700">{{ $employee->cargo ?? '—' }}</td>
+                            <td class="px-4 sm:px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
                                     {{ match($employee->status) {
                                         'ativo' => 'bg-green-100 text-green-700',
@@ -122,7 +119,7 @@
                                     {{ $employee->status_label }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 text-right">
+                            <td class="px-4 sm:px-6 py-4 text-right">
                                 <div class="flex items-center justify-end gap-1">
                                     <a href="{{ route('employees.show', $employee) }}" class="p-2 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition" title="Ver">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -190,38 +190,32 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 bg-gray-50">
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Patrimônio</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Marca / Modelo</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Responsável</th>
-                        <th class="px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Notebook</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Patrimônio</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Responsável</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @foreach ($recentes as $notebook)
                         <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4">
-                                @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
-                                <a href="{{ route('notebooks.show', $notebook) }}" class="text-blue-600 hover:text-blue-700 font-medium">
-                                    {{ $notebook->patrimonio ?? '—' }}
-                                </a>
-                                @else
-                                <span class="text-gray-700">{{ $notebook->patrimonio ?? '—' }}</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="font-medium text-gray-800">{{ $notebook->marca }}</div>
-                                        <div class="text-xs text-gray-500">{{ $notebook->modelo }}</div>
-                                    </div>
+                            <td class="px-4 sm:px-6 py-4">
+                                <div>
+                                    @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
+                                    <a href="{{ route('notebooks.show', $notebook) }}" class="text-blue-600 hover:text-blue-700 font-medium">
+                                        {{ $notebook->marca }} {{ $notebook->modelo }}
+                                    </a>
+                                    @else
+                                    <span class="font-medium text-gray-800">{{ $notebook->marca }} {{ $notebook->modelo }}</span>
+                                    @endif
+                                    <div class="text-xs text-gray-400 md:hidden">{{ $notebook->patrimonio ?? '—' }}</div>
+                                    <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $notebook->funcionario->nome ?? 'Sem responsável' }}</div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4 hidden md:table-cell text-gray-600 font-mono text-xs">
+                                {{ $notebook->patrimonio ?? '—' }}
+                            </td>
+                            <td class="px-4 sm:px-6 py-4 hidden lg:table-cell">
                                 @if ($notebook->funcionario)
                                 <div class="flex items-center gap-2">
                                     <div class="w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-medium text-xs">
@@ -233,7 +227,7 @@
                                 <span class="text-gray-400">—</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-4 sm:px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
                                     {{ match($notebook->status) {
                                         'disponivel' => 'bg-green-100 text-green-700',

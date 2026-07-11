@@ -150,7 +150,7 @@
     <nav class="corporate-nav bg-white border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-14">
-                <div class="flex items-center gap-8">
+                <div class="flex items-center gap-4">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5">
                         <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center shadow-sm shadow-blue-500/20">
                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -238,6 +238,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        {{-- Mobile menu --}}
+        <div x-data="{ mobileOpen: false }" class="md:hidden border-t border-slate-100">
+            <button @click="mobileOpen = !mobileOpen" class="w-full flex items-center justify-between px-4 py-3 text-sm text-slate-600 hover:bg-slate-50 transition">
+                <span class="font-medium">Menu</span>
+                <svg :class="mobileOpen ? 'rotate-180' : ''" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div x-show="mobileOpen" x-transition class="pb-2">
+                <a href="{{ route('dashboard') }}" class="block px-6 py-2 text-sm font-medium {{ request()->routeIs('dashboard') ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50' }}">Dashboard</a>
+                @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
+                <a href="{{ route('notebooks.index') }}" class="block px-6 py-2 text-sm font-medium {{ request()->routeIs('notebooks.*') ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50' }}">Notebooks</a>
+                <a href="{{ route('employees.index') }}" class="block px-6 py-2 text-sm font-medium {{ request()->routeIs('employees.*') ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50' }}">Funcionários</a>
+                @endif
+                @if (auth()->user()->isAdmin())
+                <a href="{{ route('admin.users.index') }}" class="block px-6 py-2 text-sm font-medium {{ request()->routeIs('admin.*') ? 'text-blue-600 bg-blue-50' : 'text-slate-600 hover:bg-slate-50' }}">Usuários</a>
+                @endif
             </div>
         </div>
     </nav>
