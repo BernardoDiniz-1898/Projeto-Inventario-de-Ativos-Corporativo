@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', session('locale', config('app.locale'))) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Keep Inventory</title>
+    <title>{{ __('auth.register_title') }} - Keep Inventory</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         (function() {
@@ -57,15 +57,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900">Nova Conta</h1>
-                <p class="text-gray-500 text-sm mt-2">Crie suas credenciais de acesso</p>
+                <h1 class="text-2xl font-bold text-gray-900">{{ __('auth.register_title') }}</h1>
+                <p class="text-gray-500 text-sm mt-2">{{ __('auth.register_subtitle') }}</p>
             </div>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
                 <div class="mb-4">
-                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Nome completo</label>
+                    <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.name') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.email') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Senha</label>
+                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.password') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="mb-8">
-                    <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">Confirmar senha</label>
+                    <label for="password_confirmation" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.password_confirm') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,19 +139,19 @@
                 </div>
 
                 <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
-                    Criar conta
+                    {{ __('auth.register_button') }}
                 </button>
             </form>
 
             <div class="mt-8 pt-6 border-t border-gray-100 text-center">
                 <p class="text-sm text-gray-500">
-                    Já tem uma conta?
-                    <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-semibold ml-1">Entrar</a>
+                    {{ __('auth.has_account') }}
+                    <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-semibold ml-1">{{ __('auth.login_link') }}</a>
                 </p>
             </div>
         </div>
 
-        <p class="text-center text-gray-400 text-xs mt-6">&copy; {{ date('Y') }} Keep Inventory. Todos os direitos reservados.</p>
+        <p class="text-center text-gray-400 text-xs mt-6">&copy; {{ date('Y') }} Keep Inventory. {{ __('auth.copyright') }}</p>
     </div>
 </body>
 </html>

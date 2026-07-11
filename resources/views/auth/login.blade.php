@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ str_replace('_', '-', session('locale', config('app.locale'))) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Keep Inventory</title>
+    <title>{{ __('auth.login_title') }} - Keep Inventory</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         (function() {
@@ -57,15 +57,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                     </svg>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-900">Keep Inventory</h1>
-                <p class="text-gray-500 text-sm mt-2">Sistema de Gestão de Ativos de TI</p>
+                <h1 class="text-2xl font-bold text-gray-900">{{ __('auth.login_title') }}</h1>
+                <p class="text-gray-500 text-sm mt-2">{{ __('auth.login_subtitle') }}</p>
             </div>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
                 <div class="mb-5">
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.email') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="mb-5">
-                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Senha</label>
+                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('auth.password') }}</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,24 +107,24 @@
                 <div class="flex items-center justify-between mb-8">
                     <label class="flex items-center gap-2 cursor-pointer">
                         <input type="checkbox" name="remember" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        <span class="text-sm text-gray-600">Lembrar de mim</span>
+                        <span class="text-sm text-gray-600">{{ __('auth.remember') }}</span>
                     </label>
                 </div>
 
                 <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40">
-                    Entrar
+                    {{ __('auth.login_button') }}
                 </button>
             </form>
 
             <div class="mt-8 pt-6 border-t border-gray-100 text-center">
                 <p class="text-sm text-gray-500">
-                    Não tem uma conta?
-                    <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-semibold ml-1">Cadastre-se</a>
+                    {{ __('auth.no_account') }}
+                    <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-semibold ml-1">{{ __('auth.register_link') }}</a>
                 </p>
             </div>
         </div>
 
-        <p class="text-center text-gray-400 text-xs mt-6">&copy; {{ date('Y') }} Keep Inventory. Todos os direitos reservados.</p>
+        <p class="text-center text-gray-400 text-xs mt-6">&copy; {{ date('Y') }} Keep Inventory. {{ __('auth.copyright') }}</p>
     </div>
 </body>
 </html>

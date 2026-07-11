@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'greeting_morning' => 'Good morning',
+    'greeting_afternoon' => 'Good afternoon',
+    'greeting_evening' => 'Good evening',
+    'overview' => 'Overview of the IT asset park',
+    'total_notebooks' => 'Registered notebooks',
+    'available' => 'Available',
+    'in_use' => 'In Use',
+    'maintenance' => 'Maintenance',
+    'idle' => 'Idle',
+    'employees' => 'Employees',
+    'by_brand' => 'By Brand',
+    'by_department' => 'By Department',
+    'no_data' => 'No data to display',
+    'recent' => 'Recent Entries',
+    'view_all' => 'View all',
+    'no_notebooks' => 'No notebooks registered',
+    'notebook' => 'Notebook',
+    'asset_number' => 'Asset #',
+    'responsible' => 'Responsible',
+    'status' => 'Status',
+    'updated' => 'Updated',
+    'no_responsible' => 'No responsible',
+];

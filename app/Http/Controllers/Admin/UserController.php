@@ -34,7 +34,7 @@ class UserController extends Controller
         User::create($validated);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário criado com sucesso!');
+            ->with('success', __('messages.user_created'));
     }
 
     public function edit(User $user)
@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário atualizado com sucesso!');
+            ->with('success', __('messages.user_updated'));
     }
 
     public function destroy(User $user)
@@ -73,7 +73,7 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Usuário removido com sucesso!');
+            ->with('success', __('messages.user_deleted'));
     }
 
     public function updateRole(Request $request, User $user)
@@ -85,6 +85,6 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'Perfil do usuário atualizado!');
+            ->with('success', __('messages.role_updated'));
     }
 }

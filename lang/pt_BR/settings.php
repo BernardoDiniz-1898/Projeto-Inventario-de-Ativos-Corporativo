@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Configurações',
+    'theme' => 'Tema',
+    'light' => 'Claro',
+    'light_desc' => 'Fundo branco, ideal para uso diurno',
+    'dark' => 'Escuro',
+    'dark_desc' => 'Fundo escuro, reduz fadiga visual',
+    'font_size' => 'Tamanho da Fonte',
+    'font_small' => 'Pequena',
+    'font_small_desc' => 'Mais conteúdo na tela',
+    'font_normal' => 'Normal',
+    'font_normal_desc' => 'Padrão recomendado',
+    'font_large' => 'Grande',
+    'font_large_desc' => 'Melhor legibilidade',
+    'accent_color' => 'Cor de Destaque',
+    'layout' => 'Layout',
+    'layout_expanded' => 'Menu expandido',
+    'layout_expanded_desc' => 'Sempre visível',
+    'layout_collapsed' => 'Menu compacto',
+    'layout_collapsed_desc' => 'Apenas ícones',
+    'save' => 'Salvar Configurações',
+    'reset' => 'Restaurar Padrão',
+    'toast' => 'Configurações salvas com sucesso!',
+    'footer' => 'Todos os direitos reservados.',
+];

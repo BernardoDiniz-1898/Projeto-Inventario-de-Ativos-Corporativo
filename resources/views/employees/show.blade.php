@@ -8,7 +8,7 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
-        Voltar para Funcionários
+        {{ __('employee.back_to_list') }}
     </a>
 </div>
 
@@ -28,16 +28,16 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
             </svg>
-            Editar
+            {{ __('employee.edit') }}
         </a>
-        <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?')" class="inline">
+        <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('{{ __('employee.delete_confirm') }}')" class="inline">
             @csrf
             @method('DELETE')
             <button type="submit" class="inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-600 transition shadow-sm shadow-red-500/20">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                 </svg>
-                Excluir
+                {{ __('employee.delete') }}
             </button>
         </form>
     </div>
@@ -45,46 +45,46 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">Informações</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('employee.info') }}</h2>
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Nome</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.name') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->nome }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Matrícula</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.matricula') }}</dt>
                 <dd class="text-sm text-gray-800 font-mono mt-1">{{ $employee->matricula ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Email</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.email') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->email ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Telefone</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.telefone') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->telefone ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Departamento</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.departamento') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->departamento ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Centro de Custo</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.centro_custo') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->centro_custo ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Projeto</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.projeto') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->projeto ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Setor</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.setor') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->setor ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Cargo</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.cargo') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->cargo ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.status') }}</dt>
                 <dd class="mt-1">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
                         {{ match($employee->status) {
@@ -99,28 +99,28 @@
                 </dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de Admissão</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.data_admissao') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->data_admissao?->format('d/m/Y') ?? '—' }}</dd>
             </div>
         </dl>
 
         @if ($employee->observacoes)
             <div class="mt-6 pt-6 border-t border-gray-100">
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">Observações</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">{{ __('employee.field.observacoes') }}</dt>
                 <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $employee->observacoes }}</dd>
             </div>
         @endif
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">Histórico</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('employee.history') }}</h2>
         <dl class="space-y-4">
             <div class="flex justify-between items-center">
-                <dt class="text-xs text-gray-500 font-medium">Criado em</dt>
+                <dt class="text-xs text-gray-500 font-medium">{{ __('employee.created_at') }}</dt>
                 <dd class="text-xs text-gray-600 font-medium">{{ $employee->created_at->format('d/m/Y H:i') }}</dd>
             </div>
             <div class="flex justify-between items-center">
-                <dt class="text-xs text-gray-500 font-medium">Última atualização</dt>
+                <dt class="text-xs text-gray-500 font-medium">{{ __('employee.updated_at') }}</dt>
                 <dd class="text-xs text-gray-600 font-medium">{{ $employee->updated_at->format('d/m/Y H:i') }}</dd>
             </div>
         </dl>
@@ -129,7 +129,7 @@
 
 <div class="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-bold text-gray-900">Notebooks Vinculados</h2>
+        <h2 class="text-lg font-bold text-gray-900">{{ __('employee.notebooks_linked') }}</h2>
         <span class="text-sm text-gray-500 font-medium">{{ $notebooks->count() }} notebook(s)</span>
     </div>
 
@@ -140,17 +140,17 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
             </div>
-            <p class="text-gray-400 text-sm">Nenhum notebook vinculado a este funcionário</p>
+            <p class="text-gray-400 text-sm">{{ __('employee.no_notebooks') }}</p>
         </div>
     @else
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 border-b border-gray-100">
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">Patrimônio</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">Marca / Modelo</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">Nº Série</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.patrimonio') }}</th>
+                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.marca_modelo') }}</th>
+                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.numero_serie') }}</th>
+                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.status') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">

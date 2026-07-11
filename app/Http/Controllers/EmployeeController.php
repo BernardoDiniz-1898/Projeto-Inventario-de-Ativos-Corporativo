@@ -63,7 +63,7 @@ class EmployeeController extends Controller
         $this->logCreate($employee, $validated);
 
         return redirect()->route('employees.index')
-            ->with('success', 'Funcionário cadastrado com sucesso!');
+            ->with('success', __('messages.employee_created'));
     }
 
     public function show(Employee $employee)
@@ -101,7 +101,7 @@ class EmployeeController extends Controller
         $this->logUpdate($employee, $old, $validated);
 
         return redirect()->route('employees.index')
-            ->with('success', 'Funcionário atualizado com sucesso!');
+            ->with('success', __('messages.employee_updated'));
     }
 
     public function destroy(Employee $employee)
@@ -110,7 +110,7 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return redirect()->route('employees.index')
-            ->with('success', 'Funcionário removido com sucesso!');
+            ->with('success', __('messages.employee_deleted'));
     }
 
     public function export(Request $request)

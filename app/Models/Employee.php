@@ -47,10 +47,10 @@ class Employee extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'ativo' => 'Ativo',
-            'afastado' => 'Afastado',
-            'desligado' => 'Desligado',
-            'ferias' => 'Férias',
+            'ativo' => __('employee.status_options.ativo'),
+            'afastado' => __('employee.status_options.afastado'),
+            'desligado' => __('employee.status_options.desligado'),
+            'ferias' => __('employee.status_options.ferias'),
             default => $this->status,
         };
     }

@@ -98,16 +98,16 @@ class Notebook extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'disponivel' => 'Disponível',
-            'em_uso' => 'Em Uso',
-            'manutencao' => 'Manutenção',
-            'ocioso' => 'Ocioso',
-            'devolvido' => 'Devolvido',
-            'obsoleto' => 'Obsoleto',
-            'baixa' => 'Baixa',
-            'extraviado' => 'Extraviado',
-            'transferido' => 'Transferido',
-            'alugado' => 'Alugado',
+            'disponivel' => __('notebook.status_options.disponivel'),
+            'em_uso' => __('notebook.status_options.em_uso'),
+            'manutencao' => __('notebook.status_options.manutencao'),
+            'ocioso' => __('notebook.status_options.ocioso'),
+            'devolvido' => __('notebook.status_options.devolvido'),
+            'obsoleto' => __('notebook.status_options.obsoleto'),
+            'baixa' => __('notebook.status_options.baixa'),
+            'extraviado' => __('notebook.status_options.extraviado'),
+            'transferido' => __('notebook.status_options.transferido'),
+            'alugado' => __('notebook.status_options.alugado'),
             default => $this->status,
         };
     }
@@ -132,10 +132,10 @@ class Notebook extends Model
     public function getClassificacaoLabelAttribute(): string
     {
         return match ($this->classificacao) {
-            'publica' => 'Pública',
-            'interna' => 'Interna',
-            'restrita' => 'Restrita',
-            'confidencial' => 'Confidencial',
+            'publica' => __('notebook.classification_options.publica'),
+            'interna' => __('notebook.classification_options.interna'),
+            'restrita' => __('notebook.classification_options.restrita'),
+            'confidencial' => __('notebook.classification_options.confidencial'),
             default => $this->classificacao ?? '—',
         };
     }
@@ -154,10 +154,10 @@ class Notebook extends Model
     public function getCriticidadeLabelAttribute(): string
     {
         return match ($this->criticidade) {
-            'baixo' => 'Baixo',
-            'medio' => 'Médio',
-            'alto' => 'Alto',
-            'critico' => 'Crítico',
+            'baixo' => __('notebook.criticity_options.baixo'),
+            'medio' => __('notebook.criticity_options.medio'),
+            'alto' => __('notebook.criticity_options.alto'),
+            'critico' => __('notebook.criticity_options.critico'),
             default => $this->criticidade ?? '—',
         };
     }
@@ -182,10 +182,10 @@ class Notebook extends Model
     public function getStatusPatchesLabelAttribute(): string
     {
         return match ($this->status_patches) {
-            'atualizado' => 'Atualizado',
-            'desatualizado' => 'Desatualizado',
-            'critico' => 'Crítico',
-            'nao_verificado' => 'Não verificado',
+            'atualizado' => __('notebook.patches_options.atualizado'),
+            'desatualizado' => __('notebook.patches_options.desatualizado'),
+            'critico' => __('notebook.patches_options.critico'),
+            'nao_verificado' => __('notebook.patches_options.nao_verificado'),
             default => $this->status_patches ?? '—',
         };
     }
@@ -204,13 +204,13 @@ class Notebook extends Model
     public function getMotivoBaixaLabelAttribute(): string
     {
         return match ($this->motivo_baixa) {
-            'obsolescencia' => 'Obsolescência',
-            'avaria' => 'Avaria',
-            'furto' => 'Furto/Extravio',
-            'descarte_seguro' => 'Descarte Seguro',
-            'doacao' => 'Doação',
-            'venda' => 'Venda',
-            'transferencia' => 'Transferência',
+            'obsolescencia' => __('notebook.decommission_reason_options.obsolescencia'),
+            'avaria' => __('notebook.decommission_reason_options.avaria'),
+            'furto' => __('notebook.decommission_reason_options.furto'),
+            'descarte_seguro' => __('notebook.decommission_reason_options.descarte_seguro'),
+            'doacao' => __('notebook.decommission_reason_options.doacao'),
+            'venda' => __('notebook.decommission_reason_options.venda'),
+            'transferencia' => __('notebook.decommission_reason_options.transferencia'),
             default => $this->motivo_baixa ?? '—',
         };
     }
@@ -218,11 +218,11 @@ class Notebook extends Model
     public function getMetodoDescarteLabelAttribute(): string
     {
         return match ($this->metodo_descarte) {
-            'destruicao_fisica' => 'Destruição Física',
-            'reciclagem' => 'Reciclagem Certificada',
-            'limpeza_dados' => 'Limpeza de Dados',
-            'doacao' => 'Doação',
-            'venda' => 'Venda',
+            'destruicao_fisica' => __('notebook.disposal_method_options.destruicao_fisica'),
+            'reciclagem' => __('notebook.disposal_method_options.reciclagem'),
+            'limpeza_dados' => __('notebook.disposal_method_options.limpeza_dados'),
+            'doacao' => __('notebook.disposal_method_options.doacao'),
+            'venda' => __('notebook.disposal_method_options.venda'),
             default => $this->metodo_descarte ?? '—',
         };
     }
@@ -230,10 +230,10 @@ class Notebook extends Model
     public function getPeriodoAluguelLabelAttribute(): string
     {
         return match ($this->periodo_aluguel) {
-            'mensal' => 'Mensal',
-            'trimestral' => 'Trimestral',
-            'semestral' => 'Semestral',
-            'anual' => 'Anual',
+            'mensal' => __('notebook.rental_period_options.mensal'),
+            'trimestral' => __('notebook.rental_period_options.trimestral'),
+            'semestral' => __('notebook.rental_period_options.semestral'),
+            'anual' => __('notebook.rental_period_options.anual'),
             default => $this->periodo_aluguel ?? '—',
         };
     }

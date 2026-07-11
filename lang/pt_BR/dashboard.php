@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'greeting_morning' => 'Bom dia',
+    'greeting_afternoon' => 'Boa tarde',
+    'greeting_evening' => 'Boa noite',
+    'overview' => 'Panorama geral do parque de ativos de TI',
+    'total_notebooks' => 'Notebooks cadastrados',
+    'available' => 'Disponíveis',
+    'in_use' => 'Em Uso',
+    'maintenance' => 'Manutenção',
+    'idle' => 'Ociosos',
+    'employees' => 'Funcionários',
+    'by_brand' => 'Por Marca',
+    'by_department' => 'Por Departamento',
+    'no_data' => 'Sem dados para exibir',
+    'recent' => 'Últimos Cadastros',
+    'view_all' => 'Ver todos',
+    'no_notebooks' => 'Nenhum notebook cadastrado',
+    'notebook' => 'Notebook',
+    'asset_number' => 'Patrimônio',
+    'responsible' => 'Responsável',
+    'status' => 'Status',
+    'updated' => 'Atualizado',
+    'no_responsible' => 'Sem responsável',
+];

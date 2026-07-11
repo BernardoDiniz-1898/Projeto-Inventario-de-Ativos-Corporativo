@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', __('nav.dashboard'))
 
 @section('content')
 @php
     $hora = (int) now()->format('H');
     $greeting = match(true) {
-        $hora < 12 => 'Bom dia',
-        $hora < 18 => 'Boa tarde',
-        default => 'Boa noite',
+        $hora < 12 => __('dashboard.greeting_morning'),
+        $hora < 18 => __('dashboard.greeting_afternoon'),
+        default => __('dashboard.greeting_evening'),
     };
     $nome = auth()->user()->name;
 @endphp
 
 <div class="mb-8">
     <h1 class="text-2xl font-bold text-gray-900">{{ $greeting }}, {{ $nome }}</h1>
-    <p class="text-gray-500 text-sm mt-1">Panorama geral do parque de ativos de TI</p>
+    <p class="text-gray-500 text-sm mt-1">{{ __('dashboard.overview') }}</p>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-gray-900">{{ $total }}</p>
-        <p class="text-xs text-gray-500 mt-1">Notebooks cadastrados</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.total_notebooks') }}</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -40,7 +40,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-green-600">{{ $disponiveis }}</p>
-        <p class="text-xs text-gray-500 mt-1">Disponíveis</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.available') }}</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -52,7 +52,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-blue-600">{{ $emUso }}</p>
-        <p class="text-xs text-gray-500 mt-1">Em Uso</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.in_use') }}</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -65,7 +65,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-yellow-600">{{ $manutencao }}</p>
-        <p class="text-xs text-gray-500 mt-1">Manutenção</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.maintenance') }}</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -77,7 +77,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-orange-600">{{ $ociosos }}</p>
-        <p class="text-xs text-gray-500 mt-1">Ociosos</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.idle') }}</p>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -89,7 +89,7 @@
             </div>
         </div>
         <p class="text-2xl font-bold text-indigo-600">{{ $totalFuncionarios }}</p>
-        <p class="text-xs text-gray-500 mt-1">Funcionários</p>
+        <p class="text-xs text-gray-500 mt-1">{{ __('dashboard.employees') }}</p>
     </div>
 </div>
 
@@ -101,14 +101,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                 </svg>
             </div>
-            <h2 class="text-lg font-semibold text-gray-900">Por Marca</h2>
+            <h2 class="text-lg font-semibold text-gray-900">{{ __('dashboard.by_brand') }}</h2>
         </div>
         @if ($porMarca->isEmpty())
             <div class="text-center py-8">
                 <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                 </svg>
-                <p class="text-gray-400 text-sm">Sem dados para exibir</p>
+                <p class="text-gray-400 text-sm">{{ __('dashboard.no_data') }}</p>
             </div>
         @else
             <div class="space-y-3">
@@ -133,14 +133,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
             </div>
-            <h2 class="text-lg font-semibold text-gray-900">Por Departamento</h2>
+            <h2 class="text-lg font-semibold text-gray-900">{{ __('dashboard.by_department') }}</h2>
         </div>
         @if ($porDepartamento->isEmpty())
             <div class="text-center py-8">
                 <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
                 </svg>
-                <p class="text-gray-400 text-sm">Sem dados para exibir</p>
+                <p class="text-gray-400 text-sm">{{ __('dashboard.no_data') }}</p>
             </div>
         @else
             <div class="space-y-3">
@@ -168,11 +168,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h2 class="text-lg font-semibold text-gray-900">Últimos Cadastros</h2>
+                <h2 class="text-lg font-semibold text-gray-900">{{ __('dashboard.recent') }}</h2>
             </div>
             @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
             <a href="{{ route('notebooks.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
-                Ver todos
+                {{ __('dashboard.view_all') }}
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
             @endif
@@ -183,17 +183,17 @@
             <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
             </svg>
-            <p class="text-gray-400 text-sm">Nenhum notebook cadastrado</p>
+            <p class="text-gray-400 text-sm">{{ __('dashboard.no_notebooks') }}</p>
         </div>
     @else
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 bg-gray-50">
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Notebook</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">Patrimônio</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">Responsável</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">{{ __('dashboard.notebook') }}</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">{{ __('dashboard.asset_number') }}</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">{{ __('dashboard.responsible') }}</th>
+                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">{{ __('dashboard.status') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
@@ -209,7 +209,7 @@
                                     <span class="font-medium text-gray-800">{{ $notebook->marca }} {{ $notebook->modelo }}</span>
                                     @endif
                                     <div class="text-xs text-gray-400 md:hidden">{{ $notebook->patrimonio ?? '—' }}</div>
-                                    <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $notebook->funcionario->nome ?? 'Sem responsável' }}</div>
+                                    <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $notebook->funcionario->nome ?? __('dashboard.no_responsible') }}</div>
                                 </div>
                             </td>
                             <td class="px-4 sm:px-6 py-4 hidden md:table-cell text-gray-600 font-mono text-xs">

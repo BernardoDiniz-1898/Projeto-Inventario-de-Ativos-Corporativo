@@ -8,7 +8,7 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
-        Voltar para Notebooks
+        {{ __('notebook.back_to_list') }}
     </a>
 </div>
 
@@ -21,7 +21,7 @@
         </div>
         <div>
             <h1 class="text-2xl font-bold text-gray-900">{{ $notebook->marca }} {{ $notebook->modelo }}</h1>
-            <p class="text-gray-500 text-sm">{{ $notebook->patrimonio ?? 'Sem patrimônio' }} · {{ $notebook->numero_serie }}</p>
+            <p class="text-gray-500 text-sm">            {{ $notebook->patrimonio ?? __('notebook.no_asset') }} · {{ $notebook->numero_serie }}</p>
         </div>
     </div>
     <div class="flex items-center gap-3">
@@ -30,16 +30,16 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
             </svg>
-            Editar
+            {{ __('notebook.edit_button') }}
         </a>
-        <form action="{{ route('notebooks.destroy', $notebook) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?')" class="inline">
+        <form action="{{ route('notebooks.destroy', $notebook) }}" method="POST" onsubmit="return confirm('{{ __('notebook.delete_confirm') }}')" class="inline">
             @csrf
             @method('DELETE')
             <button type="submit" class="inline-flex items-center gap-2 bg-red-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-red-600 transition shadow-sm shadow-red-500/20">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                 </svg>
-                Excluir
+                {{ __('notebook.delete_button') }}
             </button>
         </form>
     </div>
@@ -47,26 +47,26 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">Informações</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('notebook.info') }}</h2>
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Marca</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.brand') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->marca }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Modelo</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.model') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->modelo }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Nº Série</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.serial_number') }}</dt>
                 <dd class="text-sm text-gray-800 font-mono mt-1">{{ $notebook->numero_serie }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Patrimônio</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.asset_number_field') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->patrimonio ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Status</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.status_field') }}</dt>
                 <dd class="mt-1">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
                         {{ match($notebook->status) {
@@ -87,7 +87,7 @@
                 </dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Responsável</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.responsible_employee') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">
                     @if ($notebook->funcionario)
                         <div class="flex items-center gap-2">
@@ -104,46 +104,46 @@
                 </dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de Entrega</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.delivery_date') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_entrega?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Sistema Operacional</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.os') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->sistema_operacional ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Processador</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.processor') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->processador ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">RAM</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.ram') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->ram_gb ? $notebook->ram_gb . ' GB' : '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Armazenamento</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.storage') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->armazenamento ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de Aquisição</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.acquisition_date') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_aquisicao?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Garantia até</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.warranty_date') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_garantia?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Fornecedor</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.supplier') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->forncedor ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Preço</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.price') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->preco ? 'R$ ' . number_format($notebook->preco, 2, ',', '.') : '—' }}</dd>
             </div>
         </dl>
 
         @if ($notebook->observacoes)
             <div class="mt-6 pt-6 border-t border-gray-100">
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">Observações</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">{{ __('notebook.observations') }}</dt>
                 <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $notebook->observacoes }}</dd>
             </div>
         @endif
@@ -151,68 +151,68 @@
 
     {{-- ISO 27001 --}}
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">ISO 27001 — Gestão de Ativos</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('notebook.iso_title') }}</h2>
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Classificação</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_classification') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->classificacao_label ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Criticidade</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_criticity') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->criticidade_label ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Localização</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_location') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->localizacao ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Prédio / Andar / Sala</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_building_floor_room') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ trim($notebook->predio . ' ' . $notebook->andar . ' ' . $notebook->sala) ?: '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Fim da vida útil</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_eol') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_vida_util?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Data de baixa</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_decommission_date') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_baixa?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Motivo da baixa</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_decommission_reason') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->motivo_baixa_label ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Método de descarte</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_disposal_method') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->metodo_descarte_label ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Criptografia</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->criptografia ? 'Ativada' : 'Não' }}</dd>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_encryption') }}</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->criptografia ? __('notebook.enabled') : __('notebook.disabled') }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Antivírus</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->antivirus ? 'Ativado' : 'Não' }}</dd>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_antivirus') }}</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->antivirus ? __('notebook.enabled') : __('notebook.disabled') }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Patches</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_patches') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->patches_label ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Backup</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->backup_configurado ? 'Sim' : 'Não' }}</dd>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_backup') }}</dt>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->backup_configurado ? __('notebook.enabled') : __('notebook.disabled') }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Última manutenção</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_maintenance_history') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->ultima_manutencao?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Próxima manutenção</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.iso_next_maintenance') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->proxima_manutencao?->format('d/m/Y') ?? '—' }}</dd>
             </div>
         </dl>
         @if ($notebook->historico_manutencao)
             <div class="mt-6 pt-6 border-t border-gray-100">
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">Histórico de manutenção</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">{{ __('notebook.iso_maintenance_history') }}</dt>
                 <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $notebook->historico_manutencao }}</dd>
             </div>
         @endif
@@ -221,30 +221,30 @@
     {{-- Aluguel --}}
     @if ($notebook->empresa_locataria || $notebook->valor_aluguel)
     <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">Aluguel</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('notebook.rental_title') }}</h2>
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Empresa locatária</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_company') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->empresa_locataria ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Nº Contrato</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_contract_number') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->numero_contrato ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Valor do aluguel</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_value') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->valor_aluguel ? 'R$ ' . number_format($notebook->valor_aluguel, 2, ',', '.') : '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Período</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_period') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->periodo_aluguel_label }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Início</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_start') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_inicio_aluguel?->format('d/m/Y') ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">Fim</dt>
+                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.rental_end') }}</dt>
                 <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->data_fim_aluguel?->format('d/m/Y') ?? '—' }}</dd>
             </div>
         </dl>
@@ -252,14 +252,14 @@
     @endif
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <h2 class="text-lg font-bold text-gray-900 mb-6">Histórico</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('notebook.history') }}</h2>
         <dl class="space-y-4">
             <div class="flex justify-between items-center">
-                <dt class="text-xs text-gray-500 font-medium">Criado em</dt>
+                <dt class="text-xs text-gray-500 font-medium">{{ __('notebook.created_at') }}</dt>
                 <dd class="text-xs text-gray-600 font-medium">{{ $notebook->created_at->format('d/m/Y H:i') }}</dd>
             </div>
             <div class="flex justify-between items-center">
-                <dt class="text-xs text-gray-500 font-medium">Última atualização</dt>
+                <dt class="text-xs text-gray-500 font-medium">{{ __('notebook.updated_at') }}</dt>
                 <dd class="text-xs text-gray-600 font-medium">{{ $notebook->updated_at->format('d/m/Y H:i') }}</dd>
             </div>
         </dl>

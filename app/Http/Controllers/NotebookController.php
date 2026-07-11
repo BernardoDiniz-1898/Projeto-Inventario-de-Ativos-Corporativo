@@ -63,7 +63,7 @@ class NotebookController extends Controller
         $this->logCreate($notebook, $validated);
 
         return redirect()->route('notebooks.index')
-            ->with('success', 'Notebook cadastrado com sucesso!');
+            ->with('success', __('messages.notebook_created'));
     }
 
     public function show(Notebook $notebook)
@@ -90,7 +90,7 @@ class NotebookController extends Controller
         $this->logUpdate($notebook, $old, $validated);
 
         return redirect()->route('notebooks.index')
-            ->with('success', 'Notebook atualizado com sucesso!');
+            ->with('success', __('messages.notebook_updated'));
     }
 
     public function destroy(Notebook $notebook)
@@ -99,7 +99,7 @@ class NotebookController extends Controller
         $notebook->delete();
 
         return redirect()->route('notebooks.index')
-            ->with('success', 'Notebook removido com sucesso!');
+            ->with('success', __('messages.notebook_deleted'));
     }
 
     public function export(Request $request)

@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'Settings',
+    'theme' => 'Theme',
+    'light' => 'Light',
+    'light_desc' => 'White background, ideal for daytime use',
+    'dark' => 'Dark',
+    'dark_desc' => 'Dark background, reduces eye strain',
+    'font_size' => 'Font Size',
+    'font_small' => 'Small',
+    'font_small_desc' => 'More content on screen',
+    'font_normal' => 'Normal',
+    'font_normal_desc' => 'Recommended default',
+    'font_large' => 'Large',
+    'font_large_desc' => 'Better readability',
+    'accent_color' => 'Accent Color',
+    'layout' => 'Layout',
+    'layout_expanded' => 'Expanded menu',
+    'layout_expanded_desc' => 'Always visible',
+    'layout_collapsed' => 'Compact menu',
+    'layout_collapsed_desc' => 'Icons only',
+    'save' => 'Save Settings',
+    'reset' => 'Reset to Default',
+    'toast' => 'Settings saved successfully!',
+    'footer' => 'All rights reserved.',
+];
