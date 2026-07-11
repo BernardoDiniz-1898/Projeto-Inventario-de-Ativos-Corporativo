@@ -88,14 +88,14 @@
 
 <div>
     <label for="data_vida_util" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.iso_eol') }}</label>
-    <input type="date" id="data_vida_util" name="data_vida_util" value="{{ old('data_vida_util', $n->data_vida_util?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="data_vida_util" name="data_vida_util" value="{{ old('data_vida_util', ($n->data_vida_util ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_vida_util') border-red-300 @enderror">
     @error('data_vida_util') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
 
 <div>
     <label for="data_baixa" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.iso_decommission_date') }}</label>
-    <input type="date" id="data_baixa" name="data_baixa" value="{{ old('data_baixa', $n->data_baixa?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="data_baixa" name="data_baixa" value="{{ old('data_baixa', ($n->data_baixa ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_baixa') border-red-300 @enderror">
     @error('data_baixa') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -205,14 +205,14 @@
 
 <div>
     <label for="ultima_manutencao" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.iso_maintenance_history') }}</label>
-    <input type="date" id="ultima_manutencao" name="ultima_manutencao" value="{{ old('ultima_manutencao', $n->ultima_manutencao?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="ultima_manutencao" name="ultima_manutencao" value="{{ old('ultima_manutencao', ($n->ultima_manutencao ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('ultima_manutencao') border-red-300 @enderror">
     @error('ultima_manutencao') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
 
 <div>
     <label for="proxima_manutencao" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.iso_next_maintenance') }}</label>
-    <input type="date" id="proxima_manutencao" name="proxima_manutencao" value="{{ old('proxima_manutencao', $n->proxima_manutencao?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="proxima_manutencao" name="proxima_manutencao" value="{{ old('proxima_manutencao', ($n->proxima_manutencao ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('proxima_manutencao') border-red-300 @enderror">
     @error('proxima_manutencao') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
@@ -274,14 +274,14 @@
 
 <div>
     <label for="data_inicio_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.rental_start') }}</label>
-    <input type="date" id="data_inicio_aluguel" name="data_inicio_aluguel" value="{{ old('data_inicio_aluguel', $n->data_inicio_aluguel?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="data_inicio_aluguel" name="data_inicio_aluguel" value="{{ old('data_inicio_aluguel', ($n->data_inicio_aluguel ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_inicio_aluguel') border-red-300 @enderror">
     @error('data_inicio_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
 
 <div>
     <label for="data_fim_aluguel" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.rental_end') }}</label>
-    <input type="date" id="data_fim_aluguel" name="data_fim_aluguel" value="{{ old('data_fim_aluguel', $n->data_fim_aluguel?->format('Y-m-d') ?? '') }}"
+    <input type="date" id="data_fim_aluguel" name="data_fim_aluguel" value="{{ old('data_fim_aluguel', ($n->data_fim_aluguel ?? null)?->format('Y-m-d') ?? '') }}"
            class="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('data_fim_aluguel') border-red-300 @enderror">
     @error('data_fim_aluguel') <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p> @enderror
 </div>
