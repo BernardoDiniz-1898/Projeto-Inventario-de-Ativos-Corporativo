@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\NotebookExport;
+use App\Http\Requests\StoreNotebookRequest;
+use App\Http\Requests\UpdateNotebookRequest;
 use App\Models\Employee;
 use App\Models\Notebook;
 use App\Traits\LogsChanges;
@@ -56,9 +58,9 @@ class NotebookController extends Controller
         return view('notebooks.create', compact('employees', 'notebook'));
     }
 
-    public function store(Request $request)
+    public function store(StoreNotebookRequest $request)
     {
-        $validated = $request->validate($this->validationRules());
+        $validated = $request->validated();
         $notebook = Notebook::create($validated);
         $this->logCreate($notebook, $validated);
 
@@ -81,9 +83,9 @@ class NotebookController extends Controller
         return view('notebooks.edit', compact('notebook', 'employees'));
     }
 
-    public function update(Request $request, Notebook $notebook)
+    public function update(UpdateNotebookRequest $request, Notebook $notebook)
     {
-        $validated = $request->validate($this->validationRules($notebook->id));
+        $validated = $request->validated();
 
         $old = $notebook->only(array_keys($validated));
         $notebook->update($validated);
@@ -106,70 +108,5 @@ class NotebookController extends Controller
     {
         $export = new NotebookExport();
         $export->export($request->status);
-    }
-
-    private function validationRules(?int $ignoreId = null): array
-    {
-        $uniqueNumeroSerie = $ignoreId
-            ? "required|string|max:255|unique:notebooks,numero_serie,{$ignoreId}"
-            : 'required|string|max:255|unique:notebooks,numero_serie';
-        $uniquePatrimonio = $ignoreId
-            ? "nullable|string|max:255|unique:notebooks,patrimonio,{$ignoreId}"
-            : 'nullable|string|max:255|unique:notebooks,patrimonio';
-
-        return [
-            // Dados básicos
-            'marca' => 'required|string|max:255',
-            'modelo' => 'required|string|max:255',
-            'numero_serie' => $uniqueNumeroSerie,
-            'patrimonio' => $uniquePatrimonio,
-            'status' => 'required|in:disponivel,em_uso,manutencao,ocioso,devolvido,obsoleto,baixa,extraviado,transferido,alugado',
-            'funcionario_id' => 'nullable|exists:employees,id',
-            'data_entrega' => 'nullable|date',
-            'sistema_operacional' => 'nullable|string|max:255',
-            'ram_gb' => 'nullable|numeric|min:1',
-            'armazenamento' => 'nullable|string|max:255',
-            'processador' => 'nullable|string|max:255',
-            'data_aquisicao' => 'nullable|date',
-            'data_garantia' => 'nullable|date|after_or_equal:data_aquisicao',
-            'observacoes' => 'nullable|string',
-            'forncedor' => 'nullable|string|max:255',
-            'preco' => 'nullable|numeric|min:0',
-
-            // ISO 27001 — Classificação (A.5.12)
-            'classificacao' => 'nullable|in:publica,interna,restrita,confidencial',
-
-            // ISO 27001 — Localização (A.5.9)
-            'localizacao' => 'nullable|string|max:255',
-            'predio' => 'nullable|string|max:255',
-            'andar' => 'nullable|string|max:255',
-            'sala' => 'nullable|string|max:255',
-
-            // ISO 27001 — Ciclo de vida (A.5.9, A.5.11, A.7.14)
-            'criticidade' => 'nullable|in:baixo,medio,alto,critico',
-            'data_vida_util' => 'nullable|date',
-            'data_baixa' => 'nullable|date',
-            'motivo_baixa' => 'nullable|in:obsolescencia,avaria,furto,descarte_seguro,doacao,venda,transferencia',
-            'metodo_descarte' => 'nullable|in:destruicao_fisica,reciclagem,limpeza_dados,doacao,venda',
-
-            // ISO 27001 — Segurança do dispositivo (A.8.1, A.8.8, A.8.13)
-            'criptografia' => 'nullable|boolean',
-            'antivirus' => 'nullable|boolean',
-            'status_patches' => 'nullable|in:atualizado,desatualizado,critico,nao_verificado',
-            'backup_configurado' => 'nullable|boolean',
-
-            // ISO 27001 — Manutenção (A.7.13)
-            'ultima_manutencao' => 'nullable|date',
-            'proxima_manutencao' => 'nullable|date|after_or_equal:ultima_manutencao',
-            'historico_manutencao' => 'nullable|string',
-
-            // Aluguel
-            'empresa_locataria' => 'nullable|string|max:255',
-            'numero_contrato' => 'nullable|string|max:255',
-            'valor_aluguel' => 'nullable|numeric|min:0',
-            'periodo_aluguel' => 'nullable|in:mensal,trimestral,semestral,anual',
-            'data_inicio_aluguel' => 'nullable|date',
-            'data_fim_aluguel' => 'nullable|date|after_or_equal:data_inicio_aluguel',
-        ];
     }
 }

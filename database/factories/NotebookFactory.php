@@ -38,7 +38,7 @@ class NotebookFactory extends Factory
             'data_aquisicao' => fake()->dateTimeBetween('-3 years', 'now'),
             'data_garantia' => fake()->dateTimeBetween('now', '+2 years'),
             'observacoes' => fake()->optional(0.3)->sentence(),
-            'forncedor' => fake()->optional(0.5)->company(),
+            'fornecedor' => fake()->optional(0.5)->company(),
             'preco' => fake()->optional(0.7)->randomFloat(2, 1500, 8000),
         ];
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\SettingsController;
+use App\Services\DashboardService;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,25 +25,18 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', function () {
-        $total = \App\Models\Notebook::count();
-        $disponiveis = \App\Models\Notebook::where('status', 'disponivel')->count();
-        $emUso = \App\Models\Notebook::where('status', 'em_uso')->count();
-        $manutencao = \App\Models\Notebook::where('status', 'manutencao')->count();
-        $ociosos = \App\Models\Notebook::where('status', 'ocioso')->count();
-        $totalFuncionarios = \App\Models\Employee::count();
+        $dashboard = app(DashboardService::class);
 
-        $porMarca = \App\Models\Notebook::select('marca', \DB::raw('count(*) as total'))
-            ->groupBy('marca')
-            ->orderByDesc('total')
-            ->get();
+        $total = $dashboard->getStats()['total'];
+        $disponiveis = $dashboard->getStats()['disponiveis'];
+        $emUso = $dashboard->getStats()['emUso'];
+        $manutencao = $dashboard->getStats()['manutencao'];
+        $ociosos = $dashboard->getStats()['ociosos'];
+        $totalFuncionarios = $dashboard->getStats()['totalFuncionarios'];
 
-        $porDepartamento = \App\Models\Employee::whereHas('notebooks')
-            ->select('departamento', \DB::raw('count(*) as total'))
-            ->groupBy('departamento')
-            ->orderByDesc('total')
-            ->get();
-
-        $recentes = \App\Models\Notebook::with('funcionario')->latest()->take(5)->get();
+        $porMarca = $dashboard->getNotebooksByBrand();
+        $porDepartamento = $dashboard->getEmployeesByDepartment();
+        $recentes = $dashboard->getRecentNotebooks();
 
         return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'recentes'));
     })->name('dashboard');

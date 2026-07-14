@@ -41,7 +41,7 @@
                                         'armazenamento' => __('activity.fields.armazenamento'), 'processador' => __('activity.fields.processador'),
                                         'data_aquisicao' => __('activity.fields.data_aquisicao'), 'data_garantia' => __('activity.fields.data_garantia'),
                                         'data_entrega' => __('activity.fields.data_entrega'),
-                                        'preco' => __('activity.fields.preco'), 'forncedor' => __('activity.fields.forncedor'),
+                                        'preco' => __('activity.fields.preco'), 'fornecedor' => __('activity.fields.fornecedor'),
                                         'observacoes' => __('activity.fields.observacoes'), 'classificacao' => __('activity.fields.classificacao'),
                                         'localizacao' => __('activity.fields.localizacao'), 'predio' => __('activity.fields.predio'),
                                         'andar' => __('activity.fields.andar'), 'sala' => __('activity.fields.sala'), 'criticidade' => __('activity.fields.criticidade'),

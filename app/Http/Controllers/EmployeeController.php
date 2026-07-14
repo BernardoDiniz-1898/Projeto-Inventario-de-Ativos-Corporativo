@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EmployeeExport;
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
 use App\Traits\LogsChanges;
 use Illuminate\Http\Request;
@@ -42,23 +44,9 @@ class EmployeeController extends Controller
         return view('employees.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'matricula' => 'nullable|string|max:255|unique:employees,matricula',
-            'email' => 'nullable|email|max:255|unique:employees,email',
-            'telefone' => 'nullable|string|max:255',
-            'departamento' => 'nullable|string|max:255',
-            'centro_custo' => 'nullable|string|max:255',
-            'projeto' => 'nullable|string|max:255',
-            'setor' => 'nullable|string|max:255',
-            'cargo' => 'nullable|string|max:255',
-            'status' => 'required|in:ativo,afastado,desligado,ferias',
-            'data_admissao' => 'nullable|date',
-            'observacoes' => 'nullable|string',
-        ]);
-
+        $validated = $request->validated();
         $employee = Employee::create($validated);
         $this->logCreate($employee, $validated);
 
@@ -79,22 +67,9 @@ class EmployeeController extends Controller
         return view('employees.edit', compact('employee'));
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'matricula' => 'nullable|string|max:255|unique:employees,matricula,' . $employee->id,
-            'email' => 'nullable|email|max:255|unique:employees,email,' . $employee->id,
-            'telefone' => 'nullable|string|max:255',
-            'departamento' => 'nullable|string|max:255',
-            'centro_custo' => 'nullable|string|max:255',
-            'projeto' => 'nullable|string|max:255',
-            'setor' => 'nullable|string|max:255',
-            'cargo' => 'nullable|string|max:255',
-            'status' => 'required|in:ativo,afastado,desligado,ferias',
-            'data_admissao' => 'nullable|date',
-            'observacoes' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $old = $employee->only(array_keys($validated));
         $employee->update($validated);

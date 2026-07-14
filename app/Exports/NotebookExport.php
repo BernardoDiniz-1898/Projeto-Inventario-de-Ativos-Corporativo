@@ -47,7 +47,7 @@ class NotebookExport
                 $notebook->processador ?? '',
                 $notebook->ram_gb ?? '',
                 $notebook->armazenamento ?? '',
-                $notebook->forncedor ?? '',
+                $notebook->fornecedor ?? '',
                 $notebook->preco ? number_format($notebook->preco, 2, ',', '.') : '',
                 $notebook->data_aquisicao?->format('d/m/Y') ?? '',
                 $notebook->data_garantia?->format('d/m/Y') ?? '',

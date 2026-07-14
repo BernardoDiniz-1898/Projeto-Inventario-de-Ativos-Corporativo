@@ -8,7 +8,7 @@
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
-        Voltar
+        {{ __('settings.back') }}
     </a>
 </div>
 
@@ -16,6 +16,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
+    {{-- Theme --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,6 +52,7 @@
         </div>
     </div>
 
+    {{-- Font Size --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,6 +85,7 @@
         </div>
     </div>
 
+    {{-- Accent Color --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,6 +112,7 @@
         </div>
     </div>
 
+    {{-- Layout --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <h2 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,10 +157,6 @@
     </button>
 </div>
 
-<div id="toast" class="fixed bottom-6 right-6 bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg text-sm font-medium opacity-0 transition-opacity duration-300 pointer-events-none z-50">
-    {{ __('settings.toast') }}
-</div>
-
 <script>
     const STORAGE_KEY = 'app_settings';
     const defaults = { theme: 'light', font_size: 'normal', accent_color: 'blue', sidebar: 'expanded' };
@@ -187,13 +187,23 @@
             b.classList.toggle('ring-2', b.dataset.color === s.accent_color);
             b.classList.toggle('ring-offset-2', b.dataset.color === s.accent_color);
         });
+
+        // Apply accent color to navbar brand
+        const brand = document.querySelector('.corporate-nav .bg-gradient-to-br');
+        if (brand) {
+            const colors = {
+                blue: 'from-blue-500 to-blue-700',
+                green: 'from-green-500 to-green-700',
+                purple: 'from-purple-500 to-purple-700',
+                red: 'from-red-500 to-red-700',
+                orange: 'from-orange-500 to-orange-700'
+            };
+            brand.className = brand.className.replace(/from-\w+-\d+ to-\w+-\d+/, colors[s.accent_color] || colors.blue);
+        }
     }
 
-    function showToast() {
-        const t = document.getElementById('toast');
-        t.classList.remove('opacity-0');
-        t.classList.add('opacity-100');
-        setTimeout(() => { t.classList.remove('opacity-100'); t.classList.add('opacity-0'); }, 2000);
+    function showToast(message) {
+        window.dispatchEvent(new CustomEvent('toast', { detail: { message, type: 'success' } }));
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -216,11 +226,13 @@
             });
         });
 
-        document.getElementById('saveSettings').addEventListener('click', () => showToast());
+        document.getElementById('saveSettings').addEventListener('click', () => {
+            showToast('Configurações salvas!');
+        });
 
         document.getElementById('resetSettings').addEventListener('click', () => {
             saveSettings({ ...defaults });
-            showToast();
+            showToast('Configurações redefinidas!');
         });
     });
 </script>

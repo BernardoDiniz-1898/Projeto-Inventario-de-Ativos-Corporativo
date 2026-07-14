@@ -38,7 +38,7 @@ trait LogsChanges
             'sistema_operacional' => 'Sistema Operacional', 'ram_gb' => 'RAM',
             'armazenamento' => 'Armazenamento', 'processador' => 'Processador',
             'data_aquisicao' => 'Data de Aquisição', 'data_garantia' => 'Garantia',
-            'observacoes' => 'Observações', 'forncedor' => 'Fornecedor', 'preco' => 'Preço',
+            'observacoes' => 'Observações', 'fornecedor' => 'Fornecedor', 'preco' => 'Preço',
             'nome' => 'Nome', 'matricula' => 'Matrícula', 'email' => 'Email',
             'telefone' => 'Telefone', 'departamento' => 'Departamento',
             'centro_custo' => 'Centro de Custo', 'projeto' => 'Projeto',

@@ -175,10 +175,10 @@
         </div>
 
         <div>
-            <label for="forncedor" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.supplier') }}</label>
-            <input type="text" id="forncedor" name="forncedor" value="{{ old('forncedor', $notebook->forncedor) }}"
-                   class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('forncedor') border-red-300 @enderror">
-            @error('forncedor')
+            <label for="fornecedor" class="block text-sm font-semibold text-gray-700 mb-2">{{ __('notebook.supplier') }}</label>
+            <input type="text" id="fornecedor" name="fornecedor" value="{{ old('fornecedor', $notebook->fornecedor) }}"
+                   class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('fornecedor') border-red-300 @enderror">
+            @error('fornecedor')
                 <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
             @enderror
         </div>

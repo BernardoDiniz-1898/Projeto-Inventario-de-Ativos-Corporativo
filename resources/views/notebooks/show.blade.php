@@ -133,7 +133,7 @@
             </div>
             <div>
                 <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.supplier') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->forncedor ?? '—' }}</dd>
+                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $notebook->fornecedor ?? '—' }}</dd>
             </div>
             <div>
                 <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('notebook.price') }}</dt>

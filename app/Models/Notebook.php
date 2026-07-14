@@ -27,7 +27,7 @@ class Notebook extends Model
         'data_aquisicao',
         'data_garantia',
         'observacoes',
-        'forncedor',
+        'fornecedor',
         'preco',
         // ISO 27001 — Classificação
         'classificacao',

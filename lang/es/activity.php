@@ -25,7 +25,7 @@ return [
         'armazenamento' => 'Almacenamiento',
         'data_aquisicao' => 'Fecha de Adquisición',
         'data_garantia' => 'Garantía',
-        'forncedor' => 'Proveedor',
+        'fornecedor' => 'Proveedor',
         'preco' => 'Precio',
         'observacoes' => 'Observaciones',
         'classificacao' => 'Clasificación',

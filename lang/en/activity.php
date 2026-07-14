@@ -25,7 +25,7 @@ return [
         'armazenamento' => 'Storage',
         'data_aquisicao' => 'Acquisition Date',
         'data_garantia' => 'Warranty',
-        'forncedor' => 'Supplier',
+        'fornecedor' => 'Supplier',
         'preco' => 'Price',
         'observacoes' => 'Notes',
         'classificacao' => 'Classification',
