@@ -1,37 +1,41 @@
-# Keep Inventory — Sistema de Gestão de Ativos Corporativos
+# Keep Inventory — Sistema de Gestao de Ativos Corporativos
 
-Sistema web para inventário de notebooks e funcionários corporativos, com CRUD completo, dashboards, exportação Excel, autenticação com controle de acesso por papéis (RBAC), log de atividades, conformidade ISO 27001 e tema personalizável.
+Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD completo, dashboards, exportacao Excel, autenticacao com controle de acesso por papeis (RBAC), log de atividades, conformidade ISO 27001, suporte a 3 idiomas e tema personalizavel.
 
-**Repositório:** [github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo](https://github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo)
+**Repositorio:** [github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo](https://github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo)
 
 ---
 
-## Stack Tecnológica
+## Stack Tecnologica
 
-| Camada | Tecnologia | Versão |
+| Camada | Tecnologia | Versao |
 |---|---|---|
 | Backend | Laravel | 13.19.0 |
 | PHP | CLI | 8.5.8 |
 | Frontend | Vite + Tailwind CSS v4 | Vite 8.x / Tailwind 4.x |
 | JS Interativo | Alpine.js | 3.15.12 |
 | DB (dev) | SQLite | — |
-| Exportação Excel | OpenSpout | 5.7.2 |
+| Exportacao Excel | OpenSpout | 5.7.2 |
+| i18n | 3 idiomas | pt_BR, en, es |
 | OS (dev) | Arch Linux | Git v26.4.0 |
 
 ---
 
 ## Funcionalidades
 
-- **CRUD Notebooks** — 30+ campos incluindo ISO 27001 (classificação, localização, ciclo de vida, segurança, manutenção)
-- **CRUD Funcionários** — dados cadastrais, centro de custo, projeto, vinculação a notebooks
-- **CRUD Usuários** — admin cria/edita/exclui usuários com roles
-- **Dashboard** — stats cards, gráficos por marca/departamento, entradas recentes
-- **Exportação Excel** — notebooks e funcionários em `.xlsx` via OpenSpout
-- **RBAC** — 3 papéis: admin, editor, viewer
-- **Log de Atividades** — diffs inline (campo: antigo → novo) com polimorfismo
-- **ISO 27001** — gestão de ativos com 17 campos de conformidade
+- **CRUD Notebooks** — 30+ campos incluindo ISO 27001 (classificacao, localizacao, ciclo de vida, seguranca, manutencao)
+- **CRUD Funcionarios** — dados cadastrais, centro de custo, projeto, vinculacao a notebooks
+- **CRUD Grupos** — organizacao de ativos e funcionarios por grupo, com cor e slug, soft deletes
+- **CRUD Usuarios** — admin cria/edita/exclui usuarios com roles
+- **Inventario Unificado** — pagina dedicada com visao consolidada de notebooks + funcionarios, filtros e busca
+- **Dashboard** — stats cards, graficos por marca/departamento/grupo, entradas recentes
+- **Exportacao Excel** — notebooks e funcionarios em `.xlsx` via OpenSpout, headers traduzidos
+- **RBAC** — 3 papeis: admin, editor, viewer
+- **Log de Atividades** — diffs inline (campo: antigo -> novo) com polimorfismo, 100% traduzido (3 idiomas)
+- **ISO 27001** — gestao de ativos com 17 campos de conformidade
 - **Dark Mode** — tema escuro via CSS customizado
-- **Configurações** — tema, fonte, cor de destaque (localStorage)
+- **i18n** — suporte completo a 3 idiomas (pt_BR, en, es) em todas as views, controllers e exports
+- **Configuracoes** — tema, fonte, cor de destaque (localStorage)
 
 ---
 
@@ -40,27 +44,34 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 ```
 ├── app/
 │   ├── Exports/
-│   │   ├── EmployeeExport.php              # Exportação XLSX de funcionários
-│   │   └── NotebookExport.php              # Exportação XLSX de notebooks (33 colunas)
+│   │   ├── EmployeeExport.php              # Exportacao XLSX de funcionarios
+│   │   └── NotebookExport.php              # Exportacao XLSX de notebooks (40 colunas)
 │   ├── Http/
 │   │   ├── Controllers/
 │   │   │   ├── Admin/
-│   │   │   │   └── UserController.php      # CRUD usuários + updateRole
+│   │   │   │   └── UserController.php      # CRUD usuarios + updateRole
 │   │   │   ├── Auth/
 │   │   │   │   ├── LoginController.php
 │   │   │   │   └── RegisterController.php
-│   │   │   ├── EmployeeController.php      # CRUD + export + logs
-│   │   │   ├── NotebookController.php      # CRUD + export + logs + ISO validation
+│   │   │   ├── EmployeeController.php      # CRUD + export + logs + grupo filter
+│   │   │   ├── GrupoController.php         # CRUD Grupos (soft deletes)
+│   │   │   ├── InventoryController.php     # Inventario unificado
+│   │   │   ├── NotebookController.php      # CRUD + export + logs + ISO validation + grupo filter
 │   │   │   └── SettingsController.php
-│   │   └── Middleware/
-│   │       └── RoleMiddleware.php           # RBAC: aceita múltiplos papéis
+│   │   ├── Middleware/
+│   │   │   └── RoleMiddleware.php           # RBAC: aceita multiplos papeis
+│   │   └── Requests/
+│   │       ├── Store/Update{Notebook,Employee,Grupo}Request.php
 │   ├── Models/
-│   │   ├── ActivityLog.php                 # Polimórfico (MorphMany)
-│   │   ├── Employee.php
-│   │   ├── Notebook.php                    # 30+ fillable, ISO accessors
+│   │   ├── ActivityLog.php                 # Polimorfico (MorphMany)
+│   │   ├── Employee.php                    # SoftDeletes, grupo relationship
+│   │   ├── Grupo.php                       # SoftDeletes, slug, cor, morphMany
+│   │   ├── Notebook.php                    # 30+ fillable, ISO accessors, grupo relationship
 │   │   └── User.php
+│   ├── Services/
+│   │   └── DashboardService.php            # Stats + graficos (por grupo incluido)
 │   └── Traits/
-│       └── LogsChanges.php                 # Trait reutilizável para logging
+│       └── LogsChanges.php                 # Trait reutilizavel, 100% traduzido
 ├── database/
 │   ├── factories/
 │   │   ├── EmployeeFactory.php
@@ -75,23 +86,35 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 │   │   ├── 2025_07_10_000004_add_role_to_users_table.php
 │   │   ├── 2025_07_10_000005_create_activity_logs_table.php
 │   │   ├── 2025_07_10_000006_add_iso27001_fields_to_notebooks_table.php
-│   │   └── 2025_07_10_000007_add_data_entrega_to_notebooks_table.php
+│   │   ├── 2025_07_10_000007_add_data_entrega_to_notebooks_table.php
+│   │   ├── 2026_07_22_000001_create_grupos_table.php
+│   │   ├── 2026_07_22_000002_add_grupo_id_to_notebooks_table.php
+│   │   └── 2026_07_22_000003_add_grupo_id_to_employees_table.php
 │   └── seeders/
-│       └── DatabaseSeeder.php              # 1 user, 15 employees, 20 notebooks
+│       └── DatabaseSeeder.php              # 1 user, 15 employees, 20 notebooks, grupos
+├── lang/
+│   ├── pt_BR/                              # 13 arquivos de traducao
+│   ├── en/                                 # 13 arquivos de traducao
+│   └── es/                                 # 13 arquivos de traducao
 ├── resources/
-│   ├── css/app.css                         # Tailwind + dark mode overrides
+│   ├── css/app.css                         # Tailwind + dark mode overrides (209+ linhas)
 │   ├── js/app.js                           # Alpine.js + searchableSelect
 │   └── views/
 │       ├── layouts/app.blade.php           # Layout principal + dark theme CSS
-│       ├── components/activity-log.blade.php
+│       ├── components/
+│       │   ├── activity-log.blade.php      # Log com diffs inline traduzido
+│       │   ├── lang-switcher.blade.php     # Seletor de idioma (pt_BR/en/es)
+│       │   └── ui/                         # Componentes reutilizaveis (avatar, stat-card, etc.)
 │       ├── auth/{login,register}.blade.php
-│       ├── dashboard.blade.php
+│       ├── dashboard.blade.php             # Graficos por marca/departamento/grupo
 │       ├── notebooks/{index,create,edit,show}.blade.php
-│       ├── notebooks/_iso_fields.blade.php # Partial ISO 27001 (226 linhas)
+│       ├── notebooks/_iso_fields.blade.php # Partial ISO 27001
 │       ├── employees/{index,create,edit,show}.blade.php
+│       ├── grupos/{index,create,edit,show}.blade.php
+│       ├── inventory/index.blade.php       # Inventario unificado
 │       ├── settings/index.blade.php
 │       └── admin/users/{index,create,edit}.blade.php
-├── routes/web.php                           # 35 rotas
+├── routes/web.php                           # 42 rotas
 ├── bootstrap/app.php                        # Middleware alias
 └── README.md
 ```
@@ -102,7 +125,7 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 
 ### Tabela `notebooks`
 
-| Coluna | Tipo | Restrições | ISO 27001 |
+| Coluna | Tipo | Restricoes | ISO 27001 |
 |---|---|---|---|
 | `id` | bigint (PK) | auto-increment | — |
 | `marca` | string | required | — |
@@ -110,7 +133,8 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 | `numero_serie` | string | unique, required | — |
 | `patrimonio` | string | unique, nullable | — |
 | `status` | enum(9) | required, default `em_uso` | — |
-| `funcionario_id` | bigint (FK) | nullable → `employees.id`, `nullOnDelete` | — |
+| `funcionario_id` | bigint (FK) | nullable -> `employees.id`, `nullOnDelete` | — |
+| `grupo_id` | bigint (FK) | nullable -> `grupos.id`, `nullOnDelete` | — |
 | `data_entrega` | date | nullable | — |
 | `sistema_operacional` | string | nullable | — |
 | `ram_gb` | decimal(5,1) | nullable | — |
@@ -119,7 +143,7 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 | `data_aquisicao` | date | nullable | — |
 | `data_garantia` | date | nullable, `>= data_aquisicao` | — |
 | `observacoes` | text | nullable | — |
-| `forncedor` | string | nullable | — |
+| `fornecedor` | string | nullable | — |
 | `preco` | decimal | nullable | — |
 | `classificacao` | enum(4) | nullable | A.5.12 |
 | `localizacao` | string | nullable | A.5.9 |
@@ -140,21 +164,21 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 | `historico_manutencao` | text | nullable | A.7.13 |
 | `created_at` / `updated_at` | timestamps | — | — |
 
-**Status possíveis:** `disponivel`, `em_uso`, `manutencao`, `ocioso`, `devolvido`, `obsoleto`, `baixa`, `extraviado`, `transferido`
+**Status possiveis:** `disponivel`, `em_uso`, `manutencao`, `ocioso`, `devolvido`, `obsoleto`, `baixa`, `extraviado`, `transferido`
 
-**Classificação (ISO A.5.12):** `publica`, `interna`, `restrita`, `confidencial`
+**Classificacao (ISO A.5.12):** `publica`, `interna`, `restrita`, `confidencial`
 
 **Criticidade:** `baixo`, `medio`, `alto`, `critico`
 
 **Motivo da baixa:** `obsolescencia`, `avaria`, `furto`, `descarte_seguro`, `doacao`, `venda`, `transferencia`
 
-**Método de descarte:** `destruicao_fisica`, `reciclagem`, `limpeza_dados`, `doacao`, `venda`
+**Metodo de descarte:** `destruicao_fisica`, `reciclagem`, `limpeza_dados`, `doacao`, `venda`
 
 **Status patches:** `atualizado`, `desatualizado`, `critico`, `nao_verificado`
 
 ### Tabela `employees`
 
-| Coluna | Tipo | Restrições |
+| Coluna | Tipo | Restricoes |
 |---|---|---|
 | `id` | bigint (PK) | auto-increment |
 | `nome` | string | required |
@@ -169,11 +193,24 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 | `status` | enum(4) | `ativo`, `afastado`, `desligado`, `ferias` |
 | `data_admissao` | date | nullable |
 | `observacoes` | text | nullable |
+| `grupo_id` | bigint (FK) | nullable -> `grupos.id`, `nullOnDelete` |
+| `created_at` / `updated_at` | timestamps | — |
+
+### Tabela `grupos`
+
+| Coluna | Tipo | Restricoes |
+|---|---|---|
+| `id` | bigint (PK) | auto-increment |
+| `nome` | string | required, unique |
+| `slug` | string | unique, auto-gerado |
+| `cor` | string | nullable (hex color) |
+| `descricao` | text | nullable |
+| `deleted_at` | timestamp | nullable (soft deletes) |
 | `created_at` / `updated_at` | timestamps | — |
 
 ### Tabela `users`
 
-| Coluna | Tipo | Restrições |
+| Coluna | Tipo | Restricoes |
 |---|---|---|
 | `id` | bigint (PK) | auto-increment |
 | `name` | string | required |
@@ -184,24 +221,26 @@ Sistema web para inventário de notebooks e funcionários corporativos, com CRUD
 | `remember_token` | string | nullable |
 | `created_at` / `updated_at` | timestamps | — |
 
-### Tabela `activity_logs` (polimórfica)
+### Tabela `activity_logs` (polimorfica)
 
-| Coluna | Tipo | Restrições |
+| Coluna | Tipo | Restricoes |
 |---|---|---|
 | `id` | bigint (PK) | auto-increment |
 | `loggable_type` | string | ex: `App\Models\Notebook` |
-| `loggable_id` | bigint | índice composto |
+| `loggable_id` | bigint | indice composto |
 | `action` | string | `created`, `updated`, `deleted` |
 | `description` | text | nullable |
 | `old_values` | json | nullable |
 | `new_values` | json | nullable |
-| `user_id` | bigint (FK) | nullable → `users.id`, `nullOnDelete` |
+| `user_id` | bigint (FK) | nullable -> `users.id`, `nullOnDelete` |
 | `created_at` / `updated_at` | timestamps | — |
 
 ### Relacionamentos
 
 ```
 User ──────── 1:N ──── ActivityLog
+Grupo ─────── 1:N ──── Notebook     (via grupo_id, nullOnDelete)
+Grupo ─────── 1:N ──── Employee     (via grupo_id, nullOnDelete)
 Employee ──── 1:N ──── Notebook     (via funcionario_id, nullOnDelete)
 Employee ──── 1:N ──── ActivityLog  (MorphMany)
 Notebook ──── 1:N ──── ActivityLog  (MorphMany)
@@ -209,13 +248,13 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 
 ---
 
-## Mapa de Rotas (35 rotas)
+## Mapa de Rotas (42 rotas)
 
-### Públicas (sem auth)
+### Publicas (sem auth)
 
-| Método | URI | Controller | Nome |
+| Metodo | URI | Controller | Nome |
 |---|---|---|---|
-| `GET` | `/` | redirect → `/login` | — |
+| `GET` | `/` | redirect -> `/login` | — |
 | `GET` | `/login` | `LoginController@showLoginForm` | `login` |
 | `POST` | `/login` | `LoginController@login` | — |
 | `POST` | `/logout` | `LoginController@logout` | `logout` |
@@ -224,15 +263,16 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 
 ### Autenticadas (auth)
 
-| Método | URI | Controller | Nome |
+| Metodo | URI | Controller | Nome |
 |---|---|---|---|
 | `GET` | `/dashboard` | Closure | `dashboard` |
 | `GET` | `/settings` | `SettingsController@index` | `settings.index` |
 | `POST` | `/settings` | `SettingsController@update` | `settings.update` |
+| `GET` | `/inventory` | `InventoryController@index` | `inventory.index` |
 
 ### Admin + Editor (role:admin,editor)
 
-| Método | URI | Nome |
+| Metodo | URI | Nome |
 |---|---|---|
 | `GET` | `/notebooks` | `notebooks.index` |
 | `POST` | `/notebooks` | `notebooks.store` |
@@ -250,10 +290,17 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 | `DELETE` | `/employees/{employee}` | `employees.destroy` |
 | `GET` | `/employees/{employee}/edit` | `employees.edit` |
 | `GET` | `/employees/export/xlsx` | `employees.export` |
+| `GET` | `/grupos` | `grupos.index` |
+| `POST` | `/grupos` | `grupos.store` |
+| `GET` | `/grupos/create` | `grupos.create` |
+| `GET` | `/grupos/{grupo}` | `grupos.show` |
+| `PUT` | `/grupos/{grupo}` | `grupos.update` |
+| `DELETE` | `/grupos/{grupo}` | `grupos.destroy` |
+| `GET` | `/grupos/{grupo}/edit` | `grupos.edit` |
 
 ### Admin only (role:admin)
 
-| Método | URI | Nome |
+| Metodo | URI | Nome |
 |---|---|---|
 | `GET` | `/admin/users` | `admin.users.index` |
 | `GET` | `/admin/users/create` | `admin.users.create` |
@@ -267,14 +314,14 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 
 ## RBAC (Role-Based Access Control)
 
-| Papel | Notebooks/Funcionários | Usuários | Visualiza |
+| Papel | Notebooks/Funcionarios/Grupos | Usuarios | Visualiza |
 |---|---|---|---|
-| `admin` | CRUD + Export | CRUD + Role | Tudo |
-| `editor` | CRUD + Export | — | Tudo |
+| `admin` | CRUD + Export + Inventario | CRUD + Role | Tudo |
+| `editor` | CRUD + Export + Inventario | — | Tudo |
 | `viewer` | — | — | Leitura |
 
 - **Middleware:** `App\Http\Middleware\RoleMiddleware` — alias `role` em `bootstrap/app.php`
-- **Default:** novos usuários recebem `viewer`
+- **Default:** novos usuarios recebem `viewer`
 - **Admin seed:** `admin@example.com` / `password`
 
 ---
@@ -298,23 +345,33 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 ## Log de Atividades
 
 - **Trait:** `App\Traits\LogsChanges` — `logCreate()`, `logUpdate()`, `logDelete()`
-- **Polimórfico:** `activity_logs` com `loggable_type` + `loggable_id`
+- **Polimorfico:** `activity_logs` com `loggable_type` + `loggable_id`
 - **Diffs:** compara old vs new, mostra apenas campos alterados
-- **Labels:** todos os 30+ campos mapeados para nomes legíveis (ex: `funcionario_id` → "Responsável")
-- **Componente:** `<x-activity-log :logs="$logs" />` — diff inline: `campo: antigo (vermelho riscado) → novo (verde)`
+- **Labels:** todos os 30+ campos mapeados para nomes legiveis, traduzidos em 3 idiomas via `lang/*/logs.php`
+- **Componente:** `<x-activity-log :logs="$logs" />` — diff inline: `campo: antigo (vermelho riscado) -> novo (verde)`
 
 ---
 
-## Exportação Excel
+## Exportacao Excel
 
-- **Lib:** `openspout/openspout` v5.7.2 (substituiu `maatwebsite/excel` — incompatível com PHP 8.5.8)
-- **Notebooks:** 33 colunas (básicos + ISO 27001 completos)
-- **Funcionários:** 14 colunas
+- **Lib:** `openspout/openspout` v5.7.2 (substituiu `maatwebsite/excel` — incompativel com PHP 8.5.8)
+- **Notebooks:** 40 colunas (basicos + ISO 27001 completos + grupo + aluguel)
+- **Funcionarios:** 14 colunas (incluindo grupo)
+- **Headers:** traduzidos automaticamente via `__()` (3 idiomas)
 - **Filtro:** por status via query string (`?status=em_uso`)
 
 ---
 
-## Tema Dark
+## Suporte a Idiomas (i18n)
+
+- **3 idiomas:** Portugues (pt_BR), Ingles (en), Espanhol (es)
+- **13 arquivos de traducao por idioma:** activity, auth, common, dashboard, employee, grupo, inventory, logs, messages, nav, notebook, pagination, settings, user
+- **Seletor de idioma:** componente `<x-lang-switcher />` no navbar, persistido em cookie
+- **Cobertura:** todas as views Blade, controllers, exports, logs de atividade, mensagens flash
+
+---
+
+## Dark Mode
 
 Implementado via CSS customizado no `layouts/app.blade.php` — seletor `.dark` no `<html>`:
 
@@ -322,20 +379,20 @@ Implementado via CSS customizado no `layouts/app.blade.php` — seletor `.dark` 
 - Cards: `slate-800` com borda `slate-700`
 - Inputs: `slate-700` bg, `slate-600` border
 - Badges: mapeamento manual para todas as cores
-- Toggle via `localStorage` → `app_settings.theme`
+- Toggle via `localStorage` -> `app_settings.theme`
 
 ---
 
 ## Setup
 
-### Pré-requisitos
+### Pre-requisitos
 
 - PHP >= 8.3 (testado com 8.5.8)
 - Composer
 - Node.js >= 18
 - SQLite (dev) ou MySQL/PostgreSQL
 
-### Instalação
+### Instalacao
 
 ```bash
 git clone https://github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo.git
@@ -363,7 +420,7 @@ php artisan serve
 
 ---
 
-## Comandos Úteis
+## Comandos Uteis
 
 ```bash
 php artisan serve              # Servidor dev
@@ -372,16 +429,19 @@ php artisan migrate:refresh    # Reset + re-run
 php artisan db:seed            # Popular com dados fake
 php artisan tinker             # REPL
 php artisan route:list         # Listar rotas
+php artisan view:clear         # Limpar cache de views
 npm run dev                    # Vite hot reload
-npm run build                  # Build produção
+npm run build                  # Build producao
 ```
 
 ---
 
-## Notas Técnicas
+## Notas Tecnicas
 
-- **`forncedor`** — typo no schema (deveria ser `fornecedor`), presente em todos os arquivos, não causa erro mas está permanentemente incorreto no banco
-- **FK:** `notebooks.funcionario_id → employees.id` com `nullOnDelete`
+- **FK:** `notebooks.funcionario_id -> employees.id` com `nullOnDelete`
+- **FK:** `notebooks.grupo_id -> grupos.id` com `nullOnDelete`
+- **FK:** `employees.grupo_id -> grupos.id` com `nullOnDelete`
+- **Grupo:** soft deletes, slug auto-gerado, cor hex, integrado a notebooks/employees/inventario/dashboard
 - **Validation:** unique rules usam `{column},{id}` para ignorar registro atual no update
-- **Blade:** não usa `function` dentro de `@php` (causava ParseError)
-- **Alpine.js:** dados de funcionários passados via `window._employeesData` em `<script>` usando `@js()`
+- **Blade:** nao usa `function` dentro de `@php` (causava ParseError)
+- **Alpine.js:** dados de funcionarios passados via `window._employeesData` em `<script>` usando `@js()`
