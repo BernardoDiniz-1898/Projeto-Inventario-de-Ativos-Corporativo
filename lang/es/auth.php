@@ -21,4 +21,5 @@ return [
     'has_account' => '¿Ya tiene una cuenta?',
     'login_link' => 'Iniciar sesión',
     'copyright' => 'Todos los derechos reservados.',
+    'password_min_length' => 'Mínimo 8 caracteres',
 ];

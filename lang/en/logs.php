@@ -1,0 +1,37 @@
+<?php
+
+return [
+    'created' => 'created',
+    'updated' => 'updated',
+    'deleted' => 'deleted',
+    'updated_changed' => 'changed',
+    'description_pattern' => ':model ":label" :action',
+    'description_update_pattern' => ':model ":label" updated — changed: :fields',
+
+    'fields' => [
+        'marca' => 'Brand', 'modelo' => 'Model', 'numero_serie' => 'Serial No.',
+        'patrimonio' => 'Asset No.', 'status' => 'Status', 'funcionario_id' => 'Responsible',
+        'data_entrega' => 'Delivery Date',
+        'sistema_operacional' => 'Operating System', 'ram_gb' => 'RAM',
+        'armazenamento' => 'Storage', 'processador' => 'Processor',
+        'data_aquisicao' => 'Purchase Date', 'data_garantia' => 'Warranty',
+        'observacoes' => 'Notes', 'fornecedor' => 'Supplier', 'preco' => 'Price',
+        'nome' => 'Name', 'matricula' => 'Registration', 'email' => 'Email',
+        'telefone' => 'Phone', 'departamento' => 'Department',
+        'centro_custo' => 'Cost Center', 'projeto' => 'Project',
+        'setor' => 'Sector', 'cargo' => 'Position', 'data_admissao' => 'Hire Date',
+        'classificacao' => 'Classification', 'localizacao' => 'Location',
+        'predio' => 'Building', 'andar' => 'Floor', 'sala' => 'Room',
+        'criticidade' => 'Criticity', 'data_vida_util' => 'End of Useful Life',
+        'data_baixa' => 'Decommission Date', 'motivo_baixa' => 'Decommission Reason',
+        'metodo_descarte' => 'Disposal Method', 'criptografia' => 'Encryption',
+        'antivirus' => 'Antivirus', 'status_patches' => 'Patch Status',
+        'backup_configurado' => 'Backup', 'ultima_manutencao' => 'Last Maintenance',
+        'proxima_manutencao' => 'Next Maintenance', 'historico_manutencao' => 'Maintenance History',
+        'empresa_locataria' => 'Rental Company', 'numero_contrato' => 'Contract No.',
+        'valor_aluguel' => 'Rental Value', 'periodo_aluguel' => 'Rental Period',
+        'data_inicio_aluguel' => 'Rental Start', 'data_fim_aluguel' => 'Rental End',
+        'grupo_id' => 'Group',
+        'role' => 'Role',
+    ],
+];

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\SettingsController;
@@ -36,15 +38,19 @@ Route::middleware(['auth'])->group(function () {
 
         $porMarca = $dashboard->getNotebooksByBrand();
         $porDepartamento = $dashboard->getEmployeesByDepartment();
+        $porGrupo = $dashboard->getNotebooksByGrupo();
         $recentes = $dashboard->getRecentNotebooks();
 
-        return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'recentes'));
+        return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'porGrupo', 'recentes'));
     })->name('dashboard');
 
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 
+    Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
+
     Route::middleware(['role:admin,editor'])->group(function () {
+        Route::resource('grupos', GrupoController::class);
         Route::resource('notebooks', NotebookController::class);
         Route::get('notebooks/export/xlsx', [NotebookController::class, 'export'])->name('notebooks.export');
         Route::resource('employees', EmployeeController::class);

@@ -20,6 +20,9 @@ return [
     'edit_subtitle' => 'Atualize os dados do funcionário',
     'save' => 'Salvar Funcionário',
     'update' => 'Atualizar Funcionário',
+    'cancel' => 'Cancelar',
+    'create_hint' => 'Adicione um novo funcionário ao sistema',
+    'edit_hint' => 'Atualize os dados de :name',
 
     'name' => 'Nome',
     'name_placeholder' => 'Nome completo',
@@ -45,10 +48,55 @@ return [
     'delete_button' => 'Excluir',
     'delete_confirm' => 'Tem certeza que deseja excluir?',
 
+    'field' => [
+        'name' => 'Nome',
+        'matricula' => 'Matrícula',
+        'email' => 'E-mail',
+        'telefone' => 'Telefone',
+        'departamento' => 'Departamento',
+        'centro_custo' => 'Centro de Custo',
+        'projeto' => 'Projeto',
+        'setor' => 'Setor',
+        'cargo' => 'Cargo',
+        'status' => 'Status',
+        'data_admissao' => 'Data de Admissão',
+        'observacoes' => 'Observações',
+        'name_placeholder' => 'Nome completo',
+        'observacoes_placeholder' => 'Observações adicionais sobre o funcionário...',
+        'centro_custo_placeholder' => 'Ex: CC-001, TI-SP...',
+        'projeto_placeholder' => 'Ex: Projeto Alpha, Migração...',
+        'setor_placeholder' => 'Ex: Desenvolvimento, Suporte...',
+    ],
+
+    'notebook_table' => [
+        'patrimonio' => 'Patrimônio',
+        'marca_modelo' => 'Marca / Modelo',
+        'numero_serie' => 'Nº Série',
+        'status' => 'Status',
+    ],
+
+    'not_informed' => 'Não informado',
+    'no_department' => 'Sem departamento',
+    'no_position' => 'Sem cargo',
+
     'status_options' => [
         'ativo' => 'Ativo',
         'afastado' => 'Afastado',
         'desligado' => 'Desligado',
         'ferias' => 'Férias',
     ],
+
+    'table' => [
+        'name' => 'Nome',
+        'matricula' => 'Matrícula',
+        'departamento' => 'Departamento',
+        'cargo' => 'Cargo',
+        'status' => 'Status',
+        'actions' => 'Ações',
+    ],
+
+    'view' => 'Ver',
+    'edit' => 'Editar',
+    'delete' => 'Excluir',
+    'register' => 'Cadastrar',
 ];

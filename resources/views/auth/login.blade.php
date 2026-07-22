@@ -8,7 +8,7 @@
     <script>
         (function() {
             const s = JSON.parse(localStorage.getItem('app_settings') || '{}');
-            const theme = s.theme || 'light';
+            const theme = s.theme || 'dark';
             const font = s.font_size || 'normal';
             document.documentElement.setAttribute('data-theme', theme);
             document.documentElement.setAttribute('data-font', font);
@@ -42,6 +42,12 @@
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-20px) rotate(180deg); }
         }
+        @media (max-width: 640px) {
+            .floating-shape {
+                animation: none;
+                opacity: 0.05;
+            }
+        }
     </style>
 </head>
 <body class="login-bg min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -50,7 +56,7 @@
     <div class="floating-shape w-48 h-48 bg-cyan-400 top-1/2 left-1/4" style="animation-delay: 4s;"></div>
 
     <div class="w-full max-w-md px-4 relative z-10">
-        <div class="login-card rounded-3xl shadow-2xl p-10">
+        <div class="login-card rounded-3xl shadow-2xl p-6 sm:p-10">
             <div class="text-center mb-8">
                 <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-500/30">
                     <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +100,7 @@
                         </div>
                         <input type="password" id="password" name="password" required
                                class="w-full border border-gray-200 rounded-xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('password') border-red-300 @enderror"
-                               placeholder="Sua senha">
+                               placeholder="{{ __('auth.password_placeholder') }}">
                     </div>
                     @error('password')
                         <p class="text-red-500 text-xs mt-2 flex items-center gap-1">

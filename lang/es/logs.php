@@ -1,0 +1,37 @@
+<?php
+
+return [
+    'created' => 'creado',
+    'updated' => 'actualizado',
+    'deleted' => 'eliminado',
+    'updated_changed' => 'cambió',
+    'description_pattern' => ':model ":label" :action',
+    'description_update_pattern' => ':model ":label" actualizado — cambió: :fields',
+
+    'fields' => [
+        'marca' => 'Marca', 'modelo' => 'Modelo', 'numero_serie' => 'Nº Serie',
+        'patrimonio' => 'Patrimonio', 'status' => 'Estado', 'funcionario_id' => 'Responsable',
+        'data_entrega' => 'Fecha de Entrega',
+        'sistema_operacional' => 'Sistema Operativo', 'ram_gb' => 'RAM',
+        'armazenamento' => 'Almacenamiento', 'processador' => 'Procesador',
+        'data_aquisicao' => 'Fecha de Compra', 'data_garantia' => 'Garantía',
+        'observacoes' => 'Observaciones', 'fornecedor' => 'Proveedor', 'preco' => 'Precio',
+        'nome' => 'Nombre', 'matricula' => 'Matrícula', 'email' => 'Correo',
+        'telefone' => 'Teléfono', 'departamento' => 'Departamento',
+        'centro_custo' => 'Centro de Costos', 'projeto' => 'Proyecto',
+        'setor' => 'Sector', 'cargo' => 'Cargo', 'data_admissao' => 'Fecha de Ingreso',
+        'classificacao' => 'Clasificación', 'localizacao' => 'Ubicación',
+        'predio' => 'Edificio', 'andar' => 'Piso', 'sala' => 'Sala',
+        'criticidade' => 'Criticidad', 'data_vida_util' => 'Fin de Vida Útil',
+        'data_baixa' => 'Fecha de Baja', 'motivo_baixa' => 'Motivo de Baja',
+        'metodo_descarte' => 'Método de Disposición', 'criptografia' => 'Cifrado',
+        'antivirus' => 'Antivirus', 'status_patches' => 'Estado de Parches',
+        'backup_configurado' => 'Respaldo', 'ultima_manutencao' => 'Último Mantenimiento',
+        'proxima_manutencao' => 'Próximo Mantenimiento', 'historico_manutencao' => 'Historial de Mantenimiento',
+        'empresa_locataria' => 'Empresa de Arrendamiento', 'numero_contrato' => 'Nº Contrato',
+        'valor_aluguel' => 'Valor de Arrendamiento', 'periodo_aluguel' => 'Período de Arrendamiento',
+        'data_inicio_aluguel' => 'Inicio de Arrendamiento', 'data_fim_aluguel' => 'Fin de Arrendamiento',
+        'grupo_id' => 'Grupo',
+        'role' => 'Perfil',
+    ],
+];

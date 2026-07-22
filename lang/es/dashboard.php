@@ -23,4 +23,5 @@ return [
     'status' => 'Estado',
     'updated' => 'Actualizado',
     'no_responsible' => 'Sin responsable',
+    'by_grupo' => 'Por Grupo',
 ];

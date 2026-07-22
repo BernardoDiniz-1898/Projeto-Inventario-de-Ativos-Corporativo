@@ -3,6 +3,8 @@
 return [
     'title' => 'Histórico de Atividades',
     'empty' => 'Nenhuma atividade registrada',
+    'system' => 'Sistema',
+    'fields_count' => 'campo(s)',
     'you' => 'Você',
     'created' => 'criou',
     'updated' => 'atualizou',
@@ -10,6 +12,12 @@ return [
     'changed' => 'alterou',
     'from' => 'de',
     'to' => 'para',
+
+    'action' => [
+        'created' => 'Criado',
+        'updated' => 'Atualizado',
+        'deleted' => 'Excluído',
+    ],
 
     'fields' => [
         'marca' => 'Marca',

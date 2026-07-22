@@ -10,4 +10,8 @@ return [
     'logout' => 'Sign out',
     'menu' => 'Menu',
     'back' => 'Back',
+    'main_menu' => 'Main',
+    'grupos' => 'Groups',
+    'administration' => 'Administration',
+    'inventory' => 'General Inventory',
 ];

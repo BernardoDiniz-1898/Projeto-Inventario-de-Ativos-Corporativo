@@ -3,23 +3,14 @@
 @section('title', $employee->nome)
 
 @section('content')
-<div class="mb-6">
-    <a href="{{ route('employees.index') }}" class="text-sm text-gray-500 hover:text-gray-700 inline-flex items-center gap-1">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-        {{ __('employee.back_to_list') }}
-    </a>
-</div>
+<x-ui.back-link :route="route('employees.index')" :label="__('employee.back_to_list')" />
 
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-    <div class="flex items-center gap-4">
-        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl">
-            {{ strtoupper(substr($employee->nome, 0, 2)) }}
-        </div>
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">{{ $employee->nome }}</h1>
-            <p class="text-gray-500 text-sm">{{ $employee->departamento ?? 'Sem departamento' }} · {{ $employee->cargo ?? 'Sem cargo' }}</p>
+        <div class="flex items-center gap-4">
+            <x-ui.avatar :name="$employee->nome" size="lg" />
+            <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $employee->nome }}</h1>
+            <p class="text-gray-500 text-sm">{{ $employee->departamento ?? __('employee.no_department') }} · {{ $employee->cargo ?? __('employee.no_position') }}</p>
         </div>
     </div>
     <div class="flex items-center gap-3">
@@ -48,66 +39,57 @@
         <h2 class="text-lg font-bold text-gray-900 mb-6">{{ __('employee.info') }}</h2>
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.name') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->nome }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.name') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->nome }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.matricula') }}</dt>
-                <dd class="text-sm text-gray-800 font-mono mt-1">{{ $employee->matricula ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.matricula') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-mono mt-1">{{ $employee->matricula ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.email') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->email ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.email') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->email ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.telefone') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->telefone ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.telefone') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->telefone ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.departamento') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->departamento ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.departamento') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->departamento ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.centro_custo') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->centro_custo ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.centro_custo') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->centro_custo ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.projeto') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->projeto ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.projeto') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->projeto ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.setor') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->setor ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.setor') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->setor ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.cargo') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->cargo ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.cargo') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->cargo ?? '—' }}</dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.status') }}</dt>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.status') }}</dt>
                 <dd class="mt-1">
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
-                        {{ match($employee->status) {
-                            'ativo' => 'bg-green-100 text-green-700',
-                            'afastado' => 'bg-yellow-100 text-yellow-700',
-                            'desligado' => 'bg-red-100 text-red-700',
-                            'ferias' => 'bg-blue-100 text-blue-700',
-                            default => 'bg-gray-100 text-gray-700',
-                        } }}">
-                        {{ $employee->status_label }}
-                    </span>
+                    <x-ui.status-badge :status="$employee->status" :label="$employee->status_label" />
                 </dd>
             </div>
             <div>
-                <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold">{{ __('employee.field.data_admissao') }}</dt>
-                <dd class="text-sm text-gray-800 font-medium mt-1">{{ $employee->data_admissao?->format('d/m/Y') ?? '—' }}</dd>
+                <dt class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">{{ __('employee.field.data_admissao') }}</dt>
+                <dd class="text-sm text-gray-800 dark:text-gray-200 font-medium mt-1">{{ $employee->data_admissao?->format('d/m/Y') ?? '—' }}</dd>
             </div>
         </dl>
 
         @if ($employee->observacoes)
-            <div class="mt-6 pt-6 border-t border-gray-100">
+            <div class="mt-6 pt-6 border-t border-gray-100 dark:border-slate-700">
                 <dt class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">{{ __('employee.field.observacoes') }}</dt>
-                <dd class="text-sm text-gray-700 whitespace-pre-line bg-gray-50 rounded-xl p-4">{{ $employee->observacoes }}</dd>
+                <dd class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line bg-gray-50 dark:bg-slate-700/50 rounded-xl p-4">{{ $employee->observacoes }}</dd>
             </div>
         @endif
     </div>
@@ -117,11 +99,11 @@
         <dl class="space-y-4">
             <div class="flex justify-between items-center">
                 <dt class="text-xs text-gray-500 font-medium">{{ __('employee.created_at') }}</dt>
-                <dd class="text-xs text-gray-600 font-medium">{{ $employee->created_at->format('d/m/Y H:i') }}</dd>
+                <dd class="text-xs text-gray-600 dark:text-gray-400 font-medium">{{ $employee->created_at->format('d/m/Y H:i') }}</dd>
             </div>
             <div class="flex justify-between items-center">
                 <dt class="text-xs text-gray-500 font-medium">{{ __('employee.updated_at') }}</dt>
-                <dd class="text-xs text-gray-600 font-medium">{{ $employee->updated_at->format('d/m/Y H:i') }}</dd>
+                <dd class="text-xs text-gray-600 dark:text-gray-400 font-medium">{{ $employee->updated_at->format('d/m/Y H:i') }}</dd>
             </div>
         </dl>
     </div>
@@ -129,57 +111,46 @@
 
 <div class="mt-6 bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-bold text-gray-900">{{ __('employee.notebooks_linked') }}</h2>
+        <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ __('employee.notebooks_linked') }}</h2>
         <span class="text-sm text-gray-500 font-medium">{{ $notebooks->count() }} notebook(s)</span>
     </div>
 
     @if ($notebooks->isEmpty())
-        <div class="p-8 text-center">
-            <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-            </div>
-            <p class="text-gray-400 text-sm">{{ __('employee.no_notebooks') }}</p>
-        </div>
+        <x-ui.empty-state
+            icon="notebook"
+            :title="__('employee.no_notebooks')"
+        />
     @else
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="text-left text-gray-500 border-b border-gray-100">
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.patrimonio') }}</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.marca_modelo') }}</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.numero_serie') }}</th>
-                        <th class="pb-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.notebook_table.status') }}</th>
+                    <tr class="text-left text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-600">
+                        <x-ui.table-heading :text="__('employee.notebook_table.patrimonio')" padding="pb-3" />
+                        <x-ui.table-heading :text="__('employee.notebook_table.marca_modelo')" padding="pb-3" />
+                        <x-ui.table-heading :text="__('employee.notebook_table.numero_serie')" padding="pb-3" class="hidden md:table-cell" />
+                        <x-ui.table-heading :text="__('employee.notebook_table.status')" padding="pb-3" class="hidden lg:table-cell" />
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-50">
+                <tbody class="divide-y divide-gray-100/60">
                     @foreach ($notebooks as $notebook)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="py-3">
+                        <tr class="{{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                            <td class="px-5 sm:px-7 py-5">
                                 <a href="{{ route('notebooks.show', $notebook) }}" class="font-semibold text-gray-900 hover:text-blue-600 transition">
                                     {{ $notebook->patrimonio ?? '—' }}
                                 </a>
+                                <div class="text-xs text-gray-400 md:hidden mt-0.5">{{ $notebook->numero_serie }}</div>
                             </td>
-                            <td class="py-3">
-                                <div class="font-medium text-gray-900">{{ $notebook->marca }} {{ $notebook->modelo }}</div>
+                            <td class="px-5 sm:px-7 py-5">
+                                <div class="font-medium text-gray-900 text-[13px]">{{ $notebook->marca }} {{ $notebook->modelo }}</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400 lg:hidden mt-0.5">
+                                    <x-ui.status-badge :status="$notebook->status" :label="$notebook->status_label" />
+                                </div>
                             </td>
-                            <td class="py-3">
-                                <code class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">{{ $notebook->numero_serie }}</code>
+                            <td class="px-5 sm:px-7 py-5 hidden md:table-cell">
+                                <code class="text-xs bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 px-2.5 py-1 rounded-lg font-medium">{{ $notebook->numero_serie }}</code>
                             </td>
-                            <td class="py-3">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
-                                    {{ match($notebook->status) {
-                                        'disponivel' => 'bg-green-100 text-green-700',
-                                        'em_uso' => 'bg-blue-100 text-blue-700',
-                                        'manutencao' => 'bg-yellow-100 text-yellow-700',
-                                        'ocioso' => 'bg-orange-100 text-orange-700',
-                                        'devolvido' => 'bg-purple-100 text-purple-700',
-                                        'obsoleto' => 'bg-red-100 text-red-700',
-                                        default => 'bg-gray-100 text-gray-700',
-                                    } }}">
-                                    {{ $notebook->status_label }}
-                                </span>
+                            <td class="px-5 sm:px-7 py-5 hidden lg:table-cell">
+                                <x-ui.status-badge :status="$notebook->status" :label="$notebook->status_label" />
                             </td>
                         </tr>
                     @endforeach

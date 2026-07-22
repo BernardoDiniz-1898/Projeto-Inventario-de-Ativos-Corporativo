@@ -12,5 +12,9 @@ return [
     'user_deleted' => 'Usuário excluído com sucesso!',
     'role_updated' => 'Perfil atualizado com sucesso!',
     'settings_saved' => 'Configurações salvas com sucesso!',
+    'grupo_created' => 'Grupo criado com sucesso!',
+    'grupo_updated' => 'Grupo atualizado com sucesso!',
+    'grupo_deleted' => 'Grupo excluído com sucesso!',
+    'cannot_delete_self' => 'Você não pode excluir seu próprio usuário.',
     'unauthorized' => 'Acesso não autorizado.',
 ];

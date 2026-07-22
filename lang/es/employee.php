@@ -20,6 +20,9 @@ return [
     'edit_subtitle' => 'Actualice los datos del empleado',
     'save' => 'Guardar Empleado',
     'update' => 'Actualizar Empleado',
+    'cancel' => 'Cancelar',
+    'create_hint' => 'Agregue un nuevo empleado al sistema',
+    'edit_hint' => 'Actualice los datos de :name',
 
     'name' => 'Nombre',
     'name_placeholder' => 'Nombre completo',
@@ -45,10 +48,55 @@ return [
     'delete_button' => 'Eliminar',
     'delete_confirm' => '¿Está seguro de que desea eliminar?',
 
+    'field' => [
+        'name' => 'Nombre',
+        'matricula' => 'Matrícula',
+        'email' => 'Correo',
+        'telefone' => 'Teléfono',
+        'departamento' => 'Departamento',
+        'centro_custo' => 'Centro de Costos',
+        'projeto' => 'Proyecto',
+        'setor' => 'Sector',
+        'cargo' => 'Cargo',
+        'status' => 'Estado',
+        'data_admissao' => 'Fecha de Ingreso',
+        'observacoes' => 'Observaciones',
+        'name_placeholder' => 'Nombre completo',
+        'observacoes_placeholder' => 'Observaciones adicionales sobre el empleado...',
+        'centro_custo_placeholder' => 'Ej: CC-001, TI-SP...',
+        'projeto_placeholder' => 'Ej: Proyecto Alpha, Migración...',
+        'setor_placeholder' => 'Ej: Desarrollo, Soporte...',
+    ],
+
+    'notebook_table' => [
+        'patrimonio' => 'Patrimonio',
+        'marca_modelo' => 'Marca / Modelo',
+        'numero_serie' => 'Nº Serie',
+        'status' => 'Estado',
+    ],
+
+    'not_informed' => 'No informado',
+    'no_department' => 'Sin departamento',
+    'no_position' => 'Sin cargo',
+
     'status_options' => [
         'ativo' => 'Activo',
         'afastado' => 'De licencia',
         'desligado' => 'Despedido',
         'ferias' => 'Vacaciones',
     ],
+
+    'table' => [
+        'name' => 'Nombre',
+        'matricula' => 'Matrícula',
+        'departamento' => 'Departamento',
+        'cargo' => 'Cargo',
+        'status' => 'Estado',
+        'actions' => 'Acciones',
+    ],
+
+    'view' => 'Ver',
+    'edit' => 'Editar',
+    'delete' => 'Eliminar',
+    'register' => 'Registrar',
 ];

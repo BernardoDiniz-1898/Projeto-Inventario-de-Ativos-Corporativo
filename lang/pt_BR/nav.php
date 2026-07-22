@@ -10,4 +10,8 @@ return [
     'logout' => 'Sair da conta',
     'menu' => 'Menu',
     'back' => 'Voltar',
+    'main_menu' => 'Principal',
+    'grupos' => 'Grupos',
+    'administration' => 'Administração',
+    'inventory' => 'Inventário Geral',
 ];

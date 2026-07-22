@@ -23,5 +23,7 @@ return [
     'save' => 'Guardar Configuración',
     'reset' => 'Restablecer Predeterminado',
     'toast' => '¡Configuración guardada con éxito!',
+    'toast_saved' => '¡Configuración guardada!',
+    'toast_reset' => '¡Configuración restablecida!',
     'footer' => 'Todos los derechos reservados.',
 ];

@@ -12,7 +12,7 @@ trait LogsChanges
             'loggable_type' => get_class($model),
             'loggable_id' => $model->id,
             'action' => 'created',
-            'description' => $this->describeAction('criado', $model),
+            'description' => $this->describeAction(__('logs.created'), $model),
             'old_values' => null,
             'new_values' => $attributes,
             'user_id' => auth()->id(),
@@ -31,35 +31,26 @@ trait LogsChanges
             ?? $model->getAttribute('nome')
             ?? '#' . $model->id;
 
-        $fieldLabels = [
-            'marca' => 'Marca', 'modelo' => 'Modelo', 'numero_serie' => 'Nº Série',
-            'patrimonio' => 'Patrimônio', 'status' => 'Status', 'funcionario_id' => 'Responsável',
-            'data_entrega' => 'Data de Entrega',
-            'sistema_operacional' => 'Sistema Operacional', 'ram_gb' => 'RAM',
-            'armazenamento' => 'Armazenamento', 'processador' => 'Processador',
-            'data_aquisicao' => 'Data de Aquisição', 'data_garantia' => 'Garantia',
-            'observacoes' => 'Observações', 'fornecedor' => 'Fornecedor', 'preco' => 'Preço',
-            'nome' => 'Nome', 'matricula' => 'Matrícula', 'email' => 'Email',
-            'telefone' => 'Telefone', 'departamento' => 'Departamento',
-            'centro_custo' => 'Centro de Custo', 'projeto' => 'Projeto',
-            'setor' => 'Setor', 'cargo' => 'Cargo', 'data_admissao' => 'Data de Admissão',
-            // ISO 27001
-            'classificacao' => 'Classificação', 'localizacao' => 'Localização',
-            'predio' => 'Prédio', 'andar' => 'Andar', 'sala' => 'Sala',
-            'criticidade' => 'Criticidade', 'data_vida_util' => 'Fim da Vida Útil',
-            'data_baixa' => 'Data de Baixa', 'motivo_baixa' => 'Motivo da Baixa',
-            'metodo_descarte' => 'Método de Descarte', 'criptografia' => 'Criptografia',
-            'antivirus' => 'Antivírus', 'status_patches' => 'Status de Patches',
-            'backup_configurado' => 'Backup', 'ultima_manutencao' => 'Última Manutenção',
-            'proxima_manutencao' => 'Próxima Manutenção', 'historico_manutencao' => 'Histórico de Manutenção',
-            // Aluguel
-            'empresa_locataria' => 'Empresa Locatária', 'numero_contrato' => 'Nº Contrato',
-            'valor_aluguel' => 'Valor Aluguel', 'periodo_aluguel' => 'Período Aluguel',
-            'data_inicio_aluguel' => 'Início Aluguel', 'data_fim_aluguel' => 'Fim Aluguel',
-        ];
+        $fieldLabels = collect([
+            'marca', 'modelo', 'numero_serie', 'patrimonio', 'status', 'funcionario_id',
+            'data_entrega', 'sistema_operacional', 'ram_gb', 'armazenamento', 'processador',
+            'data_aquisicao', 'data_garantia', 'observacoes', 'fornecedor', 'preco',
+            'nome', 'matricula', 'email', 'telefone', 'departamento',
+            'centro_custo', 'projeto', 'setor', 'cargo', 'data_admissao',
+            'classificacao', 'localizacao', 'predio', 'andar', 'sala',
+            'criticidade', 'data_vida_util', 'data_baixa', 'motivo_baixa',
+            'metodo_descarte', 'criptografia', 'antivirus', 'status_patches',
+            'backup_configurado', 'ultima_manutencao', 'proxima_manutencao', 'historico_manutencao',
+            'empresa_locataria', 'numero_contrato', 'valor_aluguel', 'periodo_aluguel',
+            'data_inicio_aluguel', 'data_fim_aluguel', 'grupo_id', 'role',
+        ])->mapWithKeys(fn($field) => [$field => __('logs.fields.' . $field)])->toArray();
 
         $changedNames = array_map(fn($k) => $fieldLabels[$k] ?? $k, array_keys($changed));
-        $description = class_basename($model) . " \"{$label}\" atualizado — alterou: " . implode(', ', $changedNames);
+        $description = __('logs.description_update_pattern', [
+            'model' => class_basename($model),
+            'label' => $label,
+            'fields' => implode(', ', $changedNames),
+        ]);
 
         ActivityLog::create([
             'loggable_type' => get_class($model),
@@ -78,7 +69,7 @@ trait LogsChanges
             'loggable_type' => get_class($model),
             'loggable_id' => $model->id,
             'action' => 'deleted',
-            'description' => $this->describeAction('excluído', $model),
+            'description' => $this->describeAction(__('logs.deleted'), $model),
             'old_values' => $model->getAttributes(),
             'new_values' => null,
             'user_id' => auth()->id(),
@@ -91,6 +82,10 @@ trait LogsChanges
             ?? $model->getAttribute('nome')
             ?? '#' . $model->id;
 
-        return class_basename($model) . " \"{$label}\" {$action}";
+        return __('logs.description_pattern', [
+            'model' => class_basename($model),
+            'label' => $label,
+            'action' => $action,
+        ]);
     }
 }

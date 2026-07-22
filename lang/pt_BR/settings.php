@@ -23,5 +23,7 @@ return [
     'save' => 'Salvar Configurações',
     'reset' => 'Restaurar Padrão',
     'toast' => 'Configurações salvas com sucesso!',
+    'toast_saved' => 'Configurações salvas!',
+    'toast_reset' => 'Configurações redefinidas!',
     'footer' => 'Todos os direitos reservados.',
 ];

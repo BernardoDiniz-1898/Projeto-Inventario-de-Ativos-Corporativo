@@ -23,5 +23,7 @@ return [
     'save' => 'Save Settings',
     'reset' => 'Reset to Default',
     'toast' => 'Settings saved successfully!',
+    'toast_saved' => 'Settings saved!',
+    'toast_reset' => 'Settings reset!',
     'footer' => 'All rights reserved.',
 ];

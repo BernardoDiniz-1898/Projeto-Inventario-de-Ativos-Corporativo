@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Notebook;
+use App\Models\Grupo;
 use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 
 class NotebookExport
@@ -13,20 +14,20 @@ class NotebookExport
         $writer->openToBrowser('notebooks_' . date('Y-m-d_H-i-s') . '.xlsx');
 
         $headerRow = WriterEntityFactory::createRowFromArray([
-            'Patrimônio', 'Marca', 'Modelo', 'Nº Série', 'Status',
-            'Responsável', 'Data Entrega', 'Sistema Operacional', 'Processador', 'RAM (GB)',
-            'Armazenamento', 'Fornecedor', 'Preço (R$)', 'Data Aquisição',
-            'Data Garantia', 'Observações',
-            'Classificação', 'Localização', 'Prédio', 'Andar', 'Sala',
-            'Criticidade', 'Fim Vida Útil', 'Data Baixa', 'Motivo Baixa', 'Método Descarte',
-            'Criptografia', 'Antivírus', 'Status Patches', 'Backup',
-            'Última Manutenção', 'Próxima Manutenção', 'Histórico Manutenção',
-            'Empresa Locatária', 'Nº Contrato', 'Valor Aluguel', 'Período',
-            'Início Aluguel', 'Fim Aluguel',
+            __('logs.fields.patrimonio'), __('logs.fields.marca'), __('logs.fields.modelo'), __('logs.fields.numero_serie'), __('logs.fields.status'), __('logs.fields.grupo_id'),
+            __('logs.fields.funcionario_id'), __('notebook.delivery_date') ?: __('logs.fields.data_entrega'), __('logs.fields.sistema_operacional'), __('logs.fields.processador'), __('logs.fields.ram_gb') . ' (GB)',
+            __('logs.fields.armazenamento'), __('logs.fields.fornecedor'), __('logs.fields.preco') . ' (R$)', __('logs.fields.data_aquisicao'),
+            __('logs.fields.data_garantia'), __('logs.fields.observacoes'),
+            __('logs.fields.classificacao'), __('logs.fields.localizacao'), __('logs.fields.predio'), __('logs.fields.andar'), __('logs.fields.sala'),
+            __('logs.fields.criticidade'), __('logs.fields.data_vida_util'), __('logs.fields.data_baixa'), __('logs.fields.motivo_baixa'), __('logs.fields.metodo_descarte'),
+            __('logs.fields.criptografia'), __('logs.fields.antivirus'), __('logs.fields.status_patches'), __('logs.fields.backup_configurado'),
+            __('logs.fields.ultima_manutencao'), __('logs.fields.proxima_manutencao'), __('logs.fields.historico_manutencao'),
+            __('logs.fields.empresa_locataria'), __('logs.fields.numero_contrato'), __('logs.fields.valor_aluguel'), __('notebook.rental_period') ?: __('logs.fields.periodo_aluguel'),
+            __('logs.fields.data_inicio_aluguel'), __('logs.fields.data_fim_aluguel'),
         ]);
         $writer->addRow($headerRow);
 
-        $query = Notebook::with('funcionario');
+        $query = Notebook::with(['funcionario', 'grupo']);
 
         if ($status) {
             $query->where('status', $status);
@@ -41,6 +42,7 @@ class NotebookExport
                 $notebook->modelo,
                 $notebook->numero_serie,
                 $notebook->status_label,
+                $notebook->grupo->nome ?? '',
                 $notebook->funcionario->nome ?? '',
                 $notebook->data_entrega?->format('d/m/Y') ?? '',
                 $notebook->sistema_operacional ?? '',
@@ -62,10 +64,10 @@ class NotebookExport
                 $notebook->data_baixa?->format('d/m/Y') ?? '',
                 $notebook->motivo_baixa_label ?? '',
                 $notebook->metodo_descarte_label ?? '',
-                $notebook->criptografia ? 'Sim' : 'Não',
-                $notebook->antivirus ? 'Sim' : 'Não',
-                $notebook->patches_label ?? '',
-                $notebook->backup_configurado ? 'Sim' : 'Não',
+                $notebook->criptografia ? __('common.yes') ?: 'Sim' : __('common.no') ?: 'Não',
+                $notebook->antivirus ? __('common.yes') ?: 'Sim' : __('common.no') ?: 'Não',
+                $notebook->status_patches_label ?? '',
+                $notebook->backup_configurado ? __('common.yes') ?: 'Sim' : __('common.no') ?: 'Não',
                 $notebook->ultima_manutencao?->format('d/m/Y') ?? '',
                 $notebook->proxima_manutencao?->format('d/m/Y') ?? '',
                 $notebook->historico_manutencao ?? '',

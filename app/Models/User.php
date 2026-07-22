@@ -48,9 +48,9 @@ class User extends Authenticatable
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'admin' => 'Administrador',
-            'editor' => 'Editor',
-            'viewer' => 'Visualizador',
+            'admin' => __('user.role_options.admin'),
+            'editor' => __('user.role_options.editor'),
+            'viewer' => __('user.role_options.viewer'),
             default => $this->role,
         };
     }

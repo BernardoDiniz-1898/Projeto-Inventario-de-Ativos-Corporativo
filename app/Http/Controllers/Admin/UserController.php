@@ -58,7 +58,7 @@ class UserController extends Controller
     {
         if ($user->id === auth()->id()) {
             return redirect()->route('admin.users.index')
-                ->with('error', 'Você não pode excluir seu próprio usuário.');
+                ->with('error', __('messages.cannot_delete_self'));
         }
 
         $user->delete();
