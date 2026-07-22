@@ -5,8 +5,8 @@
 @section('content')
 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
     <div>
-        <h1 class="text-2xl font-bold text-gray-900">{{ __('employee.title') }}</h1>
-        <p class="text-gray-500 text-sm mt-1">{{ __('employee.subtitle') }}</p>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('employee.title') }}</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{ __('employee.subtitle') }}</p>
     </div>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
         <a href="{{ route('employees.export', request()->only('status')) }}"
@@ -44,12 +44,18 @@
             <option value="desligado" {{ request('status') === 'desligado' ? 'selected' : '' }}>{{ __('employee.status_options.desligado') }}</option>
             <option value="ferias" {{ request('status') === 'ferias' ? 'selected' : '' }}>{{ __('employee.status_options.ferias') }}</option>
         </select>
+        <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">{{ __('grupo.all') }}</option>
+            @foreach ($grupos as $grupo)
+                <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
+            @endforeach
+        </select>
         <div class="flex gap-2">
-            <button type="submit" class="flex-1 sm:flex-none bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 transition">
+            <button type="submit" class="flex-1 sm:flex-none bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition">
                 {{ __('employee.filter') }}
             </button>
-            @if (request()->hasAny(['search', 'status']))
-                <a href="{{ route('employees.index') }}" class="text-gray-500 hover:text-gray-700 px-4 py-2.5 text-sm font-medium">
+            @if (request()->hasAny(['search', 'status', 'grupo_id']))
+                <a href="{{ route('employees.index') }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-4 py-2.5 text-sm font-medium">
                     {{ __('employee.clear') }}
                 </a>
             @endif
@@ -59,75 +65,64 @@
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
     @if ($employees->isEmpty())
-        <div class="p-16 text-center">
-            <div class="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-            </div>
-            <p class="text-gray-500 font-medium mb-2">{{ __('employee.no_results') }}</p>
-            <p class="text-gray-400 text-sm mb-5">{{ __('employee.no_results_hint') }}</p>
-            <a href="{{ route('employees.create') }}" class="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                {{ __('employee.register') }}
-            </a>
-        </div>
+        <x-ui.empty-state
+            icon="employee"
+            :title="__('employee.no_results')"
+            :hint="__('employee.no_results_hint')"
+            :actionLabel="__('employee.register')"
+            :actionRoute="route('employees.create')"
+        />
     @else
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="text-left text-gray-500 bg-gray-50 border-b border-gray-100">
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.table.name') }}</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden md:table-cell">{{ __('employee.table.matricula') }}</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden lg:table-cell">{{ __('employee.table.departamento') }}</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider hidden xl:table-cell">{{ __('employee.table.cargo') }}</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider">{{ __('employee.table.status') }}</th>
-                        <th class="px-4 sm:px-6 py-3 font-medium text-xs uppercase tracking-wider text-right">{{ __('employee.table.actions') }}</th>
+                    <tr class="text-left text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-600">
+                        <x-ui.table-heading :text="__('employee.table.name')" class="min-w-[200px]" />
+                        <x-ui.table-heading :text="__('employee.table.matricula')" class="hidden md:table-cell whitespace-nowrap" />
+                        <x-ui.table-heading :text="__('employee.table.departamento')" class="hidden lg:table-cell" />
+                        <x-ui.table-heading :text="__('grupo.title')" class="hidden xl:table-cell whitespace-nowrap" />
+                        <x-ui.table-heading :text="__('employee.table.cargo')" class="hidden xl:table-cell" />
+                        <x-ui.table-heading :text="__('employee.table.status')" class="whitespace-nowrap" />
+                        <x-ui.table-heading :text="__('employee.table.actions')" class="text-right whitespace-nowrap" />
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-gray-100/60">
                     @foreach ($employees as $employee)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-4 sm:px-6 py-4">
-                                <a href="{{ route('employees.show', $employee) }}" class="flex items-center gap-3">
-                                    <div class="w-9 h-9 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-semibold text-xs shrink-0">
-                                        {{ strtoupper(substr($employee->nome, 0, 2)) }}
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-gray-900 hover:text-blue-600 transition">{{ $employee->nome }}</div>
-                                        <div class="text-xs text-gray-400 md:hidden">{{ $employee->matricula ?? '—' }}</div>
-                                        <div class="text-xs text-gray-500 lg:hidden mt-0.5">{{ $employee->departamento ?? '' }}{{ $employee->cargo ? ' · ' . $employee->cargo : '' }}</div>
+                        <tr class="{{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                            <td class="px-5 sm:px-7 py-5">
+                                <a href="{{ route('employees.show', $employee) }}" class="flex items-center gap-4 min-w-0 group">
+                                    <x-ui.avatar :name="$employee->nome" size="md" />
+                                    <div class="min-w-0 flex-1">
+                                        <div class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate max-w-[220px] text-[13px]">{{ $employee->nome }}</div>
+                                        <div class="text-xs text-gray-400 dark:text-gray-500 md:hidden">{{ $employee->matricula ?? '—' }}</div>
+                                        <div class="text-xs text-gray-500 lg:hidden mt-0.5 truncate">{{ $employee->departamento ?? '' }}{{ $employee->cargo ? ' · ' . $employee->cargo : '' }}</div>
                                     </div>
                                 </a>
                             </td>
-                            <td class="px-4 sm:px-6 py-4 hidden md:table-cell">
-                                <code class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">{{ $employee->matricula ?? '—' }}</code>
+                            <td class="px-5 sm:px-7 py-5 hidden md:table-cell">
+                                <code class="text-xs bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 px-2.5 py-1 rounded-lg font-medium">{{ $employee->matricula ?? '—' }}</code>
                             </td>
-                            <td class="px-4 sm:px-6 py-4 hidden lg:table-cell text-gray-700">{{ $employee->departamento ?? '—' }}</td>
-                            <td class="px-4 sm:px-6 py-4 hidden xl:table-cell text-gray-700">{{ $employee->cargo ?? '—' }}</td>
-                            <td class="px-4 sm:px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold
-                                    {{ match($employee->status) {
-                                        'ativo' => 'bg-green-100 text-green-700',
-                                        'afastado' => 'bg-yellow-100 text-yellow-700',
-                                        'desligado' => 'bg-red-100 text-red-700',
-                                        'ferias' => 'bg-blue-100 text-blue-700',
-                                        default => 'bg-gray-100 text-gray-700',
-                                    } }}">
-                                    {{ $employee->status_label }}
-                                </span>
+                            <td class="px-5 sm:px-7 py-5 hidden lg:table-cell text-gray-600 text-[13px]">{{ $employee->departamento ?? '—' }}</td>
+                            <td class="px-5 sm:px-7 py-5 hidden xl:table-cell text-[13px]">
+                                @if ($employee->grupo)
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium" style="background-color: {{ $employee->grupo->cor }}20; color: {{ $employee->grupo->cor }}">{{ $employee->grupo->nome }}</span>
+                                @else
+                                    <span class="text-gray-300 dark:text-slate-600">—</span>
+                                @endif
                             </td>
-                            <td class="px-4 sm:px-6 py-4 text-right">
+                            <td class="px-5 sm:px-7 py-5 hidden xl:table-cell text-gray-600 text-[13px]">{{ $employee->cargo ?? '—' }}</td>
+                            <td class="px-5 sm:px-7 py-5">
+                                <x-ui.status-badge :status="$employee->status" :label="$employee->status_label" />
+                            </td>
+                            <td class="px-5 sm:px-7 py-5 text-right">
                                 <div class="flex items-center justify-end gap-1">
-                                    <a href="{{ route('employees.show', $employee) }}" class="p-2 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition" title="{{ __('employee.view') }}">
+                                    <a href="{{ route('employees.show', $employee) }}" class="action-btn p-2 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:text-blue-400 dark:hover:bg-blue-500/10 transition" title="{{ __('employee.view') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                                         </svg>
                                     </a>
-                                    <a href="{{ route('employees.edit', $employee) }}" class="p-2 rounded-lg text-gray-400 hover:text-amber-600 hover:bg-amber-50 transition" title="{{ __('employee.edit') }}">
+                                    <a href="{{ route('employees.edit', $employee) }}" class="action-btn p-2 rounded-lg text-gray-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-500/10 transition" title="{{ __('employee.edit') }}">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                         </svg>
@@ -135,7 +130,7 @@
                                     <form action="{{ route('employees.destroy', $employee) }}" method="POST" onsubmit="return confirm('{{ __('employee.delete_confirm') }}')" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-2 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition" title="{{ __('employee.delete') }}">
+                                        <button type="submit" class="action-btn p-2 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:text-red-400 dark:hover:bg-red-500/10 transition" title="{{ __('employee.delete') }}">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                             </svg>
@@ -149,7 +144,7 @@
             </table>
         </div>
 
-        <div class="px-6 py-4 border-t border-gray-100">
+        <div class="px-5 sm:px-7 py-4 border-t border-gray-100 dark:border-slate-700">
             {{ $employees->links() }}
         </div>
     @endif

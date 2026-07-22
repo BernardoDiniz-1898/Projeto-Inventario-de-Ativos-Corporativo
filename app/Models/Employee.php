@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -23,6 +24,7 @@ class Employee extends Model
         'setor',
         'cargo',
         'status',
+        'grupo_id',
         'data_admissao',
         'observacoes',
     ];
@@ -32,6 +34,11 @@ class Employee extends Model
         return [
             'data_admissao' => 'date',
         ];
+    }
+
+    public function grupo(): BelongsTo
+    {
+        return $this->belongsTo(Grupo::class);
     }
 
     public function notebooks(): HasMany

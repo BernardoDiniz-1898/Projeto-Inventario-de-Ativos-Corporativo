@@ -13,6 +13,14 @@ return [
     'delete' => 'Excluir',
     'delete_confirm' => 'Tem certeza que deseja excluir este usuário?',
 
+    'table' => [
+        'name' => 'Nome',
+        'email' => 'E-mail',
+        'role' => 'Perfil',
+        'created_at' => 'Criado em',
+        'actions' => 'Ações',
+    ],
+
     'create_title' => 'Criar Usuário',
     'edit_title' => 'Editar Usuário',
     'password' => 'Senha',
@@ -20,6 +28,26 @@ return [
     'save' => 'Salvar Usuário',
     'update' => 'Atualizar Usuário',
     'required_fields' => 'Campos com * são obrigatórios',
+    'create_hint' => 'Preencha os dados para criar um novo usuário',
+    'edit_hint' => 'Atualize os dados de :name',
+    'create' => 'Criar Usuário',
+    'cancel' => 'Cancelar',
+
+    'field' => [
+        'name' => 'Nome',
+        'name_placeholder' => 'Nome completo',
+        'email' => 'E-mail',
+        'email_placeholder' => 'email@exemplo.com',
+        'password' => 'Senha',
+        'password_placeholder' => '••••••••',
+        'password_confirm' => 'Confirmar Senha',
+        'password_confirm_placeholder' => 'Repita a senha',
+        'role' => 'Perfil',
+        'new_password' => 'Nova Senha',
+        'new_password_placeholder' => 'Deixe em branco para manter a atual',
+        'new_password_confirm' => 'Confirmar Nova Senha',
+        'new_password_confirm_placeholder' => 'Repita a nova senha',
+    ],
 
     'role_options' => [
         'admin' => 'Administrador',

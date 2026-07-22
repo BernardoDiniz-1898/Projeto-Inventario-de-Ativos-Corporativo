@@ -3,6 +3,8 @@
 return [
     'title' => 'Activity Log',
     'empty' => 'No activity recorded',
+    'system' => 'System',
+    'fields_count' => 'field(s)',
     'you' => 'You',
     'created' => 'created',
     'updated' => 'updated',
@@ -10,6 +12,12 @@ return [
     'changed' => 'changed',
     'from' => 'from',
     'to' => 'to',
+
+    'action' => [
+        'created' => 'Created',
+        'updated' => 'Updated',
+        'deleted' => 'Deleted',
+    ],
 
     'fields' => [
         'marca' => 'Brand',

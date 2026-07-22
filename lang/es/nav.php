@@ -10,4 +10,8 @@ return [
     'logout' => 'Cerrar sesión',
     'menu' => 'Menú',
     'back' => 'Volver',
+    'main_menu' => 'Principal',
+    'grupos' => 'Grupos',
+    'administration' => 'Administración',
+    'inventory' => 'Inventario General',
 ];

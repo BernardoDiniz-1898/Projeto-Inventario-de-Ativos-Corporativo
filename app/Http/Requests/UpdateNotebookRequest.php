@@ -22,6 +22,7 @@ class UpdateNotebookRequest extends FormRequest
             'patrimonio' => "nullable|string|max:255|unique:notebooks,patrimonio,{$notebookId}",
             'status' => 'required|in:disponivel,em_uso,manutencao,ocioso,devolvido,obsoleto,baixa,extraviado,transferido,alugado',
             'funcionario_id' => 'nullable|exists:employees,id',
+            'grupo_id' => 'nullable|exists:grupos,id',
             'data_entrega' => 'nullable|date',
             'sistema_operacional' => 'nullable|string|max:255',
             'ram_gb' => 'nullable|numeric|min:1',

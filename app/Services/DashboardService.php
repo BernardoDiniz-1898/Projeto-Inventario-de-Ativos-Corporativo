@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Employee;
+use App\Models\Grupo;
 use App\Models\Notebook;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,14 @@ class DashboardService
         return Notebook::with('funcionario')
             ->latest()
             ->take($limit)
+            ->get();
+    }
+
+    public function getNotebooksByGrupo(): Collection
+    {
+        return Grupo::withCount(['notebooks', 'employees'])
+            ->has('notebooks')
+            ->orderByDesc('notebooks_count')
             ->get();
     }
 }

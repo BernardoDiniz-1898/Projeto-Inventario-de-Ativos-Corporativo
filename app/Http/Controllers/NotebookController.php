@@ -6,8 +6,10 @@ use App\Exports\NotebookExport;
 use App\Http\Requests\StoreNotebookRequest;
 use App\Http\Requests\UpdateNotebookRequest;
 use App\Models\Employee;
+use App\Models\Grupo;
 use App\Models\Notebook;
 use App\Traits\LogsChanges;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Http\Request;
 
 class NotebookController extends Controller
@@ -16,7 +18,7 @@ class NotebookController extends Controller
 
     public function index(Request $request)
     {
-        $query = Notebook::with('funcionario');
+        $query = Notebook::with(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -45,17 +47,23 @@ class NotebookController extends Controller
             $query->where('criticidade', $request->criticidade);
         }
 
-        $notebooks = $query->latest()->paginate(15)->withQueryString();
+        if ($request->filled('grupo_id')) {
+            $query->where('grupo_id', $request->grupo_id);
+        }
 
-        return view('notebooks.index', compact('notebooks'));
+        $notebooks = $query->latest()->paginate(15)->withQueryString();
+        $grupos = Grupo::withTrashed()->orderBy('nome')->get();
+
+        return view('notebooks.index', compact('notebooks', 'grupos'));
     }
 
     public function create()
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
+        $grupos = Grupo::withTrashed()->orderBy('nome')->get();
         $notebook = null;
 
-        return view('notebooks.create', compact('employees', 'notebook'));
+        return view('notebooks.create', compact('employees', 'notebook', 'grupos'));
     }
 
     public function store(StoreNotebookRequest $request)
@@ -70,7 +78,7 @@ class NotebookController extends Controller
 
     public function show(Notebook $notebook)
     {
-        $notebook->load('funcionario');
+        $notebook->load(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
         $logs = $notebook->logs()->with('user')->latest()->paginate(10);
 
         return view('notebooks.show', compact('notebook', 'logs'));
@@ -79,8 +87,9 @@ class NotebookController extends Controller
     public function edit(Notebook $notebook)
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
+        $grupos = Grupo::withTrashed()->orderBy('nome')->get();
 
-        return view('notebooks.edit', compact('notebook', 'employees'));
+        return view('notebooks.edit', compact('notebook', 'employees', 'grupos'));
     }
 
     public function update(UpdateNotebookRequest $request, Notebook $notebook)

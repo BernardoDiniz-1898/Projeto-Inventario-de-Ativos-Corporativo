@@ -3,6 +3,8 @@
 return [
     'title' => 'Registro de Actividades',
     'empty' => 'Ninguna actividad registrada',
+    'system' => 'Sistema',
+    'fields_count' => 'campo(s)',
     'you' => 'Tú',
     'created' => 'creó',
     'updated' => 'actualizó',
@@ -10,6 +12,12 @@ return [
     'changed' => 'cambió',
     'from' => 'de',
     'to' => 'a',
+
+    'action' => [
+        'created' => 'Creado',
+        'updated' => 'Actualizado',
+        'deleted' => 'Eliminado',
+    ],
 
     'fields' => [
         'marca' => 'Marca',

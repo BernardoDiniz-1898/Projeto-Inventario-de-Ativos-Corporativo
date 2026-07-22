@@ -20,6 +20,9 @@ return [
     'edit_subtitle' => 'Update employee information',
     'save' => 'Save Employee',
     'update' => 'Update Employee',
+    'cancel' => 'Cancel',
+    'create_hint' => 'Add a new employee to the system',
+    'edit_hint' => 'Update information for :name',
 
     'name' => 'Name',
     'name_placeholder' => 'Full name',
@@ -45,10 +48,55 @@ return [
     'delete_button' => 'Delete',
     'delete_confirm' => 'Are you sure you want to delete?',
 
+    'field' => [
+        'name' => 'Name',
+        'matricula' => 'Registration',
+        'email' => 'Email',
+        'telefone' => 'Phone',
+        'departamento' => 'Department',
+        'centro_custo' => 'Cost Center',
+        'projeto' => 'Project',
+        'setor' => 'Sector',
+        'cargo' => 'Position',
+        'status' => 'Status',
+        'data_admissao' => 'Hire Date',
+        'observacoes' => 'Notes',
+        'name_placeholder' => 'Full name',
+        'observacoes_placeholder' => 'Additional notes about the employee...',
+        'centro_custo_placeholder' => 'e.g.: CC-001, IT-SP...',
+        'projeto_placeholder' => 'e.g.: Project Alpha, Migration...',
+        'setor_placeholder' => 'e.g.: Development, Support...',
+    ],
+
+    'notebook_table' => [
+        'patrimonio' => 'Asset No.',
+        'marca_modelo' => 'Brand / Model',
+        'numero_serie' => 'Serial No.',
+        'status' => 'Status',
+    ],
+
+    'not_informed' => 'Not informed',
+    'no_department' => 'No department',
+    'no_position' => 'No position',
+
     'status_options' => [
         'ativo' => 'Active',
         'afastado' => 'On Leave',
         'desligado' => 'Terminated',
         'ferias' => 'Vacation',
     ],
+
+    'table' => [
+        'name' => 'Name',
+        'matricula' => 'Registration',
+        'departamento' => 'Department',
+        'cargo' => 'Position',
+        'status' => 'Status',
+        'actions' => 'Actions',
+    ],
+
+    'view' => 'View',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'register' => 'Register',
 ];

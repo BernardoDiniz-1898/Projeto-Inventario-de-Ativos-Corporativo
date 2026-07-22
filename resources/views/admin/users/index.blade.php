@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mb-6">
-    <a href="{{ route('dashboard') }}" class="text-sm text-gray-500 hover:text-gray-700 inline-flex items-center gap-1">
+    <a href="{{ route('dashboard') }}" class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 inline-flex items-center gap-1">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -17,7 +17,7 @@
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
-            <thead class="bg-gray-50 border-b border-gray-100">
+            <thead class="bg-gray-50 border-b border-gray-100 dark:border-slate-700">
                 <tr>
                     <th class="text-left px-4 sm:px-6 py-3 font-medium text-gray-600">{{ __('user.table.name') }}</th>
                     <th class="text-left px-4 sm:px-6 py-3 font-medium text-gray-600 hidden md:table-cell">{{ __('user.table.email') }}</th>
@@ -35,8 +35,8 @@
                                     {{ strtoupper(substr($user->name, 0, 2)) }}
                                 </div>
                                 <div>
-                                    <span class="font-medium text-gray-800">{{ $user->name }}</span>
-                                    <div class="text-xs text-gray-400 md:hidden">{{ $user->email }}</div>
+                                    <span class="font-medium text-gray-800 dark:text-gray-200">{{ $user->name }}</span>
+                                    <div class="text-xs text-gray-400 dark:text-gray-500 md:hidden">{{ $user->email }}</div>
                                 </div>
                                 @if ($user->id === auth()->id())
                                     <span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full hidden sm:inline-block">{{ __('user.you') }}</span>

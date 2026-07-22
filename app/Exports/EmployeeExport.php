@@ -13,13 +13,13 @@ class EmployeeExport
         $writer->openToBrowser('funcionarios_' . date('Y-m-d_H-i-s') . '.xlsx');
 
         $headerRow = WriterEntityFactory::createRowFromArray([
-            'Nome', 'Matrícula', 'Email', 'Telefone', 'Departamento',
-            'Centro de Custo', 'Projeto', 'Setor', 'Cargo', 'Status',
-            'Data Admissão', 'Qtd Notebooks', 'Observações',
+            __('logs.fields.nome'), __('logs.fields.matricula'), __('logs.fields.email'), __('logs.fields.telefone'), __('logs.fields.departamento'), __('logs.fields.grupo_id'),
+            __('logs.fields.centro_custo'), __('logs.fields.projeto'), __('logs.fields.setor'), __('logs.fields.cargo'), __('logs.fields.status'),
+            __('logs.fields.data_admissao'), __('employee.notebooks_linked') ?: 'Qtd Notebooks', __('logs.fields.observacoes'),
         ]);
         $writer->addRow($headerRow);
 
-        $query = Employee::withCount('notebooks');
+        $query = Employee::with('grupo')->withCount('notebooks');
 
         if ($status) {
             $query->where('status', $status);
@@ -34,6 +34,7 @@ class EmployeeExport
                 $employee->email ?? '',
                 $employee->telefone ?? '',
                 $employee->departamento ?? '',
+                $employee->grupo->nome ?? '',
                 $employee->centro_custo ?? '',
                 $employee->projeto ?? '',
                 $employee->setor ?? '',

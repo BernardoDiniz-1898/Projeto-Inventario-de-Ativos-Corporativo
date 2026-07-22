@@ -18,6 +18,7 @@ class Notebook extends Model
         'numero_serie',
         'patrimonio',
         'status',
+        'grupo_id',
         'funcionario_id',
         'data_entrega',
         'sistema_operacional',
@@ -82,6 +83,11 @@ class Notebook extends Model
     }
 
     // ── Relacionamentos ──────────────────────────────────
+
+    public function grupo(): BelongsTo
+    {
+        return $this->belongsTo(Grupo::class);
+    }
 
     public function funcionario(): BelongsTo
     {
@@ -182,10 +188,10 @@ class Notebook extends Model
     public function getStatusPatchesLabelAttribute(): string
     {
         return match ($this->status_patches) {
-            'atualizado' => __('notebook.patches_options.atualizado'),
-            'desatualizado' => __('notebook.patches_options.desatualizado'),
-            'critico' => __('notebook.patches_options.critico'),
-            'nao_verificado' => __('notebook.patches_options.nao_verificado'),
+            'atualizado' => __('notebook.patch_options.atualizado'),
+            'desatualizado' => __('notebook.patch_options.desatualizado'),
+            'critico' => __('notebook.patch_options.critico'),
+            'nao_verificado' => __('notebook.patch_options.nao_verificado'),
             default => $this->status_patches ?? '—',
         };
     }
@@ -230,10 +236,10 @@ class Notebook extends Model
     public function getPeriodoAluguelLabelAttribute(): string
     {
         return match ($this->periodo_aluguel) {
-            'mensal' => __('notebook.rental_period_options.mensal'),
-            'trimestral' => __('notebook.rental_period_options.trimestral'),
-            'semestral' => __('notebook.rental_period_options.semestral'),
-            'anual' => __('notebook.rental_period_options.anual'),
+            'mensal' => __('notebook.period_options.mensal'),
+            'trimestral' => __('notebook.period_options.trimestral'),
+            'semestral' => __('notebook.period_options.semestral'),
+            'anual' => __('notebook.period_options.anual'),
             default => $this->periodo_aluguel ?? '—',
         };
     }

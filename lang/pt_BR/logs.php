@@ -1,0 +1,37 @@
+<?php
+
+return [
+    'created' => 'criado',
+    'updated' => 'atualizado',
+    'deleted' => 'excluído',
+    'updated_changed' => 'alterou',
+    'description_pattern' => ':model ":label" :action',
+    'description_update_pattern' => ':model ":label" atualizado — alterou: :fields',
+
+    'fields' => [
+        'marca' => 'Marca', 'modelo' => 'Modelo', 'numero_serie' => 'Nº Série',
+        'patrimonio' => 'Patrimônio', 'status' => 'Status', 'funcionario_id' => 'Responsável',
+        'data_entrega' => 'Data de Entrega',
+        'sistema_operacional' => 'Sistema Operacional', 'ram_gb' => 'RAM',
+        'armazenamento' => 'Armazenamento', 'processador' => 'Processador',
+        'data_aquisicao' => 'Data de Aquisição', 'data_garantia' => 'Garantia',
+        'observacoes' => 'Observações', 'fornecedor' => 'Fornecedor', 'preco' => 'Preço',
+        'nome' => 'Nome', 'matricula' => 'Matrícula', 'email' => 'Email',
+        'telefone' => 'Telefone', 'departamento' => 'Departamento',
+        'centro_custo' => 'Centro de Custo', 'projeto' => 'Projeto',
+        'setor' => 'Setor', 'cargo' => 'Cargo', 'data_admissao' => 'Data de Admissão',
+        'classificacao' => 'Classificação', 'localizacao' => 'Localização',
+        'predio' => 'Prédio', 'andar' => 'Andar', 'sala' => 'Sala',
+        'criticidade' => 'Criticidade', 'data_vida_util' => 'Fim da Vida Útil',
+        'data_baixa' => 'Data de Baixa', 'motivo_baixa' => 'Motivo da Baixa',
+        'metodo_descarte' => 'Método de Descarte', 'criptografia' => 'Criptografia',
+        'antivirus' => 'Antivírus', 'status_patches' => 'Status de Patches',
+        'backup_configurado' => 'Backup', 'ultima_manutencao' => 'Última Manutenção',
+        'proxima_manutencao' => 'Próxima Manutenção', 'historico_manutencao' => 'Histórico de Manutenção',
+        'empresa_locataria' => 'Empresa Locatária', 'numero_contrato' => 'Nº Contrato',
+        'valor_aluguel' => 'Valor Aluguel', 'periodo_aluguel' => 'Período Aluguel',
+        'data_inicio_aluguel' => 'Início Aluguel', 'data_fim_aluguel' => 'Fim Aluguel',
+        'grupo_id' => 'Grupo',
+        'role' => 'Perfil',
+    ],
+];

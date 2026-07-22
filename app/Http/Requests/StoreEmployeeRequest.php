@@ -24,6 +24,7 @@ class StoreEmployeeRequest extends FormRequest
             'setor' => 'nullable|string|max:255',
             'cargo' => 'nullable|string|max:255',
             'status' => 'required|in:ativo,afastado,desligado,ferias',
+            'grupo_id' => 'nullable|exists:grupos,id',
             'data_admissao' => 'nullable|date',
             'observacoes' => 'nullable|string',
         ];
