@@ -9,12 +9,12 @@
         <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{{ __('notebook.subtitle') }}</p>
     </div>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-        <a href="{{ route('notebooks.export', request()->only('status')) }}"
+        <a href="{{ route('notebooks.export', request()->only('status', 'grupo_id', 'sistema_operacional', 'fornecedor', 'classificacao', 'criticidade', 'search')) }}"
            class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
-            <span class="hidden xs:inline">{{ __('notebook.export_excel') }}</span>
+            <span class="hidden sm:inline">{{ __('notebook.export_excel') }}</span>
         </a>
         <a href="{{ route('notebooks.create') }}"
            class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
@@ -26,45 +26,120 @@
     </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 mb-6">
-    <form method="GET" action="{{ route('notebooks.index') }}" class="p-4 flex flex-col sm:flex-row gap-3">
-        <div class="flex-1 relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
+@php
+    $activeAdvanced = collect(['sistema_operacional', 'fornecedor', 'classificacao', 'criticidade'])
+        ->filter(fn($f) => request()->filled($f))
+        ->count();
+@endphp
+
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 mb-6" x-data="{ open: {{ $activeAdvanced > 0 ? 'true' : 'false' }} }" @click.outside="open = false">
+    <form method="GET" action="{{ route('notebooks.index') }}">
+        {{-- Row 1: Principais --}}
+        <div class="p-4 flex flex-col sm:flex-row gap-3">
+            <div class="flex-1 relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('notebook.search_placeholder') }}"
+                       class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             </div>
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('notebook.search_placeholder') }}"
-                   class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <select name="status" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">{{ __('notebook.all_statuses') }}</option>
+                <option value="disponivel" {{ request('status') === 'disponivel' ? 'selected' : '' }}>{{ __('notebook.status_options.disponivel') }}</option>
+                <option value="em_uso" {{ request('status') === 'em_uso' ? 'selected' : '' }}>{{ __('notebook.status_options.em_uso') }}</option>
+                <option value="manutencao" {{ request('status') === 'manutencao' ? 'selected' : '' }}>{{ __('notebook.status_options.manutencao') }}</option>
+                <option value="ocioso" {{ request('status') === 'ocioso' ? 'selected' : '' }}>{{ __('notebook.status_options.ocioso') }}</option>
+                <option value="devolvido" {{ request('status') === 'devolvido' ? 'selected' : '' }}>{{ __('notebook.status_options.devolvido') }}</option>
+                <option value="obsoleto" {{ request('status') === 'obsoleto' ? 'selected' : '' }}>{{ __('notebook.status_options.obsoleto') }}</option>
+                <option value="baixa" {{ request('status') === 'baixa' ? 'selected' : '' }}>{{ __('notebook.status_options.baixa') }}</option>
+                <option value="extraviado" {{ request('status') === 'extraviado' ? 'selected' : '' }}>{{ __('notebook.status_options.extraviado') }}</option>
+                <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>{{ __('notebook.status_options.transferido') }}</option>
+            </select>
+            <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">{{ __('grupo.all') }}</option>
+                @foreach ($grupos as $grupo)
+                    <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
+                @endforeach
+            </select>
         </div>
-        <select name="status" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <option value="">{{ __('notebook.all_statuses') }}</option>
-            <option value="disponivel" {{ request('status') === 'disponivel' ? 'selected' : '' }}>{{ __('notebook.status_options.disponivel') }}</option>
-            <option value="em_uso" {{ request('status') === 'em_uso' ? 'selected' : '' }}>{{ __('notebook.status_options.em_uso') }}</option>
-            <option value="manutencao" {{ request('status') === 'manutencao' ? 'selected' : '' }}>{{ __('notebook.status_options.manutencao') }}</option>
-            <option value="ocioso" {{ request('status') === 'ocioso' ? 'selected' : '' }}>{{ __('notebook.status_options.ocioso') }}</option>
-            <option value="devolvido" {{ request('status') === 'devolvido' ? 'selected' : '' }}>{{ __('notebook.status_options.devolvido') }}</option>
-            <option value="obsoleto" {{ request('status') === 'obsoleto' ? 'selected' : '' }}>{{ __('notebook.status_options.obsoleto') }}</option>
-            <option value="baixa" {{ request('status') === 'baixa' ? 'selected' : '' }}>{{ __('notebook.status_options.baixa') }}</option>
-            <option value="extraviado" {{ request('status') === 'extraviado' ? 'selected' : '' }}>{{ __('notebook.status_options.extraviado') }}</option>
-            <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>{{ __('notebook.status_options.transferido') }}</option>
-            <option value="alugado" {{ request('status') === 'alugado' ? 'selected' : '' }}>{{ __('notebook.status_options.alugado') }}</option>
-        </select>
-        <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <option value="">{{ __('grupo.all') }}</option>
-            @foreach ($grupos as $grupo)
-                <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
-            @endforeach
-        </select>
-        <div class="flex gap-2">
-            <button type="submit" class="flex-1 sm:flex-none bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition">
-                {{ __('notebook.filter') }}
+
+        {{-- Botão toggle + ações --}}
+        <div class="px-4 pb-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <button type="button" @click="open = !open"
+                    class="inline-flex items-center gap-1.5 text-sm font-medium transition"
+                    :class="open ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'">
+                <svg class="w-4 h-4 transition-transform duration-200" :class="open && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+                {{ __('notebook.advanced_filters') }}
+                @if ($activeAdvanced > 0)
+                    <span class="ml-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">{{ $activeAdvanced }}</span>
+                @endif
             </button>
-            @if (request()->hasAny(['search', 'status', 'grupo_id']))
-                <a href="{{ route('notebooks.index') }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-4 py-2.5 text-sm font-medium">
-                    {{ __('notebook.clear') }}
-                </a>
-            @endif
+
+            <div class="flex gap-2 sm:ml-auto">
+                <button type="submit" class="flex-1 sm:flex-none bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-gray-200 dark:hover:bg-slate-600 transition">
+                    {{ __('notebook.filter') }}
+                </button>
+                @if (request()->hasAny(['search', 'status', 'grupo_id', 'sistema_operacional', 'fornecedor', 'classificacao', 'criticidade']))
+                    <a href="{{ route('notebooks.index') }}" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-4 py-2.5 text-sm font-medium">
+                        {{ __('notebook.clear') }}
+                    </a>
+                @endif
+            </div>
+        </div>
+
+        {{-- Filtros avançados (colapsável) --}}
+        <div x-show="open" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-2"
+             class="px-4 pb-4 border-t border-gray-100 dark:border-slate-700 pt-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.os') }}</label>
+                    <select name="sistema_operacional" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">{{ __('notebook.all_os') }}</option>
+                        @foreach ($sistemasOperacionais as $os)
+                            <option value="{{ $os }}" {{ request('sistema_operacional') === $os ? 'selected' : '' }}>{{ $os }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.supplier') }}</label>
+                    <select name="fornecedor" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">{{ __('notebook.all_suppliers') }}</option>
+                        @foreach ($fornecedores as $fornecedor)
+                            <option value="{{ $fornecedor }}" {{ request('fornecedor') === $fornecedor ? 'selected' : '' }}>{{ $fornecedor }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.iso_classification') }}</label>
+                    <select name="classificacao" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">{{ __('notebook.all_classifications') }}</option>
+                        <option value="publica" {{ request('classificacao') === 'publica' ? 'selected' : '' }}>{{ __('notebook.classification_options.publica') }}</option>
+                        <option value="interna" {{ request('classificacao') === 'interna' ? 'selected' : '' }}>{{ __('notebook.classification_options.interna') }}</option>
+                        <option value="restrita" {{ request('classificacao') === 'restrita' ? 'selected' : '' }}>{{ __('notebook.classification_options.restrita') }}</option>
+                        <option value="confidencial" {{ request('classificacao') === 'confidencial' ? 'selected' : '' }}>{{ __('notebook.classification_options.confidencial') }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.iso_criticity') }}</label>
+                    <select name="criticidade" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">{{ __('notebook.all_criticalities') }}</option>
+                        <option value="baixo" {{ request('criticidade') === 'baixo' ? 'selected' : '' }}>{{ __('notebook.criticity_options.baixo') }}</option>
+                        <option value="medio" {{ request('criticidade') === 'medio' ? 'selected' : '' }}>{{ __('notebook.criticity_options.medio') }}</option>
+                        <option value="alto" {{ request('criticidade') === 'alto' ? 'selected' : '' }}>{{ __('notebook.criticity_options.alto') }}</option>
+                        <option value="critico" {{ request('criticidade') === 'critico' ? 'selected' : '' }}>{{ __('notebook.criticity_options.critico') }}</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </form>
 </div>

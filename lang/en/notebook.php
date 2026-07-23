@@ -7,8 +7,13 @@ return [
     'export_excel' => 'Excel',
     'search_placeholder' => 'Search by brand, model, asset number...',
     'filter' => 'Filter',
+    'advanced_filters' => 'Advanced filters',
     'clear' => 'Clear',
     'all_statuses' => 'All statuses',
+    'all_os' => 'All operating systems',
+    'all_suppliers' => 'All suppliers',
+    'all_classifications' => 'All classifications',
+    'all_criticalities' => 'All criticalities',
     'no_results' => 'No notebooks found',
     'no_results_hint' => 'Register the first notebook to get started',
     'register_first' => 'Register Notebook',
@@ -116,7 +121,6 @@ return [
         'baixa' => 'Decommissioned',
         'extraviado' => 'Lost',
         'transferido' => 'Transferred',
-        'alugado' => 'Rented',
     ],
 
     'classification_options' => [

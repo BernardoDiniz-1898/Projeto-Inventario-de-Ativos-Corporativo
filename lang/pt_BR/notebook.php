@@ -7,8 +7,13 @@ return [
     'export_excel' => 'Excel',
     'search_placeholder' => 'Buscar por marca, modelo, patrimônio...',
     'filter' => 'Filtrar',
+    'advanced_filters' => 'Filtros avançados',
     'clear' => 'Limpar',
     'all_statuses' => 'Todos os status',
+    'all_os' => 'Todos os SO',
+    'all_suppliers' => 'Todos os fornecedores',
+    'all_classifications' => 'Todas as classificações',
+    'all_criticalities' => 'Todas as criticidades',
     'no_results' => 'Nenhum notebook encontrado',
     'no_results_hint' => 'Cadastre o primeiro notebook para iniciar',
     'register_first' => 'Cadastrar Notebook',
@@ -116,7 +121,6 @@ return [
         'baixa' => 'Baixa',
         'extraviado' => 'Extraviado',
         'transferido' => 'Transferido',
-        'alugado' => 'Alugado',
     ],
 
     'classification_options' => [

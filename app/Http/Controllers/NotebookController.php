@@ -51,10 +51,20 @@ class NotebookController extends Controller
             $query->where('grupo_id', $request->grupo_id);
         }
 
+        if ($request->filled('sistema_operacional')) {
+            $query->where('sistema_operacional', $request->sistema_operacional);
+        }
+
+        if ($request->filled('fornecedor')) {
+            $query->where('fornecedor', $request->fornecedor);
+        }
+
         $notebooks = $query->latest()->paginate(15)->withQueryString();
         $grupos = Grupo::withTrashed()->orderBy('nome')->get();
+        $sistemasOperacionais = Notebook::whereNotNull('sistema_operacional')->where('sistema_operacional', '!=', '')->distinct()->orderBy('sistema_operacional')->pluck('sistema_operacional');
+        $fornecedores = Notebook::whereNotNull('fornecedor')->where('fornecedor', '!=', '')->distinct()->orderBy('fornecedor')->pluck('fornecedor');
 
-        return view('notebooks.index', compact('notebooks', 'grupos'));
+        return view('notebooks.index', compact('notebooks', 'grupos', 'sistemasOperacionais', 'fornecedores'));
     }
 
     public function create()
@@ -116,6 +126,6 @@ class NotebookController extends Controller
     public function export(Request $request)
     {
         $export = new NotebookExport();
-        $export->export($request->status);
+        $export->export($request->only('status', 'grupo_id', 'sistema_operacional', 'fornecedor', 'classificacao', 'criticidade', 'search'));
     }
 }
