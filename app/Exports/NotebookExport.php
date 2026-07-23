@@ -8,7 +8,7 @@ use OpenSpout\Writer\Common\Creator\WriterEntityFactory;
 
 class NotebookExport
 {
-    public function export(?string $status = null)
+    public function export(array $filters = [])
     {
         $writer = WriterEntityFactory::createXLSXWriter();
         $writer->openToBrowser('notebooks_' . date('Y-m-d_H-i-s') . '.xlsx');
@@ -29,8 +29,37 @@ class NotebookExport
 
         $query = Notebook::with(['funcionario', 'grupo']);
 
-        if ($status) {
-            $query->where('status', $status);
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+        if (!empty($filters['grupo_id'])) {
+            $query->where('grupo_id', $filters['grupo_id']);
+        }
+        if (!empty($filters['sistema_operacional'])) {
+            $query->where('sistema_operacional', $filters['sistema_operacional']);
+        }
+        if (!empty($filters['fornecedor'])) {
+            $query->where('fornecedor', $filters['fornecedor']);
+        }
+        if (!empty($filters['classificacao'])) {
+            $query->where('classificacao', $filters['classificacao']);
+        }
+        if (!empty($filters['criticidade'])) {
+            $query->where('criticidade', $filters['criticidade']);
+        }
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function ($q) use ($search) {
+                $q->where('marca', 'like', "%{$search}%")
+                    ->orWhere('modelo', 'like', "%{$search}%")
+                    ->orWhere('numero_serie', 'like', "%{$search}%")
+                    ->orWhere('patrimonio', 'like', "%{$search}%")
+                    ->orWhere('localizacao', 'like', "%{$search}%")
+                    ->orWhere('predio', 'like', "%{$search}%")
+                    ->orWhereHas('funcionario', function ($q2) use ($search) {
+                        $q2->where('nome', 'like', "%{$search}%");
+                    });
+            });
         }
 
         $notebooks = $query->orderBy('marca')->get();
