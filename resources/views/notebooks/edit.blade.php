@@ -71,16 +71,15 @@
                 <option value="baixa" {{ old('status', $notebook->status) === 'baixa' ? 'selected' : '' }}>{{ __('notebook.status_options.baixa') }}</option>
                 <option value="extraviado" {{ old('status', $notebook->status) === 'extraviado' ? 'selected' : '' }}>{{ __('notebook.status_options.extraviado') }}</option>
                 <option value="transferido" {{ old('status', $notebook->status) === 'transferido' ? 'selected' : '' }}>{{ __('notebook.status_options.transferido') }}</option>
-                <option value="alugado" {{ old('status', $notebook->status) === 'alugado' ? 'selected' : '' }}>{{ __('notebook.status_options.alugado') }}</option>
             </select>
             @error('status')
                 <p class="text-red-500 dark:text-red-400 text-xs mt-1.5">{{ $message }}</p>
             @enderror
         </div>
 
-        <div>
+        <div x-data="localizacaoFilter()" x-init="init()">
             <label for="grupo_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ __('grupo.title') }}</label>
-            <select id="grupo_id" name="grupo_id"
+            <select id="grupo_id" name="grupo_id" x-model="selectedGrupo" @change="onGrupoChange()"
                     class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('grupo_id') border-red-300 @enderror">
                 <option value="">—</option>
                 @foreach ($grupos as $grupo)
@@ -90,6 +89,21 @@
             @error('grupo_id')
                 <p class="text-red-500 dark:text-red-400 text-xs mt-1.5">{{ $message }}</p>
             @enderror
+        </div>
+
+        <div>
+            <label for="localizacao_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ __('notebook.location') }}</label>
+            <select id="localizacao_id" name="localizacao_id"
+                    class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('localizacao_id') border-red-300 @enderror">
+                <option value="">—</option>
+                <template x-for="loc in filteredLocalizacoes" :key="loc.id">
+                    <option :value="loc.id" :selected="loc.id == selectedLocalizacao" x-text="loc.nome + (loc.predio ? ' — ' + loc.predio : '')"></option>
+                </template>
+            </select>
+            @error('localizacao_id')
+                <p class="text-red-500 dark:text-red-400 text-xs mt-1.5">{{ $message }}</p>
+            @enderror
+            <p x-show="filteredLocalizacoes.length === 0 && selectedGrupo" class="text-xs text-gray-400 mt-1.5">{{ __('notebook.no_location_for_group') }}</p>
         </div>
 
         <div x-data="searchableSelect()" x-init="$nextTick(() => init())">
@@ -231,5 +245,8 @@
 <script>
     window._employeesData = @js($employees->map(fn($e) => ['id' => $e->id, 'nome' => $e->nome, 'departamento' => $e->departamento ?? '']));
     window._selectedEmployeeId = @js(old('funcionario_id', $notebook->funcionario_id));
+    window._localizacoesData = @js($localizacoes->map(fn($l) => ['id' => $l->id, 'nome' => $l->nome, 'predio' => $l->predio ?? '', 'grupo_id' => $l->grupo_id]));
+    window._selectedGrupoId = @js(old('grupo_id', $notebook->grupo_id));
+    window._selectedLocalizacaoId = @js(old('localizacao_id', $notebook->localizacao_id));
 </script>
 @endsection

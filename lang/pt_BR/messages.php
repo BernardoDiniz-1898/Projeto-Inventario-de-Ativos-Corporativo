@@ -15,6 +15,9 @@ return [
     'grupo_created' => 'Grupo criado com sucesso!',
     'grupo_updated' => 'Grupo atualizado com sucesso!',
     'grupo_deleted' => 'Grupo excluído com sucesso!',
+    'localizacao_created' => 'Localização criada com sucesso!',
+    'localizacao_updated' => 'Localização atualizada com sucesso!',
+    'localizacao_deleted' => 'Localização excluída com sucesso!',
     'cannot_delete_self' => 'Você não pode excluir seu próprio usuário.',
     'unauthorized' => 'Acesso não autorizado.',
 ];

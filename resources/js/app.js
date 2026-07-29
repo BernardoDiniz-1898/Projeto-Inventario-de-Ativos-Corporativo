@@ -111,6 +111,36 @@ document.addEventListener('alpine:init', () => {
             this.show = false
         }
     }))
+
+    // Location filter by group
+    Alpine.data('localizacaoFilter', () => ({
+        selectedGrupo: '',
+        selectedLocalizacao: '',
+        allLocalizacoes: [],
+        filteredLocalizacoes: [],
+
+        init() {
+            this.allLocalizacoes = window._localizacoesData || []
+            this.selectedGrupo = window._selectedGrupoId || ''
+            this.selectedLocalizacao = window._selectedLocalizacaoId || ''
+            this.filterLocalizacoes()
+        },
+
+        onGrupoChange() {
+            this.selectedLocalizacao = ''
+            this.filterLocalizacoes()
+        },
+
+        filterLocalizacoes() {
+            if (!this.selectedGrupo) {
+                this.filteredLocalizacoes = this.allLocalizacoes
+            } else {
+                this.filteredLocalizacoes = this.allLocalizacoes.filter(
+                    l => l.grupo_id == this.selectedGrupo
+                )
+            }
+        }
+    }))
 })
 
 Alpine.start()

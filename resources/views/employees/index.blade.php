@@ -77,7 +77,7 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-600">
-                        <x-ui.table-heading :text="__('employee.table.name')" class="min-w-[200px]" />
+                        <x-ui.table-heading :text="__('employee.table.name')" class="min-w-[160px] whitespace-nowrap" />
                         <x-ui.table-heading :text="__('employee.table.matricula')" class="hidden md:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('employee.table.departamento')" class="hidden lg:table-cell" />
                         <x-ui.table-heading :text="__('grupo.title')" class="hidden xl:table-cell whitespace-nowrap" />
@@ -93,7 +93,7 @@
                                 <a href="{{ route('employees.show', $employee) }}" class="flex items-center gap-4 min-w-0 group">
                                     <x-ui.avatar :name="$employee->nome" size="md" />
                                     <div class="min-w-0 flex-1">
-                                        <div class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate max-w-[220px] text-[13px]">{{ $employee->nome }}</div>
+                                        <div class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate text-[13px]">{{ $employee->nome }}</div>
                                         <div class="text-xs text-gray-400 dark:text-gray-500 md:hidden">{{ $employee->matricula ?? '—' }}</div>
                                         <div class="text-xs text-gray-500 lg:hidden mt-0.5 truncate">{{ $employee->departamento ?? '' }}{{ $employee->cargo ? ' · ' . $employee->cargo : '' }}</div>
                                     </div>

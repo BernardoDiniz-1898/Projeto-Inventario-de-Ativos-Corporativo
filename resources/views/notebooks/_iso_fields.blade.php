@@ -10,7 +10,7 @@
         <svg class="iso-chevron w-4 h-4 text-slate-400 md:hidden" :class="open ? '' : 'collapsed'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
     </div>
     <div x-show="open" x-transition class="iso-section-body">
-        <div>
+        <div>Criptográfia
             <label for="classificacao" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ __('notebook.iso_classification') }}</label>
             <select id="classificacao" name="classificacao"
                     class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('classificacao') border-red-300 @enderror">

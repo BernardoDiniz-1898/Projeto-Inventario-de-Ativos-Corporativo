@@ -12,6 +12,7 @@ return [
     'back' => 'Volver',
     'main_menu' => 'Principal',
     'grupos' => 'Grupos',
+    'localizacoes' => 'Ubicaciones',
     'administration' => 'Administración',
     'inventory' => 'Inventario General',
 ];

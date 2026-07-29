@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\LocalizacaoController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NotebookController;
 use App\Http\Controllers\SettingsController;
@@ -51,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['role:admin,editor'])->group(function () {
         Route::resource('grupos', GrupoController::class);
+        Route::resource('localizacoes', LocalizacaoController::class);
         Route::resource('notebooks', NotebookController::class);
         Route::get('notebooks/export/xlsx', [NotebookController::class, 'export'])->name('notebooks.export');
         Route::resource('employees', EmployeeController::class);

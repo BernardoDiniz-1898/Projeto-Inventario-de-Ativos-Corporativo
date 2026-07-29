@@ -39,6 +39,11 @@ class Grupo extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function localizacoes(): HasMany
+    {
+        return $this->hasMany(Localizacao::class);
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

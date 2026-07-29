@@ -7,6 +7,7 @@ use App\Http\Requests\StoreNotebookRequest;
 use App\Http\Requests\UpdateNotebookRequest;
 use App\Models\Employee;
 use App\Models\Grupo;
+use App\Models\Localizacao;
 use App\Models\Notebook;
 use App\Traits\LogsChanges;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -71,9 +72,10 @@ class NotebookController extends Controller
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
         $grupos = Grupo::withTrashed()->orderBy('nome')->get();
+        $localizacoes = Localizacao::with('grupo')->orderBy('nome')->get();
         $notebook = null;
 
-        return view('notebooks.create', compact('employees', 'notebook', 'grupos'));
+        return view('notebooks.create', compact('employees', 'notebook', 'grupos', 'localizacoes'));
     }
 
     public function store(StoreNotebookRequest $request)
@@ -88,7 +90,7 @@ class NotebookController extends Controller
 
     public function show(Notebook $notebook)
     {
-        $notebook->load(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
+        $notebook->load(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'localizacao']);
         $logs = $notebook->logs()->with('user')->latest()->paginate(10);
 
         return view('notebooks.show', compact('notebook', 'logs'));
@@ -98,8 +100,9 @@ class NotebookController extends Controller
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
         $grupos = Grupo::withTrashed()->orderBy('nome')->get();
+        $localizacoes = Localizacao::with('grupo')->orderBy('nome')->get();
 
-        return view('notebooks.edit', compact('notebook', 'employees', 'grupos'));
+        return view('notebooks.edit', compact('notebook', 'employees', 'grupos', 'localizacoes'));
     }
 
     public function update(UpdateNotebookRequest $request, Notebook $notebook)

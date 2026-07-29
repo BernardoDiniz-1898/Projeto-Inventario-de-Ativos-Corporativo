@@ -11,7 +11,6 @@
         'baixa' => 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300',
         'extraviado' => 'bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-400',
         'transferido' => 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-700 dark:text-cyan-400',
-        'alugado' => 'bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-400',
         default => 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300',
     };
 @endphp

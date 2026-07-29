@@ -19,6 +19,7 @@ class Notebook extends Model
         'patrimonio',
         'status',
         'grupo_id',
+        'localizacao_id',
         'funcionario_id',
         'data_entrega',
         'sistema_operacional',
@@ -89,6 +90,11 @@ class Notebook extends Model
         return $this->belongsTo(Grupo::class);
     }
 
+    public function localizacao(): BelongsTo
+    {
+        return $this->belongsTo(Localizacao::class);
+    }
+
     public function funcionario(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
@@ -113,7 +119,6 @@ class Notebook extends Model
             'baixa' => __('notebook.status_options.baixa'),
             'extraviado' => __('notebook.status_options.extraviado'),
             'transferido' => __('notebook.status_options.transferido'),
-            'alugado' => __('notebook.status_options.alugado'),
             default => $this->status,
         };
     }
@@ -130,7 +135,6 @@ class Notebook extends Model
             'baixa' => 'slate',
             'extraviado' => 'pink',
             'transferido' => 'cyan',
-            'alugado' => 'violet',
             default => 'gray',
         };
     }

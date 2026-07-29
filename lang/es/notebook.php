@@ -58,6 +58,7 @@ return [
     'price_placeholder' => '0.00',
     'observations' => 'Observaciones',
     'observations_placeholder' => 'Observaciones adicionales sobre el notebook...',
+    'location' => 'Ubicación',
     'required_fields' => 'Los campos con * son obligatorios',
 
     'info' => 'Información',
@@ -102,6 +103,7 @@ return [
     'room' => 'Sala',
     'iso_location_general' => 'Ubicación general',
     'location_placeholder' => 'Ej: Sede, Sucursal, Datacenter...',
+    'no_location_for_group' => 'Ninguna ubicación registrada para este grupo',
     'building_placeholder' => 'Ej: Edificio A, Torre Norte...',
     'floor_placeholder' => 'Ej: 3er piso',
     'room_placeholder' => 'Ej: Sala 301, Sala de Servidores...',

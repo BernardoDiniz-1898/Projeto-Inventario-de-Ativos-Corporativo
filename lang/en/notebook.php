@@ -58,6 +58,7 @@ return [
     'price_placeholder' => '0.00',
     'observations' => 'Notes',
     'observations_placeholder' => 'Additional notes about the notebook...',
+    'location' => 'Location',
     'required_fields' => 'Fields marked with * are required',
 
     'info' => 'Details',
@@ -102,6 +103,7 @@ return [
     'room' => 'Room',
     'iso_location_general' => 'General location',
     'location_placeholder' => 'e.g.: HQ, Branch, Datacenter...',
+    'no_location_for_group' => 'No locations registered for this group',
     'building_placeholder' => 'e.g.: Building A, North Tower...',
     'floor_placeholder' => 'e.g.: 3rd floor',
     'room_placeholder' => 'e.g.: Room 301, Server Room...',

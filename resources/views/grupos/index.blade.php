@@ -55,7 +55,7 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-600">
-                        <x-ui.table-heading :text="__('grupo.field.name')" class="min-w-[200px]" />
+                        <x-ui.table-heading :text="__('grupo.field.name')" class="min-w-[160px] whitespace-nowrap" />
                         <x-ui.table-heading :text="__('grupo.field.description')" class="hidden md:table-cell" />
                         <x-ui.table-heading :text="__('grupo.stats.total_notebooks')" class="whitespace-nowrap text-center" />
                         <x-ui.table-heading :text="__('grupo.stats.total_employees')" class="whitespace-nowrap text-center" />

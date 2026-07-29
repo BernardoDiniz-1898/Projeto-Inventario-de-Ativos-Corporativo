@@ -320,14 +320,12 @@ a, button, label, [role="button"] {
 }
 
 /* ── Mobile touch-friendly action buttons ───────────── */
-@media (max-width: 640px) {
-    .action-btn {
-        min-width: 40px;
-        min-height: 40px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
+.action-btn {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -345,6 +343,35 @@ a, button, label, [role="button"] {
 @media (min-width: 768px) {
     .sidebar-desktop {
         display: flex !important;
+    }
+}
+
+/* Sidebar collapsed: hide overflow text */
+.sidebar-desktop [x-cloak] {
+    display: none !important;
+}
+
+/* Sidebar width transition */
+.sidebar-desktop {
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+/* Ensure icons stay visible when collapsed */
+.sidebar-desktop .sidebar-icon {
+    flex-shrink: 0;
+}
+
+/* Responsive tables: ensure they don't break layout */
+.overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Card grid responsiveness */
+@media (max-width: 640px) {
+    .stats-row {
+        gap: 0.5rem;
     }
 }
 

@@ -57,12 +57,12 @@
             <table class="w-full text-sm">
                 <thead>
                     <tr class="text-left text-gray-500 dark:text-gray-400 bg-gray-50/80 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-600">
-                        <x-ui.table-heading :text="__('inventory.table.employee')" class="min-w-[200px]" />
+                        <x-ui.table-heading :text="__('inventory.table.employee')" class="min-w-[150px] whitespace-nowrap" />
                         <x-ui.table-heading :text="__('grupo.title')" class="hidden md:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.matricula')" class="hidden md:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.centro_custo')" class="hidden lg:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.projeto')" class="hidden lg:table-cell whitespace-nowrap" />
-                        <x-ui.table-heading :text="__('inventory.table.notebook')" class="min-w-[180px]" />
+                        <x-ui.table-heading :text="__('inventory.table.notebook')" class="min-w-[150px] whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.serial')" class="hidden lg:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.patrimonio')" class="hidden xl:table-cell whitespace-nowrap" />
                         <x-ui.table-heading :text="__('inventory.table.status')" class="whitespace-nowrap" />
@@ -86,6 +86,9 @@
                                         <span class="text-gray-400 italic text-xs">{{ __('inventory.no_employee') }}</span>
                                     </div>
                                 @endif
+                                <div class="text-xs text-gray-400 md:hidden mt-1">
+                                    @if ($row['employee_matricula']){{ $row['employee_matricula'] }}@endif
+                                </div>
                             </td>
 
                             {{-- Grupo --}}
