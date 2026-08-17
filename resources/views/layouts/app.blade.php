@@ -35,11 +35,7 @@
         {{-- Brand --}}
         <div class="h-16 flex items-center border-b flex-shrink-0" :class="sidebarCollapsed ? 'justify-center px-0' : 'px-5'" style="border-color: rgba(51,65,85,0.4);">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3" :class="sidebarCollapsed ? 'justify-center' : ''">
-                <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 flex-shrink-0">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                    </svg>
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-9 h-9 rounded-xl object-contain flex-shrink-0 shadow-lg shadow-blue-500/25" />
                 <div class="flex flex-col" x-show="!sidebarCollapsed" x-cloak>
                     <span class="font-bold text-white text-sm tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
                     <span class="text-[10px] text-slate-500 font-medium tracking-wider leading-tight">INVENTORY</span>
@@ -269,11 +265,7 @@
                     {{-- Header --}}
                     <div class="h-16 px-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
                         <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-sm shadow-blue-500/20">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                                </svg>
-                            </div>
+                                <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-9 h-9 rounded-xl object-contain shadow-sm shadow-blue-500/20" />
                             <div class="flex flex-col">
                                 <span class="font-bold text-white text-sm tracking-wide uppercase leading-tight">Keep</span>
                                 <span class="text-[10px] text-slate-400 font-medium uppercase tracking-widest leading-tight">Inventory</span>
