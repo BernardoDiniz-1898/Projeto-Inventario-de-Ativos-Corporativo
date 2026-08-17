@@ -18,7 +18,7 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-        $query = Employee::with(['grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
+        $query = Employee::with(['grupos']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -38,7 +38,7 @@ class EmployeeController extends Controller
         }
 
         if ($request->filled('grupo_id')) {
-            $query->where('grupo_id', $request->grupo_id);
+            $query->whereHas('grupos', fn($q) => $q->where('grupos.id', $request->grupo_id));
         }
 
         $employees = $query->latest()->paginate(15)->withQueryString();
@@ -56,8 +56,13 @@ class EmployeeController extends Controller
     public function store(StoreEmployeeRequest $request)
     {
         $validated = $request->validated();
+        $grupoIds = $validated['grupo_ids'] ?? [];
+        unset($validated['grupo_ids']);
         $validated['nome'] = Str::title(mb_strtolower($validated['nome']));
         $employee = Employee::create($validated);
+        if ($grupoIds) {
+            $employee->grupos()->sync($grupoIds);
+        }
         $this->logCreate($employee, $validated);
 
         return redirect()->route('employees.index')
@@ -66,7 +71,7 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        $notebooks = $employee->notebooks()->with('grupo')->latest()->get();
+        $notebooks = $employee->notebooks()->with('grupos')->latest()->get();
         $logs = $employee->logs()->with('user')->latest()->paginate(10);
 
         return view('employees.show', compact('employee', 'notebooks', 'logs'));
@@ -81,10 +86,13 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
+        $grupoIds = $validated['grupo_ids'] ?? [];
+        unset($validated['grupo_ids']);
         $validated['nome'] = Str::title(mb_strtolower($validated['nome']));
 
         $old = $employee->only(array_keys($validated));
         $employee->update($validated);
+        $employee->grupos()->sync($grupoIds);
         $this->logUpdate($employee, $old, $validated);
 
         return redirect()->route('employees.index')

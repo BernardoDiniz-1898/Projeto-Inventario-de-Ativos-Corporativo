@@ -118,15 +118,20 @@
         </div>
 
         <div>
-            <label for="grupo_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ __('grupo.title') }}</label>
-            <select id="grupo_id" name="grupo_id"
-                    class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition @error('grupo_id') border-red-300 @enderror">
-                <option value="">—</option>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">{{ __('grupo.title') }}</label>
+            <div class="space-y-2">
                 @foreach ($grupos as $grupo)
-                    <option value="{{ $grupo->id }}" {{ old('grupo_id', $employee->grupo_id) == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="grupo_ids[]" value="{{ $grupo->id }}" {{ in_array($grupo->id, old('grupo_ids', $employee->grupos->pluck('id')->toArray())) ? 'checked' : '' }}
+                               class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <span class="text-sm text-gray-700 dark:text-gray-300">{{ $grupo->nome }}</span>
+                    </label>
                 @endforeach
-            </select>
-            @error('grupo_id')
+            </div>
+            @error('grupo_ids')
+                <p class="text-red-500 dark:text-red-400 text-xs mt-1.5">{{ $message }}</p>
+            @enderror
+            @error('grupo_ids.*')
                 <p class="text-red-500 dark:text-red-400 text-xs mt-1.5">{{ $message }}</p>
             @enderror
         </div>

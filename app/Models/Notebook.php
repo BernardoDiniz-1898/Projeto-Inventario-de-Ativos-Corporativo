@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Notebook extends Model
@@ -18,7 +19,6 @@ class Notebook extends Model
         'numero_serie',
         'patrimonio',
         'status',
-        'grupo_id',
         'localizacao_id',
         'funcionario_id',
         'data_entrega',
@@ -85,9 +85,9 @@ class Notebook extends Model
 
     // ── Relacionamentos ──────────────────────────────────
 
-    public function grupo(): BelongsTo
+    public function grupos(): BelongsToMany
     {
-        return $this->belongsTo(Grupo::class);
+        return $this->belongsToMany(Grupo::class, 'notebook_grupo')->withTimestamps();
     }
 
     public function localizacao(): BelongsTo

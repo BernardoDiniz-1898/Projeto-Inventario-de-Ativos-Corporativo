@@ -19,7 +19,7 @@ class EmployeeExport
         ]);
         $writer->addRow($headerRow);
 
-        $query = Employee::with('grupo')->withCount('notebooks');
+        $query = Employee::with('grupos')->withCount('notebooks');
 
         if ($status) {
             $query->where('status', $status);
@@ -34,7 +34,7 @@ class EmployeeExport
                 $employee->email ?? '',
                 $employee->telefone ?? '',
                 $employee->departamento ?? '',
-                $employee->grupo->nome ?? '',
+                $employee->grupos->pluck('nome')->join(', ') ?? '',
                 $employee->centro_custo ?? '',
                 $employee->projeto ?? '',
                 $employee->setor ?? '',

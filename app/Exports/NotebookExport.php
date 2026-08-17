@@ -27,13 +27,13 @@ class NotebookExport
         ]);
         $writer->addRow($headerRow);
 
-        $query = Notebook::with(['funcionario', 'grupo']);
+        $query = Notebook::with(['funcionario', 'grupos']);
 
         if (!empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
         if (!empty($filters['grupo_id'])) {
-            $query->where('grupo_id', $filters['grupo_id']);
+            $query->whereHas('grupos', fn($q) => $q->where('grupos.id', $filters['grupo_id']));
         }
         if (!empty($filters['sistema_operacional'])) {
             $query->where('sistema_operacional', $filters['sistema_operacional']);
@@ -71,7 +71,7 @@ class NotebookExport
                 $notebook->modelo,
                 $notebook->numero_serie,
                 $notebook->status_label,
-                $notebook->grupo->nome ?? '',
+                $notebook->grupos->pluck('nome')->join(', ') ?? '',
                 $notebook->funcionario->nome ?? '',
                 $notebook->data_entrega?->format('d/m/Y') ?? '',
                 $notebook->sistema_operacional ?? '',

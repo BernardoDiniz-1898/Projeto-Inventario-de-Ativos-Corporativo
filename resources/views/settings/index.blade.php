@@ -227,12 +227,12 @@
         });
 
         document.getElementById('saveSettings').addEventListener('click', () => {
-            showToast('{{ __(\'settings.toast_saved\') }}');
+            showToast('{{ __("settings.toast_saved") }}');
         });
 
         document.getElementById('resetSettings').addEventListener('click', () => {
             saveSettings({ ...defaults });
-            showToast('{{ __(\'settings.toast_reset\') }}');
+            showToast('{{ __("settings.toast_reset") }}');
         });
     });
 </script>

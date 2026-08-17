@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -29,14 +30,14 @@ class Grupo extends Model
         });
     }
 
-    public function notebooks(): HasMany
+    public function notebooks(): BelongsToMany
     {
-        return $this->hasMany(Notebook::class);
+        return $this->belongsToMany(Notebook::class, 'notebook_grupo')->withTimestamps();
     }
 
-    public function employees(): HasMany
+    public function employees(): BelongsToMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsToMany(Employee::class, 'employee_grupo')->withTimestamps();
     }
 
     public function localizacoes(): HasMany

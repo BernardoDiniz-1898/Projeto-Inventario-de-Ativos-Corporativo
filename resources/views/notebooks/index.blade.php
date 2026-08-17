@@ -181,8 +181,10 @@
                                 <code class="text-xs bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 px-2.5 py-1 rounded-lg font-medium">{{ $notebook->numero_serie }}</code>
                             </td>
                             <td class="px-5 sm:px-7 py-5 hidden lg:table-cell text-[13px]">
-                                @if ($notebook->grupo)
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium" style="background-color: {{ $notebook->grupo->cor }}20; color: {{ $notebook->grupo->cor }}">{{ $notebook->grupo->nome }}</span>
+                                @if ($notebook->grupos->count())
+                                    @foreach ($notebook->grupos as $g)
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium" style="background-color: {{ $g->cor }}20; color: {{ $g->cor }}">{{ $g->nome }}</span>
+                                    @endforeach
                                 @else
                                     <span class="text-gray-300 dark:text-slate-600">—</span>
                                 @endif
