@@ -35,10 +35,12 @@
         {{-- Brand --}}
         <div class="h-16 flex items-center border-b flex-shrink-0" :class="sidebarCollapsed ? 'justify-center px-0' : 'px-5'" style="border-color: rgba(51,65,85,0.4);">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3" :class="sidebarCollapsed ? 'justify-center' : ''">
-                <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-9 h-9 rounded-xl object-contain flex-shrink-0 shadow-lg shadow-blue-500/25" />
+                <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
+                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" />
+                </div>
                 <div class="flex flex-col" x-show="!sidebarCollapsed" x-cloak>
-                    <span class="font-bold text-white text-sm tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
-                    <span class="text-[10px] text-slate-500 font-medium tracking-wider leading-tight">INVENTORY</span>
+                    <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
+                    <span class="text-[9px] text-slate-400 font-semibold tracking-[0.2em] leading-tight uppercase">Inventory</span>
                 </div>
             </a>
         </div>
@@ -265,10 +267,12 @@
                     {{-- Header --}}
                     <div class="h-16 px-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
                         <div class="flex items-center gap-3">
-                                <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-9 h-9 rounded-xl object-contain shadow-sm shadow-blue-500/20" />
+                                <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
+                                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" />
+                                </div>
                             <div class="flex flex-col">
-                                <span class="font-bold text-white text-sm tracking-wide uppercase leading-tight">Keep</span>
-                                <span class="text-[10px] text-slate-400 font-medium uppercase tracking-widest leading-tight">Inventory</span>
+                                <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
+                                <span class="text-[9px] text-slate-400 font-semibold tracking-[0.2em] leading-tight uppercase">Inventory</span>
                             </div>
                         </div>
                         <button @click="leaving = true; setTimeout(() => { mobileOpen = false; leaving = false; }, 200)" class="p-2 -mr-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">
