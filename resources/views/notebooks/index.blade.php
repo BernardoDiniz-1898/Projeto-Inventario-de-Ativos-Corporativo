@@ -144,7 +144,7 @@
     </form>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     @if ($notebooks->isEmpty())
         <x-ui.empty-state
             icon="notebook"

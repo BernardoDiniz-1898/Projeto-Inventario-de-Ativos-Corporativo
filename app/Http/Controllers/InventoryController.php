@@ -125,6 +125,8 @@ class InventoryController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
+        $grupos = Grupo::orderBy('nome')->get();
+
         return view('inventory.index', compact(
             'paginated',
             'totalNotebooks',
@@ -134,7 +136,8 @@ class InventoryController extends Controller
             'withoutEquipment',
             'search',
             'filter',
-            'grupoId'
+            'grupoId',
+            'grupos'
         ));
     }
 }

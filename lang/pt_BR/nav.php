@@ -15,4 +15,5 @@ return [
     'localizacoes' => 'Localizações',
     'administration' => 'Administração',
     'inventory' => 'Inventário Geral',
+    'collapse' => 'Recolher menu',
 ];

@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 mb-6">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 mb-6">
     <form method="GET" action="{{ route('employees.index') }}" class="p-4 flex flex-col sm:flex-row gap-3">
         <div class="flex-1 relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -35,16 +35,16 @@
                 </svg>
             </div>
             <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('employee.search_placeholder') }}"
-                   class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                   class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <select name="status" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="status" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">{{ __('employee.all_statuses') }}</option>
             <option value="ativo" {{ request('status') === 'ativo' ? 'selected' : '' }}>{{ __('employee.status_options.ativo') }}</option>
             <option value="afastado" {{ request('status') === 'afastado' ? 'selected' : '' }}>{{ __('employee.status_options.afastado') }}</option>
             <option value="desligado" {{ request('status') === 'desligado' ? 'selected' : '' }}>{{ __('employee.status_options.desligado') }}</option>
             <option value="ferias" {{ request('status') === 'ferias' ? 'selected' : '' }}>{{ __('employee.status_options.ferias') }}</option>
         </select>
-        <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">{{ __('grupo.all') }}</option>
             @foreach ($grupos as $grupo)
                 <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
@@ -63,7 +63,7 @@
     </form>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     @if ($employees->isEmpty())
         <x-ui.empty-state
             icon="employee"

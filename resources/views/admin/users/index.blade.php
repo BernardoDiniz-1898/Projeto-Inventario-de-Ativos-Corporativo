@@ -12,9 +12,9 @@
     </a>
 </div>
 
-<h1 class="text-2xl font-bold text-gray-800 mb-6">{{ __('user.title') }}</h1>
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ __('user.title') }}</h1>
 
-<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
             <thead class="bg-gray-50 border-b border-gray-100 dark:border-slate-700">

@@ -28,24 +28,26 @@
     </x-ui.stat-card>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 mb-6">
-    <x-ui.search-bar
-        action="{{ route('inventory.index') }}"
-        :searchValue="$search"
-        :filterOptions="['name' => 'filter', 'allLabel' => __('inventory.filters.all'), 'options' => ['allocated' => __('inventory.filters.allocated'), 'stock' => __('inventory.filters.stock'), 'unassigned_employee' => __('inventory.filters.unassigned_employee')]]"
-        :filterValue="$filter"
-    />
-    <div class="px-4 pb-3">
-        <select name="grupo_id" onchange="this.form.submit()" class="w-full sm:w-auto border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            <option value="">{{ __('grupo.all') }}</option>
-            @foreach (\App\Models\Grupo::orderBy('nome')->get() as $grupo)
-                <option value="{{ $grupo->id }}" {{ ($grupoId ?? '') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
-            @endforeach
-        </select>
-    </div>
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 mb-6">
+    <form method="GET" action="{{ route('inventory.index') }}">
+        <x-ui.search-bar
+            action="{{ route('inventory.index') }}"
+            :searchValue="$search"
+            :filterOptions="['name' => 'filter', 'allLabel' => __('inventory.filters.all'), 'options' => ['allocated' => __('inventory.filters.allocated'), 'stock' => __('inventory.filters.stock'), 'unassigned_employee' => __('inventory.filters.unassigned_employee')]]"
+            :filterValue="$filter"
+        />
+        <div class="px-4 pb-3">
+            <select name="grupo_id" onchange="this.form.submit()" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">{{ __('grupo.all') }}</option>
+                @foreach ($grupos as $grupo)
+                    <option value="{{ $grupo->id }}" {{ ($grupoId ?? '') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
+                @endforeach
+            </select>
+        </div>
+    </form>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     @if ($paginated->isEmpty())
         <x-ui.empty-state
             icon="inventory"

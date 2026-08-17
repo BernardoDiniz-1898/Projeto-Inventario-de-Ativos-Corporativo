@@ -17,7 +17,7 @@
     <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">{!! __('user.edit_hint', ['name' => '<strong>' . $user->name . '</strong>']) !!}</p>
 </div>
 
-<form action="{{ route('admin.users.update', $user) }}" method="POST" class="form-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 sm:p-8">
+<form action="{{ route('admin.users.update', $user) }}" method="POST" class="form-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 p-6 sm:p-8">
     @csrf
     @method('PUT')
 
@@ -72,7 +72,7 @@
     </div>
 
     <div class="mt-8 pt-6 border-t border-gray-100 dark:border-slate-700 flex items-center gap-3">
-        <button type="submit" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+        <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-xl text-sm font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-sm shadow-blue-500/20">
             {{ __('user.save') }}
         </button>
         <a href="{{ route('admin.users.index') }}" class="text-gray-500 hover:text-gray-700 text-sm font-medium px-4 py-2.5">
