@@ -18,6 +18,15 @@
 /* ── Alpine.js x-cloak ──────────────────────────────── */
 [x-cloak] { display: none !important; }
 
+/* ── Custom select chevron ──────────────────────────── */
+.select-chevron {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    padding-right: 2.25rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
 /* ── Corporate polish ───────────────────────────────── */
 .bg-white.rounded-2xl {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04);

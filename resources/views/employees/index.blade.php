@@ -37,14 +37,14 @@
             <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('employee.search_placeholder') }}"
                    class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <select name="status" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="status" class="select-chevron w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">{{ __('employee.all_statuses') }}</option>
             <option value="ativo" {{ request('status') === 'ativo' ? 'selected' : '' }}>{{ __('employee.status_options.ativo') }}</option>
             <option value="afastado" {{ request('status') === 'afastado' ? 'selected' : '' }}>{{ __('employee.status_options.afastado') }}</option>
             <option value="desligado" {{ request('status') === 'desligado' ? 'selected' : '' }}>{{ __('employee.status_options.desligado') }}</option>
             <option value="ferias" {{ request('status') === 'ferias' ? 'selected' : '' }}>{{ __('employee.status_options.ferias') }}</option>
         </select>
-        <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <select name="grupo_id" class="select-chevron w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             <option value="">{{ __('grupo.all') }}</option>
             @foreach ($grupos as $grupo)
                 <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>

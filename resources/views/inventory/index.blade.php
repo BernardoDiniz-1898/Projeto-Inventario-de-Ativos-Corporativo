@@ -37,7 +37,7 @@
             :filterValue="$filter"
         />
         <div class="px-4 pb-3">
-            <select name="grupo_id" onchange="this.form.submit()" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <select name="grupo_id" onchange="this.form.submit()" class="select-chevron w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">{{ __('grupo.all') }}</option>
                 @foreach ($grupos as $grupo)
                     <option value="{{ $grupo->id }}" {{ ($grupoId ?? '') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>

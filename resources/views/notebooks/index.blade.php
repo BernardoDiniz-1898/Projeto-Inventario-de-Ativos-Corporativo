@@ -45,7 +45,7 @@
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('notebook.search_placeholder') }}"
                        class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
             </div>
-            <select name="status" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <select name="status" class="select-chevron w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">{{ __('notebook.all_statuses') }}</option>
                 <option value="disponivel" {{ request('status') === 'disponivel' ? 'selected' : '' }}>{{ __('notebook.status_options.disponivel') }}</option>
                 <option value="em_uso" {{ request('status') === 'em_uso' ? 'selected' : '' }}>{{ __('notebook.status_options.em_uso') }}</option>
@@ -57,7 +57,7 @@
                 <option value="extraviado" {{ request('status') === 'extraviado' ? 'selected' : '' }}>{{ __('notebook.status_options.extraviado') }}</option>
                 <option value="transferido" {{ request('status') === 'transferido' ? 'selected' : '' }}>{{ __('notebook.status_options.transferido') }}</option>
             </select>
-            <select name="grupo_id" class="w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <select name="grupo_id" class="select-chevron w-full sm:w-auto border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 <option value="">{{ __('grupo.all') }}</option>
                 @foreach ($grupos as $grupo)
                     <option value="{{ $grupo->id }}" {{ request('grupo_id') == $grupo->id ? 'selected' : '' }}>{{ $grupo->nome }}</option>
@@ -103,7 +103,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.os') }}</label>
-                    <select name="sistema_operacional" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="sistema_operacional" class="select-chevron w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">{{ __('notebook.all_os') }}</option>
                         @foreach ($sistemasOperacionais as $os)
                             <option value="{{ $os }}" {{ request('sistema_operacional') === $os ? 'selected' : '' }}>{{ $os }}</option>
@@ -112,7 +112,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.supplier') }}</label>
-                    <select name="fornecedor" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="fornecedor" class="select-chevron w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">{{ __('notebook.all_suppliers') }}</option>
                         @foreach ($fornecedores as $fornecedor)
                             <option value="{{ $fornecedor }}" {{ request('fornecedor') === $fornecedor ? 'selected' : '' }}>{{ $fornecedor }}</option>
@@ -121,7 +121,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.iso_classification') }}</label>
-                    <select name="classificacao" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="classificacao" class="select-chevron w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">{{ __('notebook.all_classifications') }}</option>
                         <option value="publica" {{ request('classificacao') === 'publica' ? 'selected' : '' }}>{{ __('notebook.classification_options.publica') }}</option>
                         <option value="interna" {{ request('classificacao') === 'interna' ? 'selected' : '' }}>{{ __('notebook.classification_options.interna') }}</option>
@@ -131,7 +131,7 @@
                 </div>
                 <div>
                     <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">{{ __('notebook.iso_criticity') }}</label>
-                    <select name="criticidade" class="w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <select name="criticidade" class="select-chevron w-full border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">{{ __('notebook.all_criticalities') }}</option>
                         <option value="baixo" {{ request('criticidade') === 'baixo' ? 'selected' : '' }}>{{ __('notebook.criticity_options.baixo') }}</option>
                         <option value="medio" {{ request('criticidade') === 'medio' ? 'selected' : '' }}>{{ __('notebook.criticity_options.medio') }}</option>
