@@ -28,21 +28,29 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', function () {
-        $dashboard = app(DashboardService::class);
+        $d = app(DashboardService::class);
+        $stats = $d->getStats();
 
-        $total = $dashboard->getStats()['total'];
-        $disponiveis = $dashboard->getStats()['disponiveis'];
-        $emUso = $dashboard->getStats()['emUso'];
-        $manutencao = $dashboard->getStats()['manutencao'];
-        $ociosos = $dashboard->getStats()['ociosos'];
-        $totalFuncionarios = $dashboard->getStats()['totalFuncionarios'];
-
-        $porMarca = $dashboard->getNotebooksByBrand();
-        $porDepartamento = $dashboard->getEmployeesByDepartment();
-        $porGrupo = $dashboard->getNotebooksByGrupo();
-        $recentes = $dashboard->getRecentNotebooks();
-
-        return view('dashboard', compact('total', 'disponiveis', 'emUso', 'manutencao', 'ociosos', 'totalFuncionarios', 'porMarca', 'porDepartamento', 'porGrupo', 'recentes'));
+        return view('dashboard', [
+            'total' => $stats['total'],
+            'disponiveis' => $stats['disponiveis'],
+            'emUso' => $stats['emUso'],
+            'manutencao' => $stats['manutencao'],
+            'ociosos' => $stats['ociosos'],
+            'totalFuncionarios' => $stats['totalFuncionarios'],
+            'porMarca' => $d->getNotebooksByBrand(),
+            'porDepartamento' => $d->getEmployeesByDepartment(),
+            'porGrupo' => $d->getNotebooksByGrupo(),
+            'recentes' => $d->getRecentNotebooks(),
+            'valorTotal' => $d->getTotalValue(),
+            'semFuncionario' => $d->getNotebooksWithoutEmployee(),
+            'garantiasVencendo' => $d->getWarrantyExpiring(30),
+            'manutencaoPendente' => $d->getUpcomingMaintenance(30),
+            'distribuicaoStatus' => $d->getStatusDistribution(),
+            'atividadeRecente' => $d->getRecentActivity(8),
+            'compliance' => $d->getSecurityCompliance(),
+            'alugueisAtivos' => $d->getActiveRentals(),
+        ]);
     })->name('dashboard');
 
     Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
