@@ -106,9 +106,9 @@ foreach ($reader->getSheetIterator() as $sheet) {
 
         if ($grupo) {
             // Remove existing group assignments for this notebook
-            DB::table('grupo_notebook')->where('notebook_id', $notebookId)->delete();
+            DB::table('notebook_grupo')->where('notebook_id', $notebookId)->delete();
             // Attach to correct group
-            DB::table('grupo_notebook')->insert([
+            DB::table('notebook_grupo')->insert([
                 'grupo_id' => $grupo->id,
                 'notebook_id' => $notebookId,
                 'created_at' => now(),
@@ -130,8 +130,8 @@ foreach ($grupoCounts as $grupo => $count) {
 }
 
 echo "\n=== VERIFICAÇÃO NO BANCO ===\n";
-$groups = DB::table('grupo_notebook')
-    ->join('grupos', 'grupos.id', '=', 'grupo_notebook.grupo_id')
+$groups = DB::table('notebook_grupo')
+    ->join('grupos', 'grupos.id', '=', 'notebook_grupo.grupo_id')
     ->select('grupos.nome', DB::raw('count(*) as cnt'))
     ->groupBy('grupos.nome')
     ->get();
