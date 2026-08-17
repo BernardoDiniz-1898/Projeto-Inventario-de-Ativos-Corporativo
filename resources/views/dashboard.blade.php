@@ -214,7 +214,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ $item->total }}</span>
-                                @php $pctStr = number_format($statusTotal > 0 ? $item->total / $statusTotal * 100, 0); @endphp
+                                @php $pctVal = $statusTotal > 0 ? $item->total / $statusTotal * 100 : 0; $pctStr = number_format($pctVal, 0); @endphp
                                 <span class="text-xs text-gray-400 dark:text-gray-500 w-12 text-right">{{ $pctStr }}%</span>
                             </div>
                         </div>
