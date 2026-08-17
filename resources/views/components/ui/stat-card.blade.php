@@ -22,12 +22,12 @@
         default => 'text-gray-900 dark:text-white',
     };
 @endphp
-<div class="stat-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-4 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow flex-shrink-0 flex items-center gap-3 min-w-0 {{ $class }}">
-    <div class="stat-icon w-9 h-9 {{ $colorClasses }} rounded-xl flex items-center justify-center shrink-0">
+<div class="stat-card bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-3 sm:p-4 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-shadow flex items-center gap-2.5 sm:gap-3 min-w-0 {{ $class }}">
+    <div class="stat-icon w-8 h-8 sm:w-9 sm:h-9 {{ $colorClasses }} rounded-xl flex items-center justify-center shrink-0">
         {{ $slot }}
     </div>
     <div class="min-w-0">
-        <p class="stat-value text-xl font-bold {{ $valueColor }}">{{ $value }}</p>
-        <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $label }}</p>
+        <p class="stat-value text-lg sm:text-xl font-bold {{ $valueColor }}">{{ $value }}</p>
+        <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 truncate">{{ $label }}</p>
     </div>
 </div>

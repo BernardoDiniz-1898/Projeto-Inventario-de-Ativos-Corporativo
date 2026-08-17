@@ -21,7 +21,7 @@
 {{-- ═══════════════════════════════════════════════════════
      STAT CARDS
      ═══════════════════════════════════════════════════════ --}}
-<div class="flex gap-3 sm:gap-4 mb-8 overflow-x-auto pb-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
     <x-ui.stat-card :value="$total" :label="__('dashboard.total_notebooks')" color="gray">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
     </x-ui.stat-card>
@@ -62,7 +62,7 @@
             </div>
             <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('dashboard.quick_actions') }}</h2>
         </div>
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-3 gap-2 sm:gap-3">
             <a href="{{ route('notebooks.create') }}" class="flex flex-col items-center gap-2 p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition text-center">
                 <div class="w-10 h-10 bg-blue-100 dark:bg-blue-800/40 rounded-xl flex items-center justify-center">
                     <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
