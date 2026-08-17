@@ -19,7 +19,7 @@ class NotebookController extends Controller
 
     public function index(Request $request)
     {
-        $query = Notebook::with(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
+        $query = Notebook::with(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupos']);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -49,7 +49,7 @@ class NotebookController extends Controller
         }
 
         if ($request->filled('grupo_id')) {
-            $query->where('grupo_id', $request->grupo_id);
+            $query->whereHas('grupos', fn($q) => $q->where('grupos.id', $request->grupo_id));
         }
 
         if ($request->filled('sistema_operacional')) {
@@ -72,7 +72,7 @@ class NotebookController extends Controller
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
         $grupos = Grupo::withTrashed()->orderBy('nome')->get();
-        $localizacoes = Localizacao::with('grupo')->orderBy('nome')->get();
+        $localizacoes = Localizacao::with('grupos')->orderBy('nome')->get();
         $notebook = null;
 
         return view('notebooks.create', compact('employees', 'notebook', 'grupos', 'localizacoes'));
@@ -81,7 +81,12 @@ class NotebookController extends Controller
     public function store(StoreNotebookRequest $request)
     {
         $validated = $request->validated();
+        $grupoIds = $validated['grupo_ids'] ?? [];
+        unset($validated['grupo_ids']);
         $notebook = Notebook::create($validated);
+        if ($grupoIds) {
+            $notebook->grupos()->sync($grupoIds);
+        }
         $this->logCreate($notebook, $validated);
 
         return redirect()->route('notebooks.index')
@@ -90,7 +95,7 @@ class NotebookController extends Controller
 
     public function show(Notebook $notebook)
     {
-        $notebook->load(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'localizacao']);
+        $notebook->load(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupos', 'localizacao']);
         $logs = $notebook->logs()->with('user')->latest()->paginate(10);
 
         return view('notebooks.show', compact('notebook', 'logs'));
@@ -100,7 +105,7 @@ class NotebookController extends Controller
     {
         $employees = Employee::where('status', '!=', 'desligado')->orderBy('nome')->get();
         $grupos = Grupo::withTrashed()->orderBy('nome')->get();
-        $localizacoes = Localizacao::with('grupo')->orderBy('nome')->get();
+        $localizacoes = Localizacao::with('grupos')->orderBy('nome')->get();
 
         return view('notebooks.edit', compact('notebook', 'employees', 'grupos', 'localizacoes'));
     }
@@ -108,9 +113,12 @@ class NotebookController extends Controller
     public function update(UpdateNotebookRequest $request, Notebook $notebook)
     {
         $validated = $request->validated();
+        $grupoIds = $validated['grupo_ids'] ?? [];
+        unset($validated['grupo_ids']);
 
         $old = $notebook->only(array_keys($validated));
         $notebook->update($validated);
+        $notebook->grupos()->sync($grupoIds);
         $this->logUpdate($notebook, $old, $validated);
 
         return redirect()->route('notebooks.index')

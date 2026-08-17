@@ -21,9 +21,9 @@ class InventoryController extends Controller
         $rows = collect();
 
         // Get all notebooks with their employees
-        $query = Notebook::with(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])]);
+        $query = Notebook::with(['funcionario' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class]), 'grupos']);
         if ($grupoId) {
-            $query->where('grupo_id', $grupoId);
+            $query->whereHas('grupos', fn($q) => $q->where('grupos.id', $grupoId));
         }
         $notebooks = $query->get();
 
@@ -34,8 +34,8 @@ class InventoryController extends Controller
                 'employee_matricula' => $nb->funcionario->matricula ?? null,
                 'employee_centro_custo' => $nb->funcionario->centro_custo ?? null,
                 'employee_projeto' => $nb->funcionario->projeto ?? null,
-                'grupo_nome' => $nb->grupo->nome ?? null,
-                'grupo_cor' => $nb->grupo->cor ?? null,
+                'grupo_nome' => $nb->grupos->pluck('nome')->join(', ') ?: null,
+                'grupo_cor' => $nb->grupos->first()?->cor ?? null,
                 'notebook_id' => $nb->id,
                 'notebook_marca' => $nb->marca,
                 'notebook_modelo' => $nb->modelo,
@@ -49,10 +49,10 @@ class InventoryController extends Controller
 
         // Find employees with no notebooks
         $assignedEmployeeIds = $notebooks->pluck('funcionario_id')->filter()->unique();
-        $unassignedQuery = Employee::with(['grupo' => fn($q) => $q->withoutGlobalScopes([SoftDeletingScope::class])])->whereNotIn('id', $assignedEmployeeIds)
+        $unassignedQuery = Employee::with(['grupos'])->whereNotIn('id', $assignedEmployeeIds)
             ->where('status', '!=', 'desligado');
         if ($grupoId) {
-            $unassignedQuery->where('grupo_id', $grupoId);
+            $unassignedQuery->whereHas('grupos', fn($q) => $q->where('grupos.id', $grupoId));
         }
         $unassignedEmployees = $unassignedQuery->get();
 
@@ -63,8 +63,8 @@ class InventoryController extends Controller
                 'employee_matricula' => $emp->matricula,
                 'employee_centro_custo' => $emp->centro_custo,
                 'employee_projeto' => $emp->projeto,
-                'grupo_nome' => $emp->grupo->nome ?? null,
-                'grupo_cor' => $emp->grupo->cor ?? null,
+                'grupo_nome' => $emp->grupos->pluck('nome')->join(', ') ?: null,
+                'grupo_cor' => $emp->grupos->first()?->cor ?? null,
                 'notebook_id' => null,
                 'notebook_marca' => null,
                 'notebook_modelo' => null,

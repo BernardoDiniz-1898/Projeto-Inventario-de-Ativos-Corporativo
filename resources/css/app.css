@@ -6,7 +6,7 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -353,7 +353,7 @@ a, button, label, [role="button"] {
 
 /* Sidebar width transition */
 .sidebar-desktop {
-    transition: width 0.3s ease;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-x: hidden;
     white-space: nowrap;
 }
@@ -375,10 +375,10 @@ a, button, label, [role="button"] {
     }
 }
 
-/* Sidebar link active state */
+/* Sidebar active state */
 .sidebar-link-active {
-    color: #60a5fa !important;
-    background-color: rgba(59, 130, 246, 0.12) !important;
+    color: #93c5fd !important;
+    background-color: rgba(59, 130, 246, 0.08) !important;
     font-weight: 600;
 }
 
@@ -389,35 +389,35 @@ a, button, label, [role="button"] {
 
 /* Sidebar scrollbar */
 .sidebar-desktop ::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
 }
 .sidebar-desktop ::-webkit-scrollbar-track {
     background: transparent;
 }
 .sidebar-desktop ::-webkit-scrollbar-thumb {
-    background-color: #334155;
+    background-color: rgba(100, 116, 139, 0.3);
     border-radius: 9999px;
 }
 .sidebar-desktop ::-webkit-scrollbar-thumb:hover {
-    background-color: #475569;
+    background-color: rgba(100, 116, 139, 0.5);
 }
 
 /* Dark theme sidebar - already dark, just ensure consistency */
 .dark .sidebar-desktop {
-    background-color: #0f172a;
-    border-color: #1e293b;
+    background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+    border-color: rgba(51,65,85,0.4);
 }
 .dark .sidebar-desktop .text-white { color: #f1f5f9; }
 .dark .sidebar-desktop .text-slate-400 { color: #64748b; }
 .dark .sidebar-desktop .text-slate-500 { color: #475569; }
-.dark .sidebar-desktop .border-slate-800 { border-color: #1e293b; }
+.dark .sidebar-desktop .border-slate-800 { border-color: rgba(51,65,85,0.4); }
 .dark .sidebar-desktop .bg-slate-800 { background-color: #1e293b; }
-.dark .sidebar-desktop .bg-slate-900 { background-color: #0f172a; }
+.dark .sidebar-desktop .bg-slate-900 { background-color: #0b1120; }
 
 /* Dark sidebar active - same as light since sidebar is always dark */
 .dark .sidebar-link-active {
-    color: #60a5fa !important;
-    background-color: rgba(59, 130, 246, 0.12) !important;
+    color: #93c5fd !important;
+    background-color: rgba(59, 130, 246, 0.08) !important;
 }
 .dark .sidebar-link-active .sidebar-icon {
     background-color: rgba(59, 130, 246, 0.15) !important;
@@ -426,8 +426,8 @@ a, button, label, [role="button"] {
 
 /* Dark sidebar scrollbar - same as light since always dark */
 .dark .sidebar-desktop ::-webkit-scrollbar-thumb {
-    background-color: #334155;
+    background-color: rgba(100, 116, 139, 0.3);
 }
 .dark .sidebar-desktop ::-webkit-scrollbar-thumb:hover {
-    background-color: #475569;
+    background-color: rgba(100, 116, 139, 0.5);
 }

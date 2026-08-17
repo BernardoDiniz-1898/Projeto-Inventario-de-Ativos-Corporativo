@@ -104,8 +104,10 @@
                             </td>
                             <td class="px-5 sm:px-7 py-5 hidden lg:table-cell text-gray-600 text-[13px]">{{ $employee->departamento ?? '—' }}</td>
                             <td class="px-5 sm:px-7 py-5 hidden xl:table-cell text-[13px]">
-                                @if ($employee->grupo)
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium" style="background-color: {{ $employee->grupo->cor }}20; color: {{ $employee->grupo->cor }}">{{ $employee->grupo->nome }}</span>
+                                @if ($employee->grupos->count())
+                                    @foreach ($employee->grupos as $g)
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium" style="background-color: {{ $g->cor }}20; color: {{ $g->cor }}">{{ $g->nome }}</span>
+                                    @endforeach
                                 @else
                                     <span class="text-gray-300 dark:text-slate-600">—</span>
                                 @endif
