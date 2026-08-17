@@ -65,12 +65,15 @@ trait LogsChanges
 
     protected function logDelete($model): void
     {
+        $id = $model->getKey();
+        $attributes = $model->getAttributes();
+
         ActivityLog::create([
             'loggable_type' => get_class($model),
-            'loggable_id' => $model->id,
+            'loggable_id' => $id,
             'action' => 'deleted',
             'description' => $this->describeAction(__('logs.deleted'), $model),
-            'old_values' => $model->getAttributes(),
+            'old_values' => $attributes,
             'new_values' => null,
             'user_id' => auth()->id(),
         ]);
