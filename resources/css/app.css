@@ -396,8 +396,8 @@ a, button, label, [role="button"] {
     border-color: rgba(51,65,85,0.4);
 }
 .dark .sidebar-desktop .text-white { color: #f1f5f9; }
-.dark .sidebar-desktop .text-slate-400 { color: #64748b; }
-.dark .sidebar-desktop .text-slate-500 { color: #475569; }
+.dark .sidebar-desktop .text-slate-400 { color: #94a3b8; }
+.dark .sidebar-desktop .text-slate-300 { color: #cbd5e1; }
 .dark .sidebar-desktop .border-slate-800 { border-color: rgba(51,65,85,0.4); }
 .dark .sidebar-desktop .bg-slate-800 { background-color: #1e293b; }
 .dark .sidebar-desktop .bg-slate-900 { background-color: #0b1120; }

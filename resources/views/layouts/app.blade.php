@@ -51,7 +51,7 @@
         <nav class="flex-1 overflow-y-auto py-3 px-2.5">
             {{-- Main section --}}
             <div x-show="!sidebarCollapsed" class="px-2.5 mb-1.5">
-                <span class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.15em]">Principal</span>
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">Principal</span>
             </div>
 
             <div class="flex flex-col items-stretch gap-0.5">
@@ -73,13 +73,13 @@
                     @endif
                     @php $active = request()->routeIs($item['route'] . '.*') || request()->routeIs($item['route']); @endphp
                     <a href="{{ route($item['name']) }}"
-                       class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-500 hover:text-slate-200 hover:bg-white/[0.04]' }}"
+                       class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-300 hover:text-white hover:bg-white/[0.06]' }}"
                        :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'">
                         @if ($active)
                             <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-blue-500 rounded-r-full shadow-lg shadow-blue-500/50"></div>
                         @endif
                         <div class="sidebar-icon w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200
-                            {{ $active ? 'bg-blue-500/15 text-blue-400' : 'bg-transparent text-slate-500 group-hover:bg-white/[0.06] group-hover:text-slate-300' }}">
+                            {{ $active ? 'bg-blue-500/20 text-blue-400' : 'bg-transparent text-slate-400 group-hover:bg-white/[0.08] group-hover:text-white' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">{!! $item['icon'] !!}</svg>
                         </div>
                         <span x-show="!sidebarCollapsed">{{ $item['label'] }}</span>
@@ -89,17 +89,17 @@
                 {{-- Admin section --}}
                 @if (auth()->user()->isAdmin())
                     <div x-show="!sidebarCollapsed" class="mt-4 mb-1.5 px-2.5">
-                        <span class="text-[9px] font-bold text-slate-600 uppercase tracking-[0.15em]">Admin</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">Admin</span>
                     </div>
                     @php $active = request()->routeIs('admin.*'); @endphp
                     <a href="{{ route('admin.users.index') }}"
-                       class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-500 hover:text-slate-200 hover:bg-white/[0.04]' }}"
+                       class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-300 hover:text-white hover:bg-white/[0.06]' }}"
                        :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'">
                         @if ($active)
                             <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-blue-500 rounded-r-full shadow-lg shadow-blue-500/50"></div>
                         @endif
                         <div class="sidebar-icon w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200
-                            {{ $active ? 'bg-blue-500/15 text-blue-400' : 'bg-transparent text-slate-500 group-hover:bg-white/[0.06] group-hover:text-slate-300' }}">
+                            {{ $active ? 'bg-blue-500/20 text-blue-400' : 'bg-transparent text-slate-400 group-hover:bg-white/[0.08] group-hover:text-white' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/>
                             </svg>
@@ -114,13 +114,13 @@
         <div class="flex-shrink-0 py-2 px-2.5" style="border-top: 1px solid rgba(51,65,85,0.4);">
             @php $active = request()->routeIs('settings.*'); @endphp
             <a href="{{ route('settings.index') }}"
-               class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-500 hover:text-slate-200 hover:bg-white/[0.04]' }}"
-               :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'">
+                       class="sidebar-link group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 {{ $active ? 'sidebar-link-active' : 'text-slate-300 hover:text-white hover:bg-white/[0.06]' }}"
+                       :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'">
                 @if ($active)
                     <div class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-blue-500 rounded-r-full shadow-lg shadow-blue-500/50"></div>
                 @endif
                 <div class="sidebar-icon w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-200
-                    {{ $active ? 'bg-blue-500/15 text-blue-400' : 'bg-transparent text-slate-500 group-hover:bg-white/[0.06] group-hover:text-slate-300' }}">
+                    {{ $active ? 'bg-blue-500/20 text-blue-400' : 'bg-transparent text-slate-400 group-hover:bg-white/[0.08] group-hover:text-white' }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -132,9 +132,9 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit"
-                   class="w-full group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 text-slate-500 hover:text-red-400 hover:bg-red-500/[0.06]"
+                   class="w-full group relative flex items-center rounded-xl text-sm font-medium transition-all duration-200 text-slate-400 hover:text-red-400 hover:bg-red-500/[0.08]"
                    :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'">
-                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-transparent text-slate-500 group-hover:bg-red-500/10 group-hover:text-red-400 transition-all duration-200">
+                    <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-transparent text-slate-400 group-hover:bg-red-500/15 group-hover:text-red-400 transition-all duration-200">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                         </svg>
@@ -144,15 +144,15 @@
             </form>
 
             <button @click="sidebarCollapsed = !sidebarCollapsed"
-                    class="w-full group flex items-center rounded-xl text-sm font-medium transition-all duration-200 text-slate-600 hover:text-slate-300 hover:bg-white/[0.04] mt-0.5"
+                    class="w-full group flex items-center rounded-xl text-sm font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/[0.06] mt-0.5"
                     :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'"
                     title="Toggle sidebar">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-transparent text-slate-600 group-hover:bg-white/[0.06] group-hover:text-slate-400 transition-all duration-200">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-transparent text-slate-400 group-hover:bg-white/[0.08] group-hover:text-slate-200 transition-all duration-200">
                     <svg class="w-4 h-4 transition-transform duration-300" :class="sidebarCollapsed ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
                     </svg>
                 </div>
-                <span x-show="!sidebarCollapsed">{{ __('nav.collapse') ?? 'Recolher' }}</span>
+                <span x-show="!sidebarCollapsed" class="text-slate-400">{{ __('nav.collapse') ?? 'Recolher' }}</span>
             </button>
         </div>
     </aside>
