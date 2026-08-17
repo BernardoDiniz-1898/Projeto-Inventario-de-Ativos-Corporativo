@@ -213,7 +213,8 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">{{ $item->total }}</span>
-                                <span class="text-xs text-gray-400 dark:text-gray-500 w-12 text-right">{{ number_format($statusTotal > 0 ? $item->total / $statusTotal * 100, 0) }}%</span>
+                                @php $pctStr = number_format($statusTotal > 0 ? $item->total / $statusTotal * 100, 0); @endphp
+                                <span class="text-xs text-gray-400 dark:text-gray-500 w-12 text-right">{{ $pctStr }}%</span>
                             </div>
                         </div>
                     @endforeach
@@ -369,7 +370,8 @@
         @else
             <div class="text-center py-4">
                 <div class="text-4xl font-bold text-gray-900 dark:text-white mb-1">
-                    R$ {{ number_format($alugueisAtivos['total_mensal'], 0, ',', '.') }}
+                    @php $rentalStr = number_format($alugueisAtivos['total_mensal'], 0, ',', '.'); @endphp
+                    R$ {{ $rentalStr }}
                 </div>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ __('dashboard.monthly_revenue') }}</p>
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 dark:bg-teal-900/20 rounded-xl">
