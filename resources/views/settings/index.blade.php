@@ -188,18 +188,6 @@
             b.classList.toggle('ring-offset-2', b.dataset.color === s.accent_color);
         });
 
-        // Apply accent color to navbar brand
-        const brand = document.querySelector('.corporate-nav .bg-gradient-to-br');
-        if (brand) {
-            const colors = {
-                blue: 'from-blue-500 to-blue-700',
-                green: 'from-green-500 to-green-700',
-                purple: 'from-purple-500 to-purple-700',
-                red: 'from-red-500 to-red-700',
-                orange: 'from-orange-500 to-orange-700'
-            };
-            brand.className = brand.className.replace(/from-\w+-\d+ to-\w+-\d+/, colors[s.accent_color] || colors.blue);
-        }
     }
 
     function showToast(message) {

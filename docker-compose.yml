@@ -6,8 +6,10 @@ services:
       - "8000:8000"
     volumes:
       - .:/var/www
+      - vendor:/var/www/vendor
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - .env.docker
     networks:
@@ -24,6 +26,11 @@ services:
       POSTGRES_PASSWORD: secret
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d keep_inventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - keep-network
 
@@ -31,14 +38,21 @@ services:
     image: node:22-alpine
     container_name: keep-inventory-node
     working_dir: /var/www
+    ports:
+      - "5173:5173"
     volumes:
       - .:/var/www
+      - node_modules:/var/www/node_modules
+    env_file:
+      - .env.docker
     command: sh -c "npm install --ignore-scripts && npm run dev -- --host"
     networks:
       - keep-network
 
 volumes:
   pgdata:
+  vendor:
+  node_modules:
 
 networks:
   keep-network:

@@ -22,29 +22,14 @@
         })();
     </script>
 </head>
-<body class="bg-slate-200 dark:bg-slate-900 min-h-screen antialiased"
-      x-data="{ sidebarCollapsed: localStorage.getItem('sidebar_collapsed') === 'true' }"
-      x-init="$watch('sidebarCollapsed', val => localStorage.setItem('sidebar_collapsed', val))">
+<body class="bg-slate-200 dark:bg-slate-900 min-h-screen antialiased" x-data="appLayout">
 
     {{-- ═══════════════════════════════════════════════════
          SIDEBAR DESKTOP (md+)
          ═══════════════════════════════════════════════════ --}}
     <aside class="sidebar-desktop fixed top-0 left-0 bottom-0 z-40 flex flex-col border-r transition-all duration-300"
-           :class="sidebarCollapsed ? 'w-[70px]' : 'w-64'"
+           :class="sidebarCollapsed ? 'w-16' : 'w-64'"
            style="background: linear-gradient(180deg, #0b1120 0%, #111827 100%); border-color: rgba(51,65,85,0.4);">
-        {{-- Brand --}}
-        <div class="h-16 flex items-center border-b flex-shrink-0" :class="sidebarCollapsed ? 'justify-center px-0' : 'px-5'" style="border-color: rgba(51,65,85,0.4);">
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3" :class="sidebarCollapsed ? 'justify-center' : ''">
-                <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
-                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" loading="lazy" />
-                </div>
-                <div class="flex flex-col" x-show="!sidebarCollapsed" x-cloak>
-                    <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
-                    <span class="text-[9px] text-slate-400 font-semibold tracking-[0.2em] leading-tight uppercase">Inventory</span>
-                </div>
-            </a>
-        </div>
-
         {{-- Navigation --}}
         <nav class="flex-1 overflow-y-auto py-3 px-2.5">
             {{-- Main section --}}
@@ -141,7 +126,7 @@
                 </button>
             </form>
 
-            <button @click="sidebarCollapsed = !sidebarCollapsed"
+            <button @click="toggleSidebar"
                     class="w-full group flex items-center rounded-xl text-sm font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-white/[0.06] mt-0.5"
                     :class="sidebarCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'"
                     title="Toggle sidebar">
@@ -159,7 +144,7 @@
          TOP BAR (all screens)
          ═══════════════════════════════════════════════════ --}}
     <div class="min-h-screen transition-all duration-300" :class="sidebarCollapsed ? 'md:ml-16' : 'md:ml-64'">
-        <nav x-data="{ mobileOpen: false }" class="corporate-nav bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200/80 dark:border-slate-700/80 sticky top-0 z-30">
+        <nav class="corporate-nav bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200/80 dark:border-slate-700/80 sticky top-0 z-30">
             <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex items-center gap-4">
@@ -172,16 +157,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </button>
-
-                        {{-- Brand (mobile only) --}}
-                        <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 md:hidden">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center shadow-sm shadow-blue-500/20">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-                                </svg>
-                            </div>
-                            <span class="font-bold text-slate-800 dark:text-white text-sm tracking-wide uppercase">Keep Inventory</span>
-                        </a>
 
                         {{-- Breadcrumb / Page title --}}
                         <div class="hidden md:flex items-center gap-2 ml-2">
@@ -262,19 +237,10 @@
                      x-transition:leave="backdrop-leave"></div>
 
                 {{-- Panel --}}
-                <div class="absolute top-0 left-0 bottom-0 w-72 bg-slate-900 shadow-2xl mobile-nav-enter flex flex-col"
+                <div class="absolute top-0 left-0 bottom-0 w-72 max-w-[85vw] bg-slate-900 shadow-2xl mobile-nav-enter flex flex-col"
                      :class="leaving ? 'mobile-nav-leave' : ''">
                     {{-- Header --}}
-                    <div class="h-16 px-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
-                        <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
-                                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" loading="lazy" />
-                                </div>
-                            <div class="flex flex-col">
-                                <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
-                                <span class="text-[9px] text-slate-400 font-semibold tracking-[0.2em] leading-tight uppercase">Inventory</span>
-                            </div>
-                        </div>
+                    <div class="h-16 px-5 border-b border-slate-800 flex items-center justify-end flex-shrink-0">
                         <button @click="leaving = true; setTimeout(() => { mobileOpen = false; leaving = false; }, 200)" class="p-2 -mr-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>

@@ -3,6 +3,39 @@ import Alpine from 'alpinejs'
 window.Alpine = Alpine
 
 document.addEventListener('alpine:init', () => {
+    Alpine.data('appLayout', () => ({
+        sidebarCollapsed: false,
+        mobileOpen: false,
+        syncLayout: null,
+
+        init() {
+            this.syncLayout = () => {
+                if (window.innerWidth >= 768) this.mobileOpen = false
+
+                this.sidebarCollapsed = window.innerWidth < 1024
+                    ? true
+                    : localStorage.getItem('sidebar_collapsed') === 'true'
+            }
+
+            this.syncLayout()
+            window.addEventListener('resize', this.syncLayout)
+
+            this.$watch('sidebarCollapsed', value => {
+                if (window.innerWidth >= 1024) {
+                    localStorage.setItem('sidebar_collapsed', value)
+                }
+            })
+        },
+
+        toggleSidebar() {
+            this.sidebarCollapsed = !this.sidebarCollapsed
+        },
+
+        destroy() {
+            window.removeEventListener('resize', this.syncLayout)
+        }
+    }))
+
     // Toast system (Alpine store for programmatic use)
     Alpine.store('toasts', {
         items: [],
@@ -143,7 +176,7 @@ document.addEventListener('alpine:init', () => {
     }))
 })
 
-})
+Alpine.start()
 
 // ── Table scroll indicator ────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
