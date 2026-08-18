@@ -52,11 +52,6 @@
     <div class="w-full max-w-md px-4 relative z-10">
         <div class="login-card rounded-3xl shadow-2xl p-6 sm:p-10">
             <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-500/30">
-                    <svg class="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
-                    </svg>
-                </div>
                 <h1 class="text-2xl font-bold text-gray-900">{{ __('auth.register_title') }}</h1>
                 <p class="text-gray-500 text-sm mt-2">{{ __('auth.register_subtitle') }}</p>
             </div>
