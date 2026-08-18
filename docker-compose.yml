@@ -1,0 +1,44 @@
+services:
+  app:
+    build: .
+    container_name: keep-inventory-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+    env_file:
+      - .env.docker
+    networks:
+      - keep-network
+
+  db:
+    image: postgres:16-alpine
+    container_name: keep-inventory-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: keep_inventory
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - keep-network
+
+  node:
+    image: node:22-alpine
+    container_name: keep-inventory-node
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: sh -c "npm install --ignore-scripts && npm run dev -- --host"
+    networks:
+      - keep-network
+
+volumes:
+  pgdata:
+
+networks:
+  keep-network:
