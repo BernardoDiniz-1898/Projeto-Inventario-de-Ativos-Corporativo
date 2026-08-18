@@ -66,7 +66,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100/60">
                     @foreach ($localizacoes as $localizacao)
-                        <tr class="{{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                        <tr class="table-row-animate {{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
                             <td class="px-5 sm:px-7 py-5">
                                 <a href="{{ route('localizacoes.show', $localizacao) }}" class="flex items-center gap-3 min-w-0 group">
                                     <div class="w-9 h-9 bg-blue-100 dark:bg-blue-900/40 rounded-xl flex items-center justify-center shrink-0">

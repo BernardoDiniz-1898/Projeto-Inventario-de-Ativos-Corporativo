@@ -143,4 +143,16 @@ document.addEventListener('alpine:init', () => {
     }))
 })
 
-Alpine.start()
+})
+
+// ── Table scroll indicator ────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.table-scroll-wrapper').forEach(wrapper => {
+        const check = () => {
+            wrapper.classList.toggle('scrollable', wrapper.scrollWidth > wrapper.clientWidth)
+        }
+        check()
+        const ro = new ResizeObserver(check)
+        ro.observe(wrapper)
+    })
+})

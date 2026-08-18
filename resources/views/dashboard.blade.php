@@ -21,7 +21,7 @@
 {{-- ═══════════════════════════════════════════════════════
      STAT CARDS
      ═══════════════════════════════════════════════════════ --}}
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+<div class="dashboard-section grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
     <x-ui.stat-card :value="$total" :label="__('dashboard.total_notebooks')" color="gray">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
     </x-ui.stat-card>
@@ -52,7 +52,7 @@
 {{-- ═══════════════════════════════════════════════════════
      AÇÕES RÁPIDAS + ALERTAS
      ═══════════════════════════════════════════════════════ --}}
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<div class="dashboard-section grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     {{-- Quick Actions --}}
     @if (auth()->user()->isAdmin() || auth()->user()->isEditor())
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-slate-700">
@@ -156,7 +156,7 @@
 {{-- ═══════════════════════════════════════════════════════
      GRÁFICOS
      ═══════════════════════════════════════════════════════ --}}
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<div class="dashboard-section grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
     {{-- Donut de Status --}}
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-slate-700">
         <div class="flex items-center gap-3 mb-5">
@@ -315,7 +315,7 @@
 {{-- ═══════════════════════════════════════════════════════
      COMPLIANCE + ALUGUÉIS + ATIVIDADE
      ═══════════════════════════════════════════════════════ --}}
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<div class="dashboard-section grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
     {{-- Security Compliance --}}
     <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-slate-700">
         <div class="flex items-center gap-3 mb-5">
@@ -435,7 +435,7 @@
 {{-- ═══════════════════════════════════════════════════════
      ÚLTIMOS NOTEBOOKS
      ═══════════════════════════════════════════════════════ --}}
-<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
+<div class="dashboard-section bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
     <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-700">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -470,7 +470,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100/60">
                     @foreach ($recentes as $notebook)
-                        <tr class="{{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                        <tr class="table-row-animate {{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
                             <td class="px-5 sm:px-7 py-5">
                                 <div>
                                     @if (auth()->user()->isAdmin() || auth()->user()->isEditor())

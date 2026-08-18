@@ -36,7 +36,7 @@
         <div class="h-16 flex items-center border-b flex-shrink-0" :class="sidebarCollapsed ? 'justify-center px-0' : 'px-5'" style="border-color: rgba(51,65,85,0.4);">
             <a href="{{ route('dashboard') }}" class="flex items-center gap-3" :class="sidebarCollapsed ? 'justify-center' : ''">
                 <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
-                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" />
+                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" loading="lazy" />
                 </div>
                 <div class="flex flex-col" x-show="!sidebarCollapsed" x-cloak>
                     <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>
@@ -268,7 +268,7 @@
                     <div class="h-16 px-5 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
                         <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-blue-500/30 shadow-lg shadow-blue-500/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-0.5">
-                                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" />
+                                    <img src="{{ asset('images/logo.png') }}" alt="Keep Inventory" class="w-full h-full object-contain" loading="lazy" />
                                 </div>
                             <div class="flex flex-col">
                                 <span class="font-extrabold text-white text-[15px] tracking-wide leading-tight">Keep<span class="text-blue-400">.</span></span>

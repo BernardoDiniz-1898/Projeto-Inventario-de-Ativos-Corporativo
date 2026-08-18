@@ -18,6 +18,9 @@
 /* ── Alpine.js x-cloak ──────────────────────────────── */
 [x-cloak] { display: none !important; }
 
+/* ── Smooth scroll ──────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
 /* ── Custom select chevron ──────────────────────────── */
 .select-chevron {
     appearance: none;
@@ -28,6 +31,9 @@
 }
 
 /* ── Corporate polish ───────────────────────────────── */
+.card {
+    contain: layout style;
+}
 .bg-white.rounded-2xl {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04);
 }
@@ -35,11 +41,18 @@
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 2px -1px rgba(0,0,0,0.2);
 }
 
-/* ── Transitions ─────────────────────────────────────── */
-*, *::before, *::after {
-    transition-property: background-color, border-color, color, box-shadow;
+/* ── Targeted transitions (GPU-friendly) ────────────── */
+/* Only transition interactive elements, NOT everything */
+a, button, [role="button"] {
+    transition-property: color, background-color, box-shadow, opacity;
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Transform-based transitions for layout elements */
+.sidebar-desktop {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: width;
 }
 
 /* ── Dark Theme ──────────────────────────────────────── */
@@ -195,29 +208,79 @@
 
 /* ── Toast Animation ─────────────────────────────────── */
 @keyframes toast-in {
-    from { transform: translateY(1rem); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 @keyframes toast-out {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(1rem); opacity: 0; }
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
 }
-.toast-enter { animation: toast-in 0.3s ease-out forwards; }
-.toast-exit { animation: toast-out 0.3s ease-in forwards; }
+.toast-enter { animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.toast-exit { animation: toast-out 0.2s ease-in forwards; }
 
 /* ── Flash Messages ──────────────────────────────────── */
 @keyframes flash-in {
     from { transform: translateY(-1rem); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-.flash-message { animation: flash-in 0.3s ease-out; }
+.flash-message { animation: flash-in 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* ── Smooth page transitions ─────────────────────────── */
-@keyframes fade-in {
-    from { opacity: 0; transform: translateY(0.5rem); }
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(0.75rem); }
     to { opacity: 1; transform: translateY(0); }
 }
-main { animation: fade-in 0.2s ease-out; }
+main {
+    animation: fade-in-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Staggered card entrance ─────────────────────────── */
+@keyframes card-enter {
+    from { opacity: 0; transform: translateY(0.5rem) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.stat-card { animation: card-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.stat-card:nth-child(1) { animation-delay: 0ms; }
+.stat-card:nth-child(2) { animation-delay: 40ms; }
+.stat-card:nth-child(3) { animation-delay: 80ms; }
+.stat-card:nth-child(4) { animation-delay: 120ms; }
+.stat-card:nth-child(5) { animation-delay: 160ms; }
+.stat-card:nth-child(6) { animation-delay: 200ms; }
+.stat-card:nth-child(7) { animation-delay: 240ms; }
+.stat-card:nth-child(8) { animation-delay: 280ms; }
+
+/* ── Staggered table row entrance ────────────────────── */
+@keyframes row-enter {
+    from { opacity: 0; transform: translateX(-0.5rem); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.table-row-animate {
+    animation: row-enter 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.table-row-animate:nth-child(1) { animation-delay: 0ms; }
+.table-row-animate:nth-child(2) { animation-delay: 30ms; }
+.table-row-animate:nth-child(3) { animation-delay: 60ms; }
+.table-row-animate:nth-child(4) { animation-delay: 90ms; }
+.table-row-animate:nth-child(5) { animation-delay: 120ms; }
+.table-row-animate:nth-child(6) { animation-delay: 150ms; }
+.table-row-animate:nth-child(7) { animation-delay: 180ms; }
+.table-row-animate:nth-child(8) { animation-delay: 210ms; }
+.table-row-animate:nth-child(9) { animation-delay: 240ms; }
+.table-row-animate:nth-child(10) { animation-delay: 270ms; }
+.table-row-animate:nth-child(n+11) { animation-delay: 300ms; }
+
+/* ── Dashboard card entrance ─────────────────────────── */
+@keyframes section-enter {
+    from { opacity: 0; transform: translateY(1rem); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.dashboard-section {
+    animation: section-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.dashboard-section:nth-child(1) { animation-delay: 0ms; }
+.dashboard-section:nth-child(2) { animation-delay: 80ms; }
+.dashboard-section:nth-child(3) { animation-delay: 160ms; }
+.dashboard-section:nth-child(4) { animation-delay: 240ms; }
 
 /* ══════════════════════════════════════════════════════
    MOBILE-FIRST RESPONSIVE IMPROVEMENTS
@@ -264,7 +327,7 @@ a, button, label, [role="button"] {
     from { transform: translateX(0); }
     to { transform: translateX(100%); }
 }
-.mobile-nav-enter { animation: slide-in-right 0.25s ease-out forwards; }
+.mobile-nav-enter { animation: slide-in-right 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .mobile-nav-leave { animation: slide-out-right 0.2s ease-in forwards; }
 
 @keyframes backdrop-in {
@@ -350,9 +413,10 @@ a, button, label, [role="button"] {
 
 /* Sidebar width transition */
 .sidebar-desktop {
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-x: hidden;
     white-space: nowrap;
+    will-change: width;
 }
 
 /* Ensure icons stay visible when collapsed */
@@ -427,4 +491,14 @@ a, button, label, [role="button"] {
 }
 .dark .sidebar-desktop ::-webkit-scrollbar-thumb:hover {
     background-color: rgba(100, 116, 139, 0.5);
+}
+
+/* ── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    html { scroll-behavior: auto; }
 }

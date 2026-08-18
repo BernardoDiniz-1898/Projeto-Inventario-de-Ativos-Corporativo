@@ -88,7 +88,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100/60">
                     @foreach ($employees as $employee)
-                        <tr class="{{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
+                        <tr class="table-row-animate {{ $loop->even ? 'bg-gray-50/40 dark:bg-slate-700/30' : 'bg-white dark:bg-slate-800' }} hover:bg-blue-50/30 dark:hover:bg-slate-700/50 transition-colors duration-150">
                             <td class="px-5 sm:px-7 py-5">
                                 <a href="{{ route('employees.show', $employee) }}" class="flex items-center gap-4 min-w-0 group">
                                     <x-ui.avatar :name="$employee->nome" size="md" />
