@@ -1,6 +1,6 @@
 # Keep Inventory — Sistema de Gestao de Ativos Corporativos
 
-Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD completo, dashboards, exportacao Excel, autenticacao com controle de acesso por papeis (RBAC), log de atividades, conformidade ISO 27001, suporte a 3 idiomas e tema personalizavel.
+Sistema web para inventario de notebooks, funcionarios, localizacoes e grupos corporativos, com CRUD completo, dashboard gerencial, exportacao Excel, autenticacao com controle de acesso por papeis (RBAC), log de atividades, aluguel de ativos, conformidade ISO 27001, suporte a 3 idiomas e tema personalizavel.
 
 **Repositorio:** [github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo](https://github.com/BernardoDiniz-1898/Projeto-Inventario-de-Ativos-Corporativo)
 
@@ -10,32 +10,33 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 
 | Camada | Tecnologia | Versao |
 |---|---|---|
-| Backend | Laravel | 13.19.0 |
-| PHP | CLI | 8.5.8 |
+| Backend | Laravel | 13.x |
+| PHP | CLI | 8.5.8 (minimo 8.3) |
 | Frontend | Vite + Tailwind CSS v4 | Vite 8.x / Tailwind 4.x |
 | JS Interativo | Alpine.js | 3.15.12 |
 | DB (dev) | SQLite | — |
 | Exportacao Excel | OpenSpout | 5.7.2 |
 | i18n | 3 idiomas | pt_BR, en, es |
-| OS (dev) | Arch Linux | Git v26.4.0 |
+| OS (dev) | Arch Linux | — |
 
 ---
 
 ## Funcionalidades
 
-- **CRUD Notebooks** — 30+ campos incluindo ISO 27001 (classificacao, localizacao, ciclo de vida, seguranca, manutencao)
+- **CRUD Notebooks** — 30+ campos incluindo ISO 27001 (classificacao, localizacao, ciclo de vida, seguranca, manutencao) e modulo de aluguel (locataria, contrato, valor, periodo)
 - **CRUD Funcionarios** — dados cadastrais, centro de custo, projeto, vinculacao a notebooks
-- **CRUD Grupos** — organizacao de ativos e funcionarios por grupo, com cor e slug, soft deletes
-- **CRUD Usuarios** — admin cria/edita/exclui usuarios com roles
-- **Inventario Unificado** — pagina dedicada com visao consolidada de notebooks + funcionarios, filtros e busca
-- **Dashboard** — stats cards, graficos por marca/departamento/grupo, entradas recentes
+- **CRUD Grupos** — organizacao de ativos e funcionarios por grupo (N:M), com cor e slug, soft deletes
+- **CRUD Localizacoes** — cadastro de locais (predio, andar, sala) vinculados a grupo, com contagem de notebooks por local
+- **Inventario Unificado** — pagina dedicada com visao consolidada de notebooks + funcionarios, filtros (alocados, em estoque, sem equipamento), busca e agrupamento por grupo
+- **Dashboard** — stats cards, graficos por marca/departamento/grupo, valor total, garantias vencendo, manutencao pendente, distribuicao por status, compliance de seguranca, alugueis ativos, atividade recente
 - **Exportacao Excel** — notebooks e funcionarios em `.xlsx` via OpenSpout, headers traduzidos
 - **RBAC** — 3 papeis: admin, editor, viewer
 - **Log de Atividades** — diffs inline (campo: antigo -> novo) com polimorfismo, 100% traduzido (3 idiomas)
 - **ISO 27001** — gestao de ativos com 17 campos de conformidade
+- **Aluguel de ativos** — contratos de locacao com periodo, valor e datas; contabilizado no dashboard
 - **Dark Mode** — tema escuro via CSS customizado
-- **i18n** — suporte completo a 3 idiomas (pt_BR, en, es) em todas as views, controllers e exports
-- **Configuracoes** — tema, fonte, cor de destaque (localStorage)
+- **i18n** — suporte completo a 3 idiomas (pt_BR, en, es) em views, controllers e exports
+- **Configuracoes** — tema, fonte, cor de destaque, sidebar (localStorage)
 
 ---
 
@@ -44,7 +45,7 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 ```
 ├── app/
 │   ├── Exports/
-│   │   ├── EmployeeExport.php              # Exportacao XLSX de funcionarios
+│   │   ├── EmployeeExport.php              # Exportacao XLSX de funcionarios (14 colunas)
 │   │   └── NotebookExport.php              # Exportacao XLSX de notebooks (40 colunas)
 │   ├── Http/
 │   │   ├── Controllers/
@@ -52,24 +53,28 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 │   │   │   │   └── UserController.php      # CRUD usuarios + updateRole
 │   │   │   ├── Auth/
 │   │   │   │   ├── LoginController.php
-│   │   │   │   └── RegisterController.php
+│   │   │   │   └── RegisterController.php  # cria usuarios com role viewer
 │   │   │   ├── EmployeeController.php      # CRUD + export + logs + grupo filter
 │   │   │   ├── GrupoController.php         # CRUD Grupos (soft deletes)
 │   │   │   ├── InventoryController.php     # Inventario unificado
-│   │   │   ├── NotebookController.php      # CRUD + export + logs + ISO validation + grupo filter
+│   │   │   ├── LocalizacaoController.php   # CRUD Localizacoes + logs
+│   │   │   ├── LocaleController.php        # Troca de idioma (sessao)
+│   │   │   ├── NotebookController.php      # CRUD + export + logs + ISO validation
 │   │   │   └── SettingsController.php
 │   │   ├── Middleware/
-│   │   │   └── RoleMiddleware.php           # RBAC: aceita multiplos papeis
+│   │   │   ├── RoleMiddleware.php           # RBAC: aceita multiplos papeis
+│   │   │   └── SetLocale.php                # Aplica idioma da sessao
 │   │   └── Requests/
-│   │       ├── Store/Update{Notebook,Employee,Grupo}Request.php
+│   │       ├── Store/Update{Notebook,Employee,Grupo,Localizacao,User}Request.php
 │   ├── Models/
 │   │   ├── ActivityLog.php                 # Polimorfico (MorphMany)
-│   │   ├── Employee.php                    # SoftDeletes, grupo relationship
-│   │   ├── Grupo.php                       # SoftDeletes, slug, cor, morphMany
-│   │   ├── Notebook.php                    # 30+ fillable, ISO accessors, grupo relationship
-│   │   └── User.php
+│   │   ├── Employee.php                    # SoftDeletes, grupos N:M
+│   │   ├── Grupo.php                       # SoftDeletes, slug, cor
+│   │   ├── Localizacao.php                 # BelongsTo Grupo, HasMany Notebook
+│   │   ├── Notebook.php                    # 30+ fillable, ISO accessors, grupos N:M
+│   │   └── User.php                        # role + helpers isAdmin/isEditor/isViewer
 │   ├── Services/
-│   │   └── DashboardService.php            # Stats + graficos (por grupo incluido)
+│   │   └── DashboardService.php            # Stats, graficos, compliance, alugueis
 │   └── Traits/
 │       └── LogsChanges.php                 # Trait reutilizavel, 100% traduzido
 ├── database/
@@ -77,45 +82,41 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 │   │   ├── EmployeeFactory.php
 │   │   └── NotebookFactory.php
 │   ├── migrations/
-│   │   ├── 0001_01_01_000000_create_users_table.php
-│   │   ├── 0001_01_01_000001_create_cache_table.php
-│   │   ├── 0001_01_01_000002_create_jobs_table.php
-│   │   ├── 2025_07_10_000001_create_notebooks_table.php
-│   │   ├── 2025_07_10_000002_create_employees_table.php
-│   │   ├── 2025_07_10_000003_add_funcionario_id_to_notebooks_table.php
-│   │   ├── 2025_07_10_000004_add_role_to_users_table.php
-│   │   ├── 2025_07_10_000005_create_activity_logs_table.php
-│   │   ├── 2025_07_10_000006_add_iso27001_fields_to_notebooks_table.php
-│   │   ├── 2025_07_10_000007_add_data_entrega_to_notebooks_table.php
-│   │   ├── 2026_07_22_000001_create_grupos_table.php
-│   │   ├── 2026_07_22_000002_add_grupo_id_to_notebooks_table.php
-│   │   └── 2026_07_22_000003_add_grupo_id_to_employees_table.php
+│   │   ├── 0001_01_01_0000xx_*             # users, cache, jobs (padrao Laravel)
+│   │   ├── 2025_07_10_0000xx_*             # notebooks, employees, role, logs, ISO, aluguel
+│   │   ├── 2026_07_22_*                    # grupos (N:M via tabelas pivot)
+│   │   ├── 2026_07_23_*                    # localizacoes + localizacao_id em notebooks
+│   │   ├── 2026_07_27_000001_*             # grupo_id em localizacoes
+│   │   └── 2026_08_17_*                    # pivot tables + fix nomes + loggable_id nullable
 │   └── seeders/
-│       └── DatabaseSeeder.php              # 1 user, 15 employees, 20 notebooks, grupos
+│       └── DatabaseSeeder.php              # 1 usuario admin
 ├── lang/
-│   ├── pt_BR/                              # 13 arquivos de traducao
-│   ├── en/                                 # 13 arquivos de traducao
-│   └── es/                                 # 13 arquivos de traducao
+│   ├── pt_BR/                              # 15 arquivos de traducao
+│   ├── en/                                 # 15 arquivos de traducao
+│   └── es/                                 # 15 arquivos de traducao
 ├── resources/
-│   ├── css/app.css                         # Tailwind + dark mode overrides (209+ linhas)
+│   ├── css/app.css                         # Tailwind + dark mode overrides
 │   ├── js/app.js                           # Alpine.js + searchableSelect
 │   └── views/
 │       ├── layouts/app.blade.php           # Layout principal + dark theme CSS
 │       ├── components/
 │       │   ├── activity-log.blade.php      # Log com diffs inline traduzido
-│       │   ├── lang-switcher.blade.php     # Seletor de idioma (pt_BR/en/es)
+│       │   ├── lang-switcher.blade.php     # Seletor de idioma (rota /locale/{locale})
 │       │   └── ui/                         # Componentes reutilizaveis (avatar, stat-card, etc.)
 │       ├── auth/{login,register}.blade.php
 │       ├── dashboard.blade.php             # Graficos por marca/departamento/grupo
 │       ├── notebooks/{index,create,edit,show}.blade.php
-│       ├── notebooks/_iso_fields.blade.php # Partial ISO 27001
+│       ├── notebooks/_iso_fields.blade.php # Partial ISO 27001 + aluguel
 │       ├── employees/{index,create,edit,show}.blade.php
 │       ├── grupos/{index,create,edit,show}.blade.php
+│       ├── localizacoes/{index,create,edit,show}.blade.php
 │       ├── inventory/index.blade.php       # Inventario unificado
 │       ├── settings/index.blade.php
 │       └── admin/users/{index,create,edit}.blade.php
-├── routes/web.php                           # 42 rotas
-├── bootstrap/app.php                        # Middleware alias
+├── routes/web.php                           # 48 rotas web
+├── bootstrap/app.php                        # Alias 'role' + middleware SetLocale
+├── import_chammas.php                       # Script avulso de importacao (nao usado pelo app)
+├── assign_grupos_empresa.php                # Script avulso de atribuicao (nao usado pelo app)
 └── README.md
 ```
 
@@ -132,9 +133,9 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 | `modelo` | string | required | — |
 | `numero_serie` | string | unique, required | — |
 | `patrimonio` | string | unique, nullable | — |
-| `status` | enum(9) | required, default `em_uso` | — |
+| `status` | enum(10) | required, default `em_uso` | — |
 | `funcionario_id` | bigint (FK) | nullable -> `employees.id`, `nullOnDelete` | — |
-| `grupo_id` | bigint (FK) | nullable -> `grupos.id`, `nullOnDelete` | — |
+| `localizacao_id` | bigint (FK) | nullable -> `localizacoes.id` | — |
 | `data_entrega` | date | nullable | — |
 | `sistema_operacional` | string | nullable | — |
 | `ram_gb` | decimal(5,1) | nullable | — |
@@ -143,10 +144,10 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 | `data_aquisicao` | date | nullable | — |
 | `data_garantia` | date | nullable, `>= data_aquisicao` | — |
 | `observacoes` | text | nullable | — |
-| `fornecedor` | string | nullable | — |
+| `fornecedor` | string | nullable (renomeado de `forncedor`) | — |
 | `preco` | decimal | nullable | — |
 | `classificacao` | enum(4) | nullable | A.5.12 |
-| `localizacao` | string | nullable | A.5.9 |
+| `localizacao` | string | nullable (texto livre) | A.5.9 |
 | `predio` | string | nullable | A.5.9 |
 | `andar` | string | nullable | A.5.9 |
 | `sala` | string | nullable | A.5.9 |
@@ -162,9 +163,15 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 | `ultima_manutencao` | date | nullable | A.7.13 |
 | `proxima_manutencao` | date | nullable, `>= ultima_manutencao` | A.7.13 |
 | `historico_manutencao` | text | nullable | A.7.13 |
+| `empresa_locataria` | string | nullable (aluguel) | — |
+| `numero_contrato` | string | nullable (aluguel) | — |
+| `valor_aluguel` | decimal(10,2) | nullable (aluguel) | — |
+| `periodo_aluguel` | enum(4) | nullable (aluguel) | — |
+| `data_inicio_aluguel` | date | nullable (aluguel) | — |
+| `data_fim_aluguel` | date | nullable (aluguel) | — |
 | `created_at` / `updated_at` | timestamps | — | — |
 
-**Status possiveis:** `disponivel`, `em_uso`, `manutencao`, `ocioso`, `devolvido`, `obsoleto`, `baixa`, `extraviado`, `transferido`
+**Status possiveis (10):** `disponivel`, `em_uso`, `manutencao`, `ocioso`, `devolvido`, `obsoleto`, `baixa`, `extraviado`, `transferido`, `alugado`
 
 **Classificacao (ISO A.5.12):** `publica`, `interna`, `restrita`, `confidencial`
 
@@ -175,6 +182,8 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 **Metodo de descarte:** `destruicao_fisica`, `reciclagem`, `limpeza_dados`, `doacao`, `venda`
 
 **Status patches:** `atualizado`, `desatualizado`, `critico`, `nao_verificado`
+
+**Periodo de aluguel:** `mensal`, `trimestral`, `semestral`, `anual`
 
 ### Tabela `employees`
 
@@ -193,7 +202,6 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 | `status` | enum(4) | `ativo`, `afastado`, `desligado`, `ferias` |
 | `data_admissao` | date | nullable |
 | `observacoes` | text | nullable |
-| `grupo_id` | bigint (FK) | nullable -> `grupos.id`, `nullOnDelete` |
 | `created_at` / `updated_at` | timestamps | — |
 
 ### Tabela `grupos`
@@ -207,6 +215,30 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 | `descricao` | text | nullable |
 | `deleted_at` | timestamp | nullable (soft deletes) |
 | `created_at` / `updated_at` | timestamps | — |
+
+### Tabela `localizacoes`
+
+| Coluna | Tipo | Restricoes |
+|---|---|---|
+| `id` | bigint (PK) | auto-increment |
+| `nome` | string | required |
+| `predio` | string | nullable |
+| `andar` | string | nullable |
+| `sala` | string | nullable |
+| `grupo_id` | bigint (FK) | nullable -> `grupos.id` |
+| `created_at` / `updated_at` | timestamps | — |
+
+### Tabelas pivot `notebook_grupo` e `employee_grupo`
+
+Grupos se relacionam com notebooks e funcionarios em **muitos-para-muitos** atraves das tabelas pivot `notebook_grupo` e `employee_grupo` (criadas por migracao e alimentadas automaticamente com os dados legados de `grupo_id`):
+
+| Coluna | Tipo | Restricoes |
+|---|---|---|
+| `id` | bigint (PK) | auto-increment |
+| `grupo_id` | bigint (FK) | -> `grupos.id`, `cascadeOnDelete` |
+| `notebook_id` / `employee_id` | bigint (FK) | -> tabela correspondente, `cascadeOnDelete` |
+| `created_at` / `updated_at` | timestamps | — |
+| unique | `(grupo_id, notebook_id)` / `(grupo_id, employee_id)` | — |
 
 ### Tabela `users`
 
@@ -227,7 +259,7 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 |---|---|---|
 | `id` | bigint (PK) | auto-increment |
 | `loggable_type` | string | ex: `App\Models\Notebook` |
-| `loggable_id` | bigint | indice composto |
+| `loggable_id` | bigint | nullable (ex: registro excluido) |
 | `action` | string | `created`, `updated`, `deleted` |
 | `description` | text | nullable |
 | `old_values` | json | nullable |
@@ -238,23 +270,25 @@ Sistema web para inventario de notebooks e funcionarios corporativos, com CRUD c
 ### Relacionamentos
 
 ```
-User ──────── 1:N ──── ActivityLog
-Grupo ─────── 1:N ──── Notebook     (via grupo_id, nullOnDelete)
-Grupo ─────── 1:N ──── Employee     (via grupo_id, nullOnDelete)
-Employee ──── 1:N ──── Notebook     (via funcionario_id, nullOnDelete)
-Employee ──── 1:N ──── ActivityLog  (MorphMany)
-Notebook ──── 1:N ──── ActivityLog  (MorphMany)
+User          1:N  ActivityLog
+Localizacao   1:N  Notebook        (via localizacao_id)
+Grupo         1:N  Localizacao     (via grupo_id)
+Employee      1:N  Notebook        (via funcionario_id, nullOnDelete)
+Grupo         N:M  Notebook        (pivot: notebook_grupo)
+Grupo         N:M  Employee        (pivot: employee_grupo)
+Notebook/Employee/Grupo/Localizacao  MorphMany ActivityLog
 ```
 
 ---
 
-## Mapa de Rotas (42 rotas)
+## Mapa de Rotas (48 rotas web)
 
 ### Publicas (sem auth)
 
 | Metodo | URI | Controller | Nome |
 |---|---|---|---|
 | `GET` | `/` | redirect -> `/login` | — |
+| `GET` | `/locale/{locale}` | `LocaleController@switch` | `locale.switch` |
 | `GET` | `/login` | `LoginController@showLoginForm` | `login` |
 | `POST` | `/login` | `LoginController@login` | — |
 | `POST` | `/logout` | `LoginController@logout` | `logout` |
@@ -265,7 +299,7 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 
 | Metodo | URI | Controller | Nome |
 |---|---|---|---|
-| `GET` | `/dashboard` | Closure | `dashboard` |
+| `GET` | `/dashboard` | Closure + `DashboardService` | `dashboard` |
 | `GET` | `/settings` | `SettingsController@index` | `settings.index` |
 | `POST` | `/settings` | `SettingsController@update` | `settings.update` |
 | `GET` | `/inventory` | `InventoryController@index` | `inventory.index` |
@@ -297,6 +331,13 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 | `PUT` | `/grupos/{grupo}` | `grupos.update` |
 | `DELETE` | `/grupos/{grupo}` | `grupos.destroy` |
 | `GET` | `/grupos/{grupo}/edit` | `grupos.edit` |
+| `GET` | `/localizacoes` | `localizacoes.index` |
+| `POST` | `/localizacoes` | `localizacoes.store` |
+| `GET` | `/localizacoes/create` | `localizacoes.create` |
+| `GET` | `/localizacoes/{localizacao}` | `localizacoes.show` |
+| `PUT` | `/localizacoes/{localizacao}` | `localizacoes.update` |
+| `DELETE` | `/localizacoes/{localizacao}` | `localizacoes.destroy` |
+| `GET` | `/localizacoes/{localizacao}/edit` | `localizacoes.edit` |
 
 ### Admin only (role:admin)
 
@@ -314,15 +355,15 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 
 ## RBAC (Role-Based Access Control)
 
-| Papel | Notebooks/Funcionarios/Grupos | Usuarios | Visualiza |
+| Papel | Dashboard/Inventario/Config | Notebooks/Funcionarios/Grupos/Localizacoes | Usuarios |
 |---|---|---|---|
-| `admin` | CRUD + Export + Inventario | CRUD + Role | Tudo |
-| `editor` | CRUD + Export + Inventario | — | Tudo |
-| `viewer` | — | — | Leitura |
+| `admin` | Sim | CRUD + Export | CRUD + Alterar Role |
+| `editor` | Sim | CRUD + Export | — |
+| `viewer` | Somente leitura | — | — |
 
-- **Middleware:** `App\Http\Middleware\RoleMiddleware` — alias `role` em `bootstrap/app.php`
-- **Default:** novos usuarios recebem `viewer`
-- **Admin seed:** `admin@example.com` / `password`
+- **Middleware:** `App\Http\Middleware\RoleMiddleware` — alias `role` em `bootstrap/app.php`, aceita multiplos papeis (`role:admin,editor`)
+- **Default:** registros via `/register` recebem `viewer`
+- **Admin seed:** `admin@local.com` / `admin123`
 
 ---
 
@@ -338,35 +379,53 @@ Notebook ──── 1:N ──── ActivityLog  (MorphMany)
 | **A.8.1** — User endpoint devices | `criptografia`, `antivirus` |
 | **A.8.8** — Technical vulnerability mgmt | `status_patches` |
 | **A.8.13** — Information backup | `backup_configurado` |
-| **A.5.9/A.5.11** — Asset lifecycle | `criticidade`, `data_vida_util` |
 
 ---
 
 ## Log de Atividades
 
-- **Trait:** `App\Traits\LogsChanges` — `logCreate()`, `logUpdate()`, `logDelete()`
-- **Polimorfico:** `activity_logs` com `loggable_type` + `loggable_id`
+- **Trait:** `App\Traits\LogsChanges` — `logCreate()`, `logUpdate()`, `logDelete()` capazes de ignorar falhas (try-catch) para nao bloquear operacoes CRUD
+- **Polimorfico:** `activity_logs` com `loggable_type` + `loggable_id` (nullable)
 - **Diffs:** compara old vs new, mostra apenas campos alterados
-- **Labels:** todos os 30+ campos mapeados para nomes legiveis, traduzidos em 3 idiomas via `lang/*/logs.php`
+- **Labels:** todos os 40+ campos mapeados para nomes legiveis, traduzidos em 3 idiomas via `lang/*/logs.php`
 - **Componente:** `<x-activity-log :logs="$logs" />` — diff inline: `campo: antigo (vermelho riscado) -> novo (verde)`
+
+---
+
+## Dashboard
+
+Tudo calculado em `App\Services\DashboardService`:
+
+- Stats cards: total, disponiveis, em uso, manutencao, ociosos, total de funcionarios
+- Graficos: por marca, por departamento, por grupo (N:M)
+- Valor total de ativos (`sum(preco)`)
+- Garantias vencendo (proximos 30 dias)
+- Manutencao pendente (proximos 30 dias)
+- Distribuicao por status (donut)
+- Compliance de seguranca (criptografia, antivirus, backup, patches)
+- Alugueis ativos (quantidade + total mensal)
+- Atividade recente (ultimos 8 logs)
+- Entradas recentes e notebooks sem funcionario
 
 ---
 
 ## Exportacao Excel
 
-- **Lib:** `openspout/openspout` v5.7.2 (substituiu `maatwebsite/excel` — incompativel com PHP 8.5.8)
-- **Notebooks:** 40 colunas (basicos + ISO 27001 completos + grupo + aluguel)
-- **Funcionarios:** 14 colunas (incluindo grupo)
+- **Lib:** `openspout/openspout` v5.7.2 (substituiu `maatwebsite/excel` — incompativel com PHP 8.5)
+- **Notebooks:** 40 colunas (basicos + ISO 27001 completos + aluguel + grupos N:M)
+- **Funcionarios:** 14 colunas (incluindo grupos N:M e quantidade de notebooks)
 - **Headers:** traduzidos automaticamente via `__()` (3 idiomas)
-- **Filtro:** por status via query string (`?status=em_uso`)
+- **Filtros (notebooks):** status, grupo, sistema operacional, fornecedor, classificacao, criticidade e busca
+- **Filtro (funcionarios):** status
 
 ---
 
 ## Suporte a Idiomas (i18n)
 
 - **3 idiomas:** Portugues (pt_BR), Ingles (en), Espanhol (es)
-- **13 arquivos de traducao por idioma:** activity, auth, common, dashboard, employee, grupo, inventory, logs, messages, nav, notebook, pagination, settings, user
-- **Seletor de idioma:** componente `<x-lang-switcher />` no navbar, persistido em cookie
+- **15 arquivos de traducao por idioma:** activity, auth, common, dashboard, employee, grupo, inventory, localizacao, logs, messages, nav, notebook, pagination, settings, user
+- **Persistencia:** sessao — middleware `SetLocale` aplica `App::setLocale()` e a rota `GET /locale/{locale}` grava a escolha
+- **Seletor de idioma:** componente `<x-lang-switcher />` no navbar
 - **Cobertura:** todas as views Blade, controllers, exports, logs de atividade, mensagens flash
 
 ---
@@ -416,7 +475,19 @@ php artisan serve
 
 | URL | Credenciais |
 |---|---|
-| `http://localhost:8000` | `admin@example.com` / `password` |
+| `http://localhost:8000` | `admin@local.com` / `admin123` |
+
+Usuarios criados em `/register` assumem o papel `viewer`; um admin pode promover via `/admin/users`.
+
+---
+
+## Testes
+
+```bash
+composer test
+```
+
+Includes: `tests/Feature/RbacTest.php` (controle de acesso por papel) e `tests/Feature/NotebookTest.php`.
 
 ---
 
@@ -432,16 +503,19 @@ php artisan route:list         # Listar rotas
 php artisan view:clear         # Limpar cache de views
 npm run dev                    # Vite hot reload
 npm run build                  # Build producao
+composer run dev               # server + queue + pail + vite (concurrently)
 ```
 
 ---
 
 ## Notas Tecnicas
 
+- **Grupos N:M:** `grupo_id` em `notebooks`/`employees` foi substituido por tabelas pivot `notebook_grupo` e `employee_grupo` (migracao replica os dados legados)
 - **FK:** `notebooks.funcionario_id -> employees.id` com `nullOnDelete`
-- **FK:** `notebooks.grupo_id -> grupos.id` com `nullOnDelete`
-- **FK:** `employees.grupo_id -> grupos.id` com `nullOnDelete`
-- **Grupo:** soft deletes, slug auto-gerado, cor hex, integrado a notebooks/employees/inventario/dashboard
+- **FK:** `notebooks.localizacao_id -> localizacoes.id`
+- **FK:** `localizacoes.grupo_id -> grupos.id`
+- **Logs:** `loggable_id` nullable para preservar registros de exclusao
 - **Validation:** unique rules usam `{column},{id}` para ignorar registro atual no update
-- **Blade:** nao usa `function` dentro de `@php` (causava ParseError)
+- **Blade:** nao usa `function` dentro de `@php` (causava ParseError); `number_format` movido para blocos `@php`
 - **Alpine.js:** dados de funcionarios passados via `window._employeesData` em `<script>` usando `@js()`
+- **Scripts avulsos:** `import_chammas.php` e `assign_grupos_empresa.php` sao utilitarios one-off de importacao, nao fazem parte do fluxo da aplicacao
